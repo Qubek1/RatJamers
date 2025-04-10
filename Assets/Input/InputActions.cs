@@ -51,7 +51,43 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button West"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d9ed9e3-f64e-4573-9a54-93cf26f87b5e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold,Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button North"",
+                    ""type"": ""Button"",
+                    ""id"": ""546c6ad6-f4d1-4c54-ad30-836000b61093"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button South"",
+                    ""type"": ""Button"",
+                    ""id"": ""50a32f9a-b60d-4135-9ee9-679041937eb3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button East"",
+                    ""type"": ""Button"",
+                    ""id"": ""c329fa0d-523f-4a97-8652-798d4da23dea"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -275,6 +311,94 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""542bf5f5-cb90-43ea-aebb-a4e24623f9b8"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Button West"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f2aaef7-d74c-4e9a-b201-c78defd6b10b"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Button West"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cfc3b275-d28d-4593-bfad-bb3d926b7782"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button North"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f310133-65e8-42a7-a70c-fe4e6eef046a"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button North"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b616d549-ac82-4d2e-aaf3-041bcd5681e2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button South"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db7d8bd0-24f6-4b23-9a0f-ef2981c30342"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button South"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b1517ea-80ae-450f-aeaa-f62799d756d6"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button East"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aacbee1a-5b7d-4435-80b5-ae17451313b0"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button East"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -865,6 +989,10 @@ namespace UnityEngine.InputSystem
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_ButtonWest = m_Player.FindAction("Button West", throwIfNotFound: true);
+            m_Player_ButtonNorth = m_Player.FindAction("Button North", throwIfNotFound: true);
+            m_Player_ButtonSouth = m_Player.FindAction("Button South", throwIfNotFound: true);
+            m_Player_ButtonEast = m_Player.FindAction("Button East", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -947,6 +1075,10 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_ButtonWest;
+        private readonly InputAction m_Player_ButtonNorth;
+        private readonly InputAction m_Player_ButtonSouth;
+        private readonly InputAction m_Player_ButtonEast;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -954,6 +1086,10 @@ namespace UnityEngine.InputSystem
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @ButtonWest => m_Wrapper.m_Player_ButtonWest;
+            public InputAction @ButtonNorth => m_Wrapper.m_Player_ButtonNorth;
+            public InputAction @ButtonSouth => m_Wrapper.m_Player_ButtonSouth;
+            public InputAction @ButtonEast => m_Wrapper.m_Player_ButtonEast;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -972,6 +1108,18 @@ namespace UnityEngine.InputSystem
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @ButtonWest.started += instance.OnButtonWest;
+                @ButtonWest.performed += instance.OnButtonWest;
+                @ButtonWest.canceled += instance.OnButtonWest;
+                @ButtonNorth.started += instance.OnButtonNorth;
+                @ButtonNorth.performed += instance.OnButtonNorth;
+                @ButtonNorth.canceled += instance.OnButtonNorth;
+                @ButtonSouth.started += instance.OnButtonSouth;
+                @ButtonSouth.performed += instance.OnButtonSouth;
+                @ButtonSouth.canceled += instance.OnButtonSouth;
+                @ButtonEast.started += instance.OnButtonEast;
+                @ButtonEast.performed += instance.OnButtonEast;
+                @ButtonEast.canceled += instance.OnButtonEast;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -985,6 +1133,18 @@ namespace UnityEngine.InputSystem
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @ButtonWest.started -= instance.OnButtonWest;
+                @ButtonWest.performed -= instance.OnButtonWest;
+                @ButtonWest.canceled -= instance.OnButtonWest;
+                @ButtonNorth.started -= instance.OnButtonNorth;
+                @ButtonNorth.performed -= instance.OnButtonNorth;
+                @ButtonNorth.canceled -= instance.OnButtonNorth;
+                @ButtonSouth.started -= instance.OnButtonSouth;
+                @ButtonSouth.performed -= instance.OnButtonSouth;
+                @ButtonSouth.canceled -= instance.OnButtonSouth;
+                @ButtonEast.started -= instance.OnButtonEast;
+                @ButtonEast.performed -= instance.OnButtonEast;
+                @ButtonEast.canceled -= instance.OnButtonEast;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1170,6 +1330,10 @@ namespace UnityEngine.InputSystem
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnButtonWest(InputAction.CallbackContext context);
+            void OnButtonNorth(InputAction.CallbackContext context);
+            void OnButtonSouth(InputAction.CallbackContext context);
+            void OnButtonEast(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

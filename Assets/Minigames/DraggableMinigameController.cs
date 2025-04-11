@@ -28,6 +28,11 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         {
             currentlyDragged = EventSystem.current.firstSelectedGameObject.GetComponent<DraggableComponent>();
         }
+
+        if (currentlyDragged == null)
+        {
+            Debug.LogWarning("initial currentlydragged is still null after Start!");
+        }
     }
         
 
@@ -40,7 +45,48 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        Vector2 navigationDirection = context.ReadValue<Vector2>();
+        Vector2 navigationDirection = context.ReadValue<Vector2>().normalized;
+        if(navigationDirection==Vector2.zero) return;
+        //Debug.Log($"navdir: {navigationDirection}, currentlyDragged {currentlyDragged.gameObject.name}");
+        if (currentlyDragged == null)
+            currentlyDragged = GetClosestInDirection(from: Vector2.zero, dir: navigationDirection);
+        else 
+            currentlyDragged = GetClosestInDirection(from: currentlyDragged.transform.position, dir: navigationDirection);
+    }
+
+    private DraggableComponent GetClosestInDirection(Vector2 from, Vector2 dir)
+    {
+        DraggableComponent currentClosest=null;
+        float currentClosestDist=float.MaxValue;
+        foreach (var draggable in m_AllDraggables)
+        {
+            //if its not to the left of from position, ignore it
+            if(!IsInDirOf(from,draggable.transform.position,dir))
+                continue;
+                
+            float distance = Vector2.Distance(from, draggable.transform.position);
+            if (distance<currentClosestDist)
+            {
+                currentClosestDist = distance;
+                currentClosest = draggable;
+            }
+        }
+        //Debug.LogWarning("could not find currentClosest, returning currentlyDragged");
+        return currentClosest!=null?currentClosest:currentlyDragged;
+    }
+
+    private bool IsInDirOf(Vector2 from, Vector2 to, Vector2 dir)
+    {
+        if (dir == Vector2.left)
+            return from.x > to.x;
+        if (dir == Vector2.right)
+            return from.x < to.x;
+        if (dir == Vector2.up)
+            return from.y < to.y;
+        if (dir == Vector2.down)
+            return from.y > to.y;
+        Debug.LogWarning("Non-conventional direction passed to IsInDirOf, defaulting to false");
+        return false;
     }
 
     public void OnMove(InputAction.CallbackContext context)

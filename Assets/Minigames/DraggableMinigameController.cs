@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,11 +40,13 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         if (navInput != Vector2.zero)
             currentlyDragged?.Move(navInput);
     }
-
+    
     public void OnNavigate(InputAction.CallbackContext context)
     {
+        if(!context.performed) return;
         Vector2 navigationDirection = context.ReadValue<Vector2>().normalized;
         if(navigationDirection==Vector2.zero) return;
+        //Debug.Log($"received navigate input {navigationDirection}");
         //Debug.Log($"navdir: {navigationDirection}, currentlyDragged {currentlyDragged.gameObject.name}");
         if (currentlyDragged == null)
             currentlyDragged = GetClosestInDirection(from: Vector2.zero, dir: navigationDirection);
@@ -63,8 +63,8 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
             //if its not to the left of from position, ignore it
             if(!IsInDirOf(from,draggable.transform.position,dir))
                 continue;
-                
-            float distance = Vector2.Distance(from, draggable.transform.position);
+
+            float distance = GetDistInDir(from, draggable.transform.position, dir);
             if (distance<currentClosestDist)
             {
                 currentClosestDist = distance;
@@ -75,6 +75,18 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         return currentClosest!=null?currentClosest:currentlyDragged;
     }
 
+    private float GetDistInDir(Vector2 from, Vector2 to, Vector2 dir)
+    {
+        if (dir == Vector2.left || dir == Vector2.right)
+            //return Mathf.Abs(from.x) - Mathf.Abs(to.x);
+            return Mathf.Abs(from.x - to.x);
+        if (dir == Vector2.up||dir == Vector2.down)
+            //return Mathf.Abs(from.y) - Mathf.Abs(to.y);
+            return Mathf.Abs(from.y - to.y);
+        
+        Debug.LogWarning("Non-conventional direction passed to getDistInDir, defaulting to float.MaxValue");
+        return float.MaxValue;
+    }
     private bool IsInDirOf(Vector2 from, Vector2 to, Vector2 dir)
     {
         if (dir == Vector2.left)

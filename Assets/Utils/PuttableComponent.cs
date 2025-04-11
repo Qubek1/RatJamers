@@ -1,9 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DraggableComponent : MonoBehaviour
+public class PuttableComponent : MonoBehaviour
 {
-    [SerializeField] private float m_DragSpeed;
-
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
     
     public void OnSelected()
@@ -16,11 +16,17 @@ public class DraggableComponent : MonoBehaviour
         m_SpriteRenderer.color = GetColorWithAlpha(m_SpriteRenderer.color, 0.5f);
     }
 
-    public void Move(Vector2 moveDir)
+    public void OnAddIntoSlot()
     {
-        transform.position += (Vector3)moveDir * m_DragSpeed;
+        m_SpriteRenderer.enabled = false;
     }
-    
+
+    public void OnRemoveFromSlot()
+    {
+        
+        m_SpriteRenderer.enabled = true;
+    }
+
     private static Color GetColorWithAlpha(Color color, float newAlpha)
         => new(color.r, color.g, color.b, newAlpha);
 }

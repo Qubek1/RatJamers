@@ -5,32 +5,33 @@ using UnityEngine.InputSystem;
 
 public class DraggableMinigameController : MonoBehaviour, InputActions.IUIActions
 {
-    private List<DraggableComponent> m_AllDraggables = new();
+    private List<DraggableComponent> _allDraggables = new();
     
-    private DraggableComponent currentlyDragged;
+    private DraggableComponent _currentlyDragged;
     // Start is called before the first frame update
     void Start()
     {
-        m_AllDraggables.Clear();
+        _allDraggables.Clear();
         foreach (DraggableComponent draggable in FindObjectsOfType<DraggableComponent>())
-            m_AllDraggables.Add(draggable);
+            _allDraggables.Add(draggable);
         
         InputManager.inputActions.UI.Enable();
         InputManager.inputActions.UI.SetCallbacks(this);
         if (EventSystem.current == null || EventSystem.current.firstSelectedGameObject == null)
         {
-            EventSystem.current.SetSelectedGameObject(m_AllDraggables[0].gameObject);
-            currentlyDragged = m_AllDraggables[0];
+            EventSystem.current.SetSelectedGameObject(_allDraggables[0].gameObject);
+            _currentlyDragged = _allDraggables[0];
         }
         else
         {
-            currentlyDragged = EventSystem.current.firstSelectedGameObject.GetComponent<DraggableComponent>();
+            _currentlyDragged = EventSystem.current.firstSelectedGameObject.GetComponent<DraggableComponent>();
         }
 
-        if (currentlyDragged == null)
+        if (_currentlyDragged == null)
         {
             Debug.LogWarning("initial currentlydragged is still null after Start!");
         }
+        _currentlyDragged.OnSelected();
     }
         
 
@@ -38,7 +39,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     {
         Vector2 navInput = InputManager.inputActions.UI.Move.ReadValue<Vector2>();
         if (navInput != Vector2.zero)
-            currentlyDragged?.Move(navInput);
+            _currentlyDragged?.Move(navInput);
     }
     
     public void OnNavigate(InputAction.CallbackContext context)
@@ -48,17 +49,25 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         if(navigationDirection==Vector2.zero) return;
         //Debug.Log($"received navigate input {navigationDirection}");
         //Debug.Log($"navdir: {navigationDirection}, currentlyDragged {currentlyDragged.gameObject.name}");
-        if (currentlyDragged == null)
-            currentlyDragged = GetClosestInDirection(from: Vector2.zero, dir: navigationDirection);
-        else 
-            currentlyDragged = GetClosestInDirection(from: currentlyDragged.transform.position, dir: navigationDirection);
+        if (_currentlyDragged == null)
+        {
+            _currentlyDragged = GetClosestInDirection(from: Vector2.zero, dir: navigationDirection);
+            _currentlyDragged.OnSelected();
+        }
+        else
+        {
+            _currentlyDragged.OnDeselected();
+            _currentlyDragged = GetClosestInDirection(from: _currentlyDragged.transform.position, dir: navigationDirection);
+            _currentlyDragged.OnSelected();
+        } 
+            
     }
 
     private DraggableComponent GetClosestInDirection(Vector2 from, Vector2 dir)
     {
         DraggableComponent currentClosest=null;
         float currentClosestDist=float.MaxValue;
-        foreach (var draggable in m_AllDraggables)
+        foreach (var draggable in _allDraggables)
         {
             //if its not to the left of from position, ignore it
             if(!IsInDirOf(from,draggable.transform.position,dir))
@@ -72,7 +81,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
             }
         }
         //Debug.LogWarning("could not find currentClosest, returning currentlyDragged");
-        return currentClosest!=null?currentClosest:currentlyDragged;
+        return currentClosest!=null?currentClosest:_currentlyDragged;
     }
 
     private float GetDistInDir(Vector2 from, Vector2 to, Vector2 dir)

@@ -80,6 +80,23 @@ public class QAPlayerController : MonoBehaviour, InputActions.IQAPlatformerActio
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        QAEnemyTurtle enemyTurtle;
+        if (collision.transform.TryGetComponent(out enemyTurtle))
+        {
+            if (groundCheckTransform.position.y - rigidbody.velocity.y * Time.fixedDeltaTime > enemyTurtle.transform.position.y &&
+                rigidbody.velocity.y < 0)
+            {
+                enemyTurtle.Death();
+            }
+            else
+            {
+                onHazardEnter?.Invoke();
+            }
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;

@@ -6,10 +6,10 @@ public class DraggableSlotComponent : MonoBehaviour
 {
     private static List<DraggableSlotComponent> _instances = new();
 
-    public static DraggableSlotComponent IsWithin(Vector2 pos, float threshold)
+    public static DraggableSlotComponent IsWithin(Vector2 pos)
     {
         foreach (DraggableSlotComponent slot in _instances)
-            if (Vector2.Distance(pos, slot.transform.position) < threshold)
+            if (Vector2.Distance(pos, slot.transform.position) < DraggableMinigameController.DRAGGABLE_PROXIMITY_THRESHOLD)
                 return slot;
 
         return null;

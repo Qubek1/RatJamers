@@ -8,6 +8,8 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
 {
     public const float DRAGGABLE_PROXIMITY_THRESHOLD = 0.6f;
     public static event Action ResetAction;
+
+    [SerializeField] private bool m_Rotatable;
     
     private List<DraggableComponent> _allDraggables = new();
     
@@ -51,7 +53,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
             return;
         
         _currentlyDragged.Move(navInput);
-        DraggableSlotComponent maybeSlot=DraggableSlotComponent.IsWithin(_currentlyDragged.transform.position, DRAGGABLE_PROXIMITY_THRESHOLD);
+        DraggableSlotComponent maybeSlot=DraggableSlotComponent.IsWithin(_currentlyDragged.transform.position);
         if (maybeSlot == null || maybeSlot.IsUsed()) return;
         
         //Debug.Log($"putting {_currentlyDragged.gameObject.name} into {maybeSlot.gameObject.name}");
@@ -99,6 +101,17 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     {
         if(context.performed)
             ResetAction?.Invoke();
+    }
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        float normalized = context.ReadValue<float>();
+        Debug.Log(normalized);
+        if(Mathf.Approximately(normalized,0))
+            _currentlyDragged?.StopRotate();
+        else
+            _currentlyDragged?.StartRotate(normalized);
+
     }
 
     private DraggableComponent GetClosestInDirection(Vector2 from, Vector2 dir)

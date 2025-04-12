@@ -58,6 +58,11 @@ public class SlotsMinigameController : MonoBehaviour, InputActions.IUIActions
         
     }
 
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        //
+    }
+
     public void OnMove(InputAction.CallbackContext context) { }
     public void OnSubmit(InputAction.CallbackContext context) { }
     public void OnCancel(InputAction.CallbackContext context) { }

@@ -6,10 +6,13 @@ using UnityEngine.Serialization;
 public class DraggableComponent : MonoBehaviour
 {
     [SerializeField] private float m_DragSpeed;
+    [SerializeField] private float m_RotateSpeed=0.1f;
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
 
     private Vector2 _initScale;
     private Vector2 _initPos;
+
+    private float _currentRotDir;
 
     public DraggableSlotComponent LastSlot
     {
@@ -49,6 +52,12 @@ public class DraggableComponent : MonoBehaviour
 
     private void Update()
     {
+        //rotation
+        if(!Mathf.Approximately(_currentRotDir, 0))
+            transform.Rotate(new Vector3(0,0, _currentRotDir * m_RotateSpeed * Time.deltaTime));
+        
+        
+        //allowing draggable to be removed from current slot
         if(IsInSlot||LastSlot==null) return;
         float distanceFromLastSlot=Vector2.Distance(transform.position, LastSlot.transform.position);
         //can be considered to be attached to a slot again
@@ -80,6 +89,17 @@ public class DraggableComponent : MonoBehaviour
         transform.position += (Vector3)moveDir * m_DragSpeed;
     }
 
+    public void StartRotate(float dir)
+    {
+        _currentRotDir = dir;
+        //transform.Rotate(new Vector3(0,0, dir * m_RotateSpeed * Time.deltaTime));
+    }
+
+    public void StopRotate()
+    {
+        _currentRotDir = 0;
+    }
+
     public void OnPutIntoSlot(DraggableSlotComponent slot)
     {
         LastSlot = slot;
@@ -98,6 +118,7 @@ public class DraggableComponent : MonoBehaviour
         transform.localScale = _initScale;
         LastSlot = null;
         _canBeMoved = true;
+        _currentRotDir = 0;
     }
     
     private static Color GetColorWithAlpha(Color color, float newAlpha)

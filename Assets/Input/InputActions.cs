@@ -391,6 +391,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""2fbb00ab-08b9-4b69-ad17-578ee98a3252"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -822,6 +831,39 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""742f164b-2444-44de-b34b-1ba657d36c4c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone(min=0.9,max=1)"",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""04faa44e-e8ef-42fd-91d6-ecd58cba28d2"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""e3c6aee2-fad5-4388-8204-3f682017f77b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -908,6 +950,7 @@ namespace UnityEngine.InputSystem
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
             m_UI_Reset = m_UI.FindAction("Reset", throwIfNotFound: true);
+            m_UI_Rotate = m_UI.FindAction("Rotate", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -1049,6 +1092,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_UI_TrackedDeviceOrientation;
         private readonly InputAction m_UI_Navigate;
         private readonly InputAction m_UI_Reset;
+        private readonly InputAction m_UI_Rotate;
         public struct UIActions
         {
             private @InputActions m_Wrapper;
@@ -1065,6 +1109,7 @@ namespace UnityEngine.InputSystem
             public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
             public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
             public InputAction @Reset => m_Wrapper.m_UI_Reset;
+            public InputAction @Rotate => m_Wrapper.m_UI_Rotate;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1110,6 +1155,9 @@ namespace UnityEngine.InputSystem
                 @Reset.started += instance.OnReset;
                 @Reset.performed += instance.OnReset;
                 @Reset.canceled += instance.OnReset;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -1150,6 +1198,9 @@ namespace UnityEngine.InputSystem
                 @Reset.started -= instance.OnReset;
                 @Reset.performed -= instance.OnReset;
                 @Reset.canceled -= instance.OnReset;
+                @Rotate.started -= instance.OnRotate;
+                @Rotate.performed -= instance.OnRotate;
+                @Rotate.canceled -= instance.OnRotate;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -1232,6 +1283,7 @@ namespace UnityEngine.InputSystem
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
             void OnNavigate(InputAction.CallbackContext context);
             void OnReset(InputAction.CallbackContext context);
+            void OnRotate(InputAction.CallbackContext context);
         }
     }
 }

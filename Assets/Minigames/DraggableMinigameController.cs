@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class DraggableMinigameController : MonoBehaviour, InputActions.IUIActions
 {
-    public const float DRAGGABLE_PROXIMITY_THRESHOLD = 0.6f;
+    public const float DRAGGABLE_POSITION_THRESHOLD = 0.6f;
+    public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;
     public static event Action ResetAction;
 
     [SerializeField] private bool m_Rotatable;
@@ -15,7 +16,6 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     
     private List<DraggableSlotComponent> _allSlots = new();
     private DraggableComponent _currentlyDragged;
-    // Start is called before the first frame update
     void Start()
     {
         _allDraggables.Clear();
@@ -54,13 +54,20 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         
         _currentlyDragged.Move(navInput);
         DraggableSlotComponent maybeSlot=DraggableSlotComponent.IsWithin(_currentlyDragged.transform.position);
-        if (maybeSlot == null || maybeSlot.IsUsed()) return;
+        if (maybeSlot == null || maybeSlot.IsUsed()||maybeSlot==_currentlyDragged.LastSlot) return;
         
-        //Debug.Log($"putting {_currentlyDragged.gameObject.name} into {maybeSlot.gameObject.name}");
-        if(maybeSlot.IsUsed()||maybeSlot==_currentlyDragged.LastSlot) return;
-        maybeSlot.UseSlot(_currentlyDragged);
-        _currentlyDragged.transform.position=maybeSlot.transform.position;
-        _currentlyDragged.OnPutIntoSlot(maybeSlot);
+        //check if rotation is correct to snap to slot
+        if (m_Rotatable)
+        {
+            float angleDelta = Vector2.SignedAngle(maybeSlot.transform.position - _currentlyDragged.transform.position, _currentlyDragged.transform.up);
+            if (Mathf.Abs(angleDelta) <= DRAGGABLE_ROTATION_THRESHOLD)
+            {
+                maybeSlot.UseSlot(_currentlyDragged);
+                _currentlyDragged.transform.position=maybeSlot.transform.position;
+                _currentlyDragged.OnPutIntoSlot(maybeSlot);
+            }
+        }
+        
 
         if (IsMinigameCompleted())
         {
@@ -105,6 +112,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
 
     public void OnRotate(InputAction.CallbackContext context)
     {
+        if (!m_Rotatable) return;
         float normalized = context.ReadValue<float>();
         Debug.Log(normalized);
         if(Mathf.Approximately(normalized,0))

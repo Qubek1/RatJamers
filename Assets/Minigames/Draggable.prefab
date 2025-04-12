@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DragSpeed: 0.05
-  m_RotateSpeed: 100
+  m_RotateSpeed: 200
   m_SpriteRenderer: {fileID: 5872897485821982199}
 --- !u!61 &100982060358849776
 BoxCollider2D:

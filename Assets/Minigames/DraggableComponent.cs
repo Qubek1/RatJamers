@@ -53,7 +53,8 @@ public class DraggableComponent : MonoBehaviour
     private void Update()
     {
         //rotation
-        if(!Mathf.Approximately(_currentRotDir, 0))
+        
+        if((!IsInSlot)&&(!Mathf.Approximately(_currentRotDir, 0)))
             transform.Rotate(new Vector3(0,0, _currentRotDir * m_RotateSpeed * Time.deltaTime));
         
         
@@ -61,7 +62,7 @@ public class DraggableComponent : MonoBehaviour
         if(IsInSlot||LastSlot==null) return;
         float distanceFromLastSlot=Vector2.Distance(transform.position, LastSlot.transform.position);
         //can be considered to be attached to a slot again
-        if (distanceFromLastSlot > DraggableMinigameController.DRAGGABLE_PROXIMITY_THRESHOLD*1.1f)
+        if (distanceFromLastSlot > DraggableMinigameController.DRAGGABLE_POSITION_THRESHOLD*1.1f)
         {
             LastSlot = null;
         }

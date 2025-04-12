@@ -9,18 +9,20 @@ public class MusicController : MonoBehaviour
     public Slider slider;
     public AudioSource audioSource;
 
+    public float volume = 0.5f;
     public float progressInSeconds = 0;
     public bool paused = false;
 
     private void Start()
     {
-        audioSource.volume = 0.05f;
+        audioSource.volume = volume;
         slider.onValueChanged.AddListener((value) => {audioSource.time = value * audioSource.clip.length; });
     }
 
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = volume;
         progressInSeconds = audioSource.time;
         slider.SetValueWithoutNotify(progressInSeconds / audioSource.clip.length);
 

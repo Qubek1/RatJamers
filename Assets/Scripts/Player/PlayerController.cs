@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         else return Player2;
     }
     
-    [SerializeField] private float playerSpeed = 20;
+    [SerializeField] private float playerSpeed;
     
     
     [Header("Refs")]
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 
     private void Awake()
     {
+        this.playerSpeed = 4;
         //PlayerInputManager.instance.JoinPlayer()
         if (Player1 == null)
         {

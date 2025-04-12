@@ -14,7 +14,10 @@ public class DrawingSplines : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 0.1f;
     [SerializeField]
-    private Transform pen;
+    private float velocityDamping;
+    [SerializeField]
+    private Rigidbody2D pen;
+
 
     [SerializeField]
     private SplineContainer splineContainer;
@@ -29,6 +32,7 @@ public class DrawingSplines : MonoBehaviour
     [SerializeField]
     private Gradient gizmosGradient;
 
+    private LineRenderer lineRenderer;
     private NativeSpline nativeSpline;
     private InputActions inputActions;
     private InputAction move;
@@ -36,7 +40,9 @@ public class DrawingSplines : MonoBehaviour
     private Vector2 lastFramePosition;
     private Vector2 currentFramePosition;
 
-    private List<Vector2> pointsToDraw = new List<Vector2>();
+    private List<Vector2> gizmosPoints = new List<Vector2>();
+
+    private List<Vector3> lineRendererPoints = new List<Vector3>();
 
     private void Awake()
     {
@@ -46,22 +52,30 @@ public class DrawingSplines : MonoBehaviour
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;
         pen.position = PositionOnSpline(0);
-        followingLineRender.Range = new Vector2(0, 0.01f);
+        //followingLineRender.Range = new Vector2(0, 0.01f);
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRendererPoints.Add(pen.position);
+        lineRenderer.positionCount = 1;
+        lineRenderer.SetPositions(lineRendererPoints.ToArray());
     }
 
     private void Update()
     {
-        pointsToDraw.Clear();
+        gizmosPoints.Clear();
         Debug.Log(move.ReadValue<Vector2>());
-        pen.position += (move.ReadValue<Vector2>().x * movementSpeed * Vector3.right + move.ReadValue<Vector2>().y * movementSpeed * Vector3.up) * Time.deltaTime;
+        pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.deltaTime;
+        pen.velocity *= velocityDamping;
         currentFramePosition = pen.position;
         float newT = FindAndSetNewT(currentFramePosition);
-        if (newT > currentT)
+        if (newT > currentT && Vector2.Distance(PositionOnSpline(newT), pen.position) < maxPossibleError)
         {
             currentT = newT;
             maxMadeError = Mathf.Max(maxMadeError,Vector2.Distance(PositionOnSpline(currentT), currentFramePosition));
-            followingLineRender.Range = new Vector2(0, Mathf.Max(0.01f, currentT));
-            followingLineRender.Rebuild();
+            lineRendererPoints.Add(pen.position);
+            lineRenderer.positionCount++;
+            lineRenderer.SetPositions(lineRendererPoints.ToArray());
+            //followingLineRender.Range = new Vector2(0, Mathf.Max(0.01f, currentT));
+            //followingLineRender.Rebuild();
         }
         lastFramePosition = currentFramePosition;
     }
@@ -74,7 +88,7 @@ public class DrawingSplines : MonoBehaviour
         float nextDistance = Vector2.Distance(PositionOnSpline(nextT), point);
         while (previousDistance > nextDistance && nextDistance < maxPossibleError && nextT < 1)
         {
-            pointsToDraw.Add(PositionOnSpline(nextT));
+            gizmosPoints.Add(PositionOnSpline(nextT));
             previousT = nextT;
             previousDistance = nextDistance;
             nextT += splineSearchAccuracy;
@@ -82,13 +96,13 @@ public class DrawingSplines : MonoBehaviour
         }
         nextT = Mathf.Min(1, nextT);
         nextDistance = Vector2.Distance(PositionOnSpline(nextT), point);
-        pointsToDraw.Add(PositionOnSpline(nextT));
+        gizmosPoints.Add(PositionOnSpline(nextT));
         previousT = previousT - splineSearchAccuracy;
         previousDistance = Vector2.Distance(PositionOnSpline(previousT), point);
         for(int i=0; i<10; i++)
         {
             float binSearchMidPoint = (previousT + nextT) / 2f; 
-            pointsToDraw.Add(PositionOnSpline(binSearchMidPoint));
+            gizmosPoints.Add(PositionOnSpline(binSearchMidPoint));
             if (previousDistance > nextDistance)
             {
                 previousT = binSearchMidPoint;
@@ -105,10 +119,10 @@ public class DrawingSplines : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        for (int i = 0; i < pointsToDraw.Count; i++)
+        for (int i = 0; i < gizmosPoints.Count; i++)
         {
-            Gizmos.color = gizmosGradient.Evaluate(((float)i) / pointsToDraw.Count);
-            Gizmos.DrawWireSphere(pointsToDraw[i], 0.1f);
+            Gizmos.color = gizmosGradient.Evaluate(((float)i) / gizmosPoints.Count);
+            Gizmos.DrawWireSphere(gizmosPoints[i], 0.1f);
         }
     }
 

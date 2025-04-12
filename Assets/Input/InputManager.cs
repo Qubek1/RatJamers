@@ -6,14 +6,14 @@ using UnityEngine.InputSystem;
 /// good ole InputManager to avoid common input handling and callback issues
 /// </summary>
 public class InputManager : MonoBehaviour {
-    private InputActions inputActions;
+    public static readonly InputActions inputActions=new();
 
     public event EventHandler InteractEvent;
     public event EventHandler AlternateInteractEvent;
 
 
     private void Awake() {
-        inputActions = new InputActions();
+        //inputActions = new InputActions();
         inputActions.Player.Enable();
 
         inputActions.Player.Interact.performed += OnInteractPerformed;

@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84444b55952bd9b4d8ca1a4f608fa5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinigameToLaunch: drag_test
+  m_MinigameToLaunch: drag_test_1
   m_Player: 0
 --- !u!50 &1067366919
 Rigidbody2D:
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MinigameDatas:
   - Prefab: {fileID: 5135340750010453959, guid: 046e8d291603afc4c9e06823949934cc, type: 3}
-    MinigameName: drag_test
+    MinigameName: drag_test_1
 --- !u!4 &1085111371
 Transform:
   m_ObjectHideFlags: 0

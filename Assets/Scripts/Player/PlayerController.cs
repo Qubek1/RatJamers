@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         else return Player2;
     }
     
-    [SerializeField] private float playerSpeed = 20;
+    [SerializeField] private float playerSpeed;
     
     
     [Header("Refs")]
@@ -35,9 +35,12 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
     private Rigidbody2D _rb;
     private Vector2 _movementInput = Vector2.zero;
 
+    private bool _isWalking = false;
+
 
     private void Awake()
     {
+        this.playerSpeed = 4;
         //PlayerInputManager.instance.JoinPlayer()
         if (Player1 == null)
         {
@@ -131,8 +134,23 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         //throw new NotImplementedException();
     }
 
+    private void Update()
+    {
+        this._isWalking = this._movementInput != Vector2.zero;
+    }
+
     private void FixedUpdate()
     {
         _rb.velocity = _movementInput * playerSpeed;
+    }
+
+    public bool GetIsWalking()
+    {
+        return _isWalking;
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        return this._movementInput;
     }
 }

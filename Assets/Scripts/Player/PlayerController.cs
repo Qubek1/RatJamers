@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 {
     public static PlayerController Player1;
     public static PlayerController Player2;
-
+    
     public int GetPlayerNumber()
     {
         if (this == Player1) return 1;

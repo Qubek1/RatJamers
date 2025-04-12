@@ -11,22 +11,23 @@ public class PlayerCameraController : MonoBehaviour
 
     private Camera _camera;
 
-    private Vector2 _targetPos;
+   // private Vector2 _targetPos;
 
     private void Awake()
     {
         _camera=GetComponent<Camera>();
     }
 
-    void LateUpdate()
+    void Update()
     {
-        if (target != null)
-            _targetPos=target.position;
+        //if (target != null)
+        //    _targetPos=target.position;
 
-        Vector3 desiredPosition = (Vector3)_targetPos + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        Vector3 desiredPosition = target.position + offset;
+        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-        transform.position = smoothedPosition;
+        //transform.position = smoothedPosition;
+        transform.position = desiredPosition;
     }
     /*
     public void SetupForPlayer(PlayerController player)
@@ -43,12 +44,15 @@ public class PlayerCameraController : MonoBehaviour
     */
     public void SetTarget(Transform newTarget)
     {
+        Debug.Log($"Setting {gameObject.name} camera target to {newTarget}");
         target = newTarget;
+        transform.position= newTarget.position + offset;
     }
-
+/*
     public void SetTarget(Vector2 pos)
     {
         target = null;
         _targetPos = pos;
     }
+*/
 }

@@ -22,9 +22,9 @@ public class WorkstationController : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(int player)
+    public void Interact(int playerInteracting)
     {
-        MinigamesManager.Instance.LaunchMinigame(m_MinigameToLaunch, player);
+        MinigamesManager.Instance.LaunchMinigame(m_MinigameToLaunch, m_Player,playerInteracting);
     }
 
     public bool IsInteractable()

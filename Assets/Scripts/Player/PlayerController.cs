@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         else return 2;
     }
 
-    public PlayerController GetPlayer(int number)
+    public static PlayerController GetPlayer(int number)
     {
         if(number == 1) return Player1;
         else return Player2;
@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
     [Header("Refs")]
     [SerializeField] private PlayerInteractionComponent m_InteractionComponent;
     [SerializeField] private PlayerInput m_PlayerInput;
+    public PlayerInput PlayerInput => m_PlayerInput;
     //[SerializeField] private PlayerCameraController m_CameraPrefab;
     [SerializeField] private PlayerCameraController m_CameraController;
     
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         if (Player1 == null)
         {
             Player1=this;
-            InputManager.Player1InputActions.Enable();
+            //InputManager.Player1InputActions.Enable();
             //InputManager.Player2InputActions.Player.RemoveCallbacks(Player2);
             //InputManager.Player1InputActions.Player.SetCallbacks(this);
         }
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         else if (Player2 == null)
         {
             Player2=this;
-            InputManager.Player2InputActions.Enable();
+            //InputManager.Player2InputActions.Enable();
             //InputManager.Player2InputActions.Player.RemoveCallbacks(Player1);
             //InputManager.Player2InputActions.Player.SetCallbacks(this);
         }
@@ -69,6 +70,13 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         //m_CameraController=Instantiate(m_CameraPrefab, transform.position, Quaternion.identity);
         //m_PlayerInput.camera=m_CameraController.GetComponent<Camera>();
         m_CameraController.SetTarget(transform);
+        m_PlayerInput.actions.FindActionMap("Player").FindAction("Move").performed += OnMove;
+        
+        m_PlayerInput.actions.FindActionMap("Player").FindAction("Move").canceled += OnMove;
+        
+        m_PlayerInput.actions.FindActionMap("Player").FindAction("Move").started += OnMove;
+        
+        m_PlayerInput.actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
     }
     
 
@@ -78,18 +86,21 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         MinigamesManager.MinigameLeftAction -= HandleMinigameLeft;
     }
 
-    private void HandleMinigameEntered(MinigameController entered, int player)
+    private void HandleMinigameEntered(MinigameController entered, int onSideOfPlayer, int byPlayer)
     {
-        if(player!=GetPlayerNumber()) return;
-        m_PlayerInput.DeactivateInput();
-        m_CameraController.SetTarget(entered.CameraTargetPosition);
+        Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
+        if(byPlayer!=GetPlayerNumber()) return;
+        m_PlayerInput.SwitchCurrentActionMap("UI");
+        //m_PlayerInput.DeactivateInput();
+        m_CameraController.SetTarget(entered.CameraTarget);
     }
 
     private void HandleMinigameLeft(int player)
     {
-        
+        Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
         if(player!=GetPlayerNumber()) return;
-        m_PlayerInput.ActivateInput();
+        m_PlayerInput.SwitchCurrentActionMap("Player");
+        //m_PlayerInput.ActivateInput();
         m_CameraController.SetTarget(transform);
     }
 

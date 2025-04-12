@@ -23,8 +23,8 @@ public class SlotsMinigameController : MonoBehaviour, InputActions.IUIActions
             _allPuttables.Add(puttable);
         
         
-        InputManager.Player1InputActions.UI.Enable();
-        InputManager.Player1InputActions.UI.SetCallbacks(this);
+        //InputManager.Player1InputActions.UI.Enable();
+        //InputManager.Player1InputActions.UI.SetCallbacks(this);
         if (EventSystem.current == null || EventSystem.current.firstSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(_allPuttables[0].gameObject);

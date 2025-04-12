@@ -114,7 +114,6 @@ MonoBehaviour:
   playerSpeed: 20
   m_InteractionComponent: {fileID: 478035208307695884}
   m_PlayerInput: {fileID: 936622542836540002}
-  m_CameraPrefab: {fileID: 3870917553268919319, guid: 6d1862aae75402f4e964fa20f0dc8a40, type: 3}
   m_CameraController: {fileID: 0}
 --- !u!114 &936622542836540002
 MonoBehaviour:
@@ -129,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 89ec673ecef0db041b52f4f7bb59675e, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -261,7 +260,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0c91dd71-ebbe-4729-b5fd-e3719dfb0512
     m_ActionName: UI-qbek/EastButton[/XInputControllerWindows/buttonEast,/Keyboard/4]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

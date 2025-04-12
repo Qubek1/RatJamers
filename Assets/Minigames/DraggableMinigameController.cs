@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class DraggableMinigameController : MinigameController, InputActions.IUIActions
 {
-    public const float DRAGGABLE_POSITION_THRESHOLD = 0.6f;
+    public const float DRAGGABLE_POSITION_THRESHOLD = 1.5f;
     public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;
     
 
@@ -28,8 +28,6 @@ public class DraggableMinigameController : MinigameController, InputActions.IUIA
         foreach (DraggableSlotComponent slot in GetComponentsInChildren<DraggableSlotComponent>())
             _allSlots.Add(slot);
         
-        InputManager.Player1InputActions.UI.Enable();
-        InputManager.Player1InputActions.UI.SetCallbacks(this);
         _currentlyDragged = _allDraggables[0];
 
         if (_currentlyDragged == null)
@@ -43,17 +41,39 @@ public class DraggableMinigameController : MinigameController, InputActions.IUIA
     {
         base.Launch(player);
         gameObject.SetActive(true);
+        
+        //subscribe to needed input events from player
+        PlayerController playerInstance = PlayerController.GetPlayer(player);
+        _moveAction =
+            playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+        _moveAction.Enable();
+        playerInstance.PlayerInput.SwitchCurrentActionMap("UI");
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").Enable();
+        
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed += OnNavigate;
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started += OnNavigate;
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled += OnNavigate;
     }
 
     public override void Hide()
     {
         gameObject.SetActive(false);
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").Disable();
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed -= OnNavigate;
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started -= OnNavigate;
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled -= OnNavigate;
+
     }
+
+    private InputAction _moveAction;
+
+    private Vector2 GetMoveInput() => _moveAction.ReadValue<Vector2>();
 
 
     private void Update()
     {
-        Vector2 navInput = InputManager.Player1InputActions.UI.Move.ReadValue<Vector2>();
+        Vector2 navInput = GetMoveInput();
+        //Debug.Log("navInput: " + navInput);
         if (navInput == Vector2.zero||_currentlyDragged==null)
             return;
         

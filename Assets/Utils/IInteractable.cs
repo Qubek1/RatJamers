@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public void Interact(int player);
+    public void Interact(int playerInteracting);
     public bool IsInteractable();
 }

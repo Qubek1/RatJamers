@@ -39,8 +39,9 @@ public class DraggableMinigameController : MinigameController, InputActions.IUIA
         _currentlyDragged.OnSelected();
     }
     
-    public override void Launch()
+    public override void Launch(int player)
     {
+        base.Launch(player);
         gameObject.SetActive(true);
     }
 

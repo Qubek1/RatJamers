@@ -9,6 +9,18 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 {
     public static PlayerController Player1;
     public static PlayerController Player2;
+
+    public int GetPlayerNumber()
+    {
+        if (this == Player1) return 1;
+        else return 2;
+    }
+
+    public PlayerController GetPlayer(int number)
+    {
+        if(number == 1) return Player1;
+        else return Player2;
+    }
     
     [SerializeField] private float playerSpeed = 20;
     
@@ -66,14 +78,17 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         MinigamesManager.MinigameLeftAction -= HandleMinigameLeft;
     }
 
-    private void HandleMinigameEntered(MinigameController entered)
+    private void HandleMinigameEntered(MinigameController entered, int player)
     {
+        if(player!=GetPlayerNumber()) return;
         m_PlayerInput.DeactivateInput();
         m_CameraController.SetTarget(entered.CameraTargetPosition);
     }
 
-    private void HandleMinigameLeft()
+    private void HandleMinigameLeft(int player)
     {
+        
+        if(player!=GetPlayerNumber()) return;
         m_PlayerInput.ActivateInput();
         m_CameraController.SetTarget(transform);
     }

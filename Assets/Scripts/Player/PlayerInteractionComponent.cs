@@ -23,7 +23,10 @@ public class PlayerInteractionComponent : MonoBehaviour
 
     public void ReceiveInteractionInput()
     {
-        GetClosestInteractable()?.Interact();
+        if(GetComponent<PlayerController>()==PlayerController.Player1)
+            GetClosestInteractable()?.Interact(1);
+        else
+            GetClosestInteractable()?.Interact(2);
     }
     
     private IInteractable GetClosestInteractable(){

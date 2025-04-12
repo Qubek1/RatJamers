@@ -28,7 +28,7 @@ public class PlayerCameraController : MonoBehaviour
 
         transform.position = smoothedPosition;
     }
-    
+    /*
     public void SetupForPlayer(PlayerController player)
     {
         if (player == PlayerController.Player1)
@@ -40,7 +40,7 @@ public class PlayerCameraController : MonoBehaviour
             _camera.rect = new Rect(0.5f, 0, 0.5f, 1); // Right half of the screen
         }
     }
-    
+    */
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;

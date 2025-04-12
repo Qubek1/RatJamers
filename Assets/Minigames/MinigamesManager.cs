@@ -10,8 +10,8 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     //Just fucking send it
     private const float MINIGAME_OFFSET = 100f;
     
-    public static event Action<MinigameController> MinigameEnteredAction;
-    public static Action MinigameLeftAction;
+    public static event Action<MinigameController, int> MinigameEnteredAction;
+    public static Action<int> MinigameLeftAction;
     
     //public bool IsInMinigame { get; private set; } = false;
     
@@ -37,14 +37,14 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         return minigameInstance;
     }
 
-    public void LaunchMinigame(string minigameName)
+    public void LaunchMinigame(string minigameName, int forPlayer)
     {
         
         if (_minigamesDict.TryGetValue(minigameName, out MinigameController instance))
         {
            //Debug.Log($"Launching {minigameName} minigame");
-           instance.Launch();
-           MinigameEnteredAction?.Invoke(instance);
+           instance.Launch(forPlayer);
+           MinigameEnteredAction?.Invoke(instance, forPlayer);
         }
         else
         {

@@ -761,6 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinigameToLaunch: drag_test
+  m_Player: 0
 --- !u!50 &1067366919
 Rigidbody2D:
   serializedVersion: 4
@@ -1202,12 +1203,12 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 827540704}
+  - {fileID: 1085111371}
   - {fileID: 619394802}
   - {fileID: 880234889}
   - {fileID: 1728642978}
   - {fileID: 1791935560}
   - {fileID: 1121741717976429137}
-  - {fileID: 1085111371}
   - {fileID: 1093752115}
   - {fileID: 117911164}
   - {fileID: 58098901}

@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 95ec95d1e320a7c4bb4f98acbd6b97e9, type: 3}
+    - target: {fileID: 225464953288693866, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 936622542836540002, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2621,9 +2625,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 225464953288693866, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 95ec95d1e320a7c4bb4f98acbd6b97e9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 936622542836540002, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: m_Camera
       value: 

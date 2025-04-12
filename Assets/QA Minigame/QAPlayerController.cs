@@ -34,8 +34,8 @@ public class QAPlayerController : MonoBehaviour, InputActions.IQAPlatformerActio
 
     private void Awake()
     {
-        InputManager.inputActions.QAPlatformer.Enable();
-        InputManager.inputActions.QAPlatformer.SetCallbacks(this);
+        //InputManager.inputActions.QAPlatformer.Enable();
+        //InputManager.inputActions.QAPlatformer.SetCallbacks(this);
         rigidbody = GetComponent<Rigidbody2D>();
     }
 

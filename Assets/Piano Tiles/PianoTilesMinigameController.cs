@@ -22,10 +22,10 @@ public class PianoTilesMinigameController : MonoBehaviour
     void Awake()
     {
         inputManager = new InputActions();
-        lanesButtons.Add(new LaneButton(inputManager.Player.ButtonWest, LaneButtonTap, 0));
-        lanesButtons.Add(new LaneButton(inputManager.Player.ButtonNorth, LaneButtonTap, 1));
-        lanesButtons.Add(new LaneButton(inputManager.Player.ButtonSouth, LaneButtonTap, 2));
-        lanesButtons.Add(new LaneButton(inputManager.Player.ButtonEast, LaneButtonTap, 3));
+        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonWest, LaneButtonTap, 0));
+        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonNorth, LaneButtonTap, 1));
+        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonSouth, LaneButtonTap, 2));
+        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonEast, LaneButtonTap, 3));
         Restart();
         tilesController.missedTimeStampOnLane += MissedTimeStampOnLane;
     }

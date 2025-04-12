@@ -1509,6 +1509,18 @@ namespace UnityEngine.InputSystem
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
             m_UI_Reset = m_UI.FindAction("Reset", throwIfNotFound: true);
             m_UI_Rotate = m_UI.FindAction("Rotate", throwIfNotFound: true);
+            // UI-qbek
+            m_UIqbek = asset.FindActionMap("UI-qbek", throwIfNotFound: true);
+            m_UIqbek_Navigate = m_UIqbek.FindAction("Navigate", throwIfNotFound: true);
+            m_UIqbek_Submit = m_UIqbek.FindAction("Submit", throwIfNotFound: true);
+            m_UIqbek_Cancel = m_UIqbek.FindAction("Cancel", throwIfNotFound: true);
+            m_UIqbek_Point = m_UIqbek.FindAction("Point", throwIfNotFound: true);
+            m_UIqbek_Click = m_UIqbek.FindAction("Click", throwIfNotFound: true);
+            m_UIqbek_ScrollWheel = m_UIqbek.FindAction("ScrollWheel", throwIfNotFound: true);
+            m_UIqbek_MiddleClick = m_UIqbek.FindAction("MiddleClick", throwIfNotFound: true);
+            m_UIqbek_RightClick = m_UIqbek.FindAction("RightClick", throwIfNotFound: true);
+            m_UIqbek_TrackedDevicePosition = m_UIqbek.FindAction("TrackedDevicePosition", throwIfNotFound: true);
+            m_UIqbek_TrackedDeviceOrientation = m_UIqbek.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         }
 
         ~@InputActions()

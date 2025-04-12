@@ -15,10 +15,10 @@ public class TimeStampsCreator : MonoBehaviour
     void Awake()
     {
         inputManager = new InputActions();
-        //lanesButtons.Add(new LaneButton(inputManager.UIqbek.ButtonWest, LaneButtonTap, 0));
-        //lanesButtons.Add(new LaneButton(inputManager.UIqbek.ButtonNorth, LaneButtonTap, 1));
-        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonSouth, LaneButtonTap, 2));
-        //lanesButtons.Add(new LaneButton(inputManager.Player.ButtonEast, LaneButtonTap, 3));
+        lanesButtons.Add(new LaneButton(inputManager.UIqbek.WestButton, LaneButtonTap, 0));
+        lanesButtons.Add(new LaneButton(inputManager.UIqbek.NorthButton, LaneButtonTap, 1));
+        lanesButtons.Add(new LaneButton(inputManager.UIqbek.SouthButton, LaneButtonTap, 2));
+        lanesButtons.Add(new LaneButton(inputManager.UIqbek.EastButton, LaneButtonTap, 3));
     }
 
     private void OnDisable()

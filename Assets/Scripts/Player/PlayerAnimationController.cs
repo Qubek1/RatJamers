@@ -41,10 +41,11 @@ public class PlayerAnimationController : MonoBehaviour
         if (input == Vector2.zero)
             return Direction.None;
 
-        if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+        // 2 way or 4 way movement
+        // if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
             return input.x > 0 ? Direction.Right : Direction.Left;
-        else
-            return input.y > 0 ? Direction.Up : Direction.Down;
+        // else
+            // return input.y > 0 ? Direction.Up : Direction.Down;
     }
     
     

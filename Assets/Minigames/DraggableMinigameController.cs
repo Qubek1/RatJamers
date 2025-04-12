@@ -82,6 +82,7 @@ public class DraggableMinigameController : MinigameController, InputActions.IUIA
         if (maybeSlot == null || maybeSlot.IsUsed()||maybeSlot==_currentlyDragged.LastSlot) return;
         
         //check if rotation is correct to snap to slot
+        /*
         if (m_Rotatable)
         {
             float angleDelta = Vector2.SignedAngle(maybeSlot.transform.position - _currentlyDragged.transform.position, _currentlyDragged.transform.up);
@@ -92,7 +93,10 @@ public class DraggableMinigameController : MinigameController, InputActions.IUIA
                 _currentlyDragged.OnPutIntoSlot(maybeSlot);
             }
         }
-        
+        */
+        maybeSlot.UseSlot(_currentlyDragged);
+        _currentlyDragged.transform.position=maybeSlot.transform.position;
+        _currentlyDragged.OnPutIntoSlot(maybeSlot);
 
         if (IsCompleted())
         {

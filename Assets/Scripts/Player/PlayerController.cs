@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed = 20;
     private Rigidbody2D rb;
     private Vector2 movementInput = Vector2.zero;
+    
+
+    private bool isWalking = false;
 
 
     private void Awake()
@@ -32,8 +35,23 @@ public class PlayerController : MonoBehaviour
     {
     }
 
+    private void Update()
+    {
+        this.isWalking = this.movementInput != Vector2.zero;
+    }
+
     private void FixedUpdate()
     {
         rb.velocity = movementInput * playerSpeed;
+    }
+
+    public bool GetIsWalking()
+    {
+        return isWalking;
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        return this.movementInput;
     }
 }

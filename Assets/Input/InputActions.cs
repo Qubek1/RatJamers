@@ -1000,6 +1000,42 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ebd3364-f8b8-43fc-bd5a-b7a4dea4670a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NorthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed869ff6-dbea-4506-8acf-5976b4d9003a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SouthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""82942aa4-c7b1-4a2f-9e88-5f0324c5d592"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EastButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c91dd71-ebbe-4729-b5fd-e3719dfb0512"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1420,6 +1456,94 @@ namespace UnityEngine.InputSystem
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3861a556-dd7c-471b-a75b-b9fdae62700d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a10061c8-54dc-4c28-b7a5-3e8ac9fe32a5"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39214947-f5c7-4072-9203-638b5e4b6fc2"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d39e3ca-671c-4deb-8d36-09df2ed19791"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e12cc007-e170-4dba-8f35-f36bda4f361f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4087e95a-0045-4614-be9b-521da4a3037c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac51dac7-5684-48ba-9790-c0d295766485"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b457812e-d95d-4013-8a36-905a025f9cce"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1521,6 +1645,10 @@ namespace UnityEngine.InputSystem
             m_UIqbek_RightClick = m_UIqbek.FindAction("RightClick", throwIfNotFound: true);
             m_UIqbek_TrackedDevicePosition = m_UIqbek.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UIqbek_TrackedDeviceOrientation = m_UIqbek.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            m_UIqbek_WestButton = m_UIqbek.FindAction("WestButton", throwIfNotFound: true);
+            m_UIqbek_NorthButton = m_UIqbek.FindAction("NorthButton", throwIfNotFound: true);
+            m_UIqbek_SouthButton = m_UIqbek.FindAction("SouthButton", throwIfNotFound: true);
+            m_UIqbek_EastButton = m_UIqbek.FindAction("EastButton", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -1819,6 +1947,10 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_UIqbek_RightClick;
         private readonly InputAction m_UIqbek_TrackedDevicePosition;
         private readonly InputAction m_UIqbek_TrackedDeviceOrientation;
+        private readonly InputAction m_UIqbek_WestButton;
+        private readonly InputAction m_UIqbek_NorthButton;
+        private readonly InputAction m_UIqbek_SouthButton;
+        private readonly InputAction m_UIqbek_EastButton;
         public struct UIqbekActions
         {
             private @InputActions m_Wrapper;
@@ -1833,6 +1965,10 @@ namespace UnityEngine.InputSystem
             public InputAction @RightClick => m_Wrapper.m_UIqbek_RightClick;
             public InputAction @TrackedDevicePosition => m_Wrapper.m_UIqbek_TrackedDevicePosition;
             public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UIqbek_TrackedDeviceOrientation;
+            public InputAction @WestButton => m_Wrapper.m_UIqbek_WestButton;
+            public InputAction @NorthButton => m_Wrapper.m_UIqbek_NorthButton;
+            public InputAction @SouthButton => m_Wrapper.m_UIqbek_SouthButton;
+            public InputAction @EastButton => m_Wrapper.m_UIqbek_EastButton;
             public InputActionMap Get() { return m_Wrapper.m_UIqbek; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1872,6 +2008,18 @@ namespace UnityEngine.InputSystem
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @WestButton.started += instance.OnWestButton;
+                @WestButton.performed += instance.OnWestButton;
+                @WestButton.canceled += instance.OnWestButton;
+                @NorthButton.started += instance.OnNorthButton;
+                @NorthButton.performed += instance.OnNorthButton;
+                @NorthButton.canceled += instance.OnNorthButton;
+                @SouthButton.started += instance.OnSouthButton;
+                @SouthButton.performed += instance.OnSouthButton;
+                @SouthButton.canceled += instance.OnSouthButton;
+                @EastButton.started += instance.OnEastButton;
+                @EastButton.performed += instance.OnEastButton;
+                @EastButton.canceled += instance.OnEastButton;
             }
 
             private void UnregisterCallbacks(IUIqbekActions instance)
@@ -1906,6 +2054,18 @@ namespace UnityEngine.InputSystem
                 @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+                @WestButton.started -= instance.OnWestButton;
+                @WestButton.performed -= instance.OnWestButton;
+                @WestButton.canceled -= instance.OnWestButton;
+                @NorthButton.started -= instance.OnNorthButton;
+                @NorthButton.performed -= instance.OnNorthButton;
+                @NorthButton.canceled -= instance.OnNorthButton;
+                @SouthButton.started -= instance.OnSouthButton;
+                @SouthButton.performed -= instance.OnSouthButton;
+                @SouthButton.canceled -= instance.OnSouthButton;
+                @EastButton.started -= instance.OnEastButton;
+                @EastButton.performed -= instance.OnEastButton;
+                @EastButton.canceled -= instance.OnEastButton;
             }
 
             public void RemoveCallbacks(IUIqbekActions instance)
@@ -2004,6 +2164,10 @@ namespace UnityEngine.InputSystem
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+            void OnWestButton(InputAction.CallbackContext context);
+            void OnNorthButton(InputAction.CallbackContext context);
+            void OnSouthButton(InputAction.CallbackContext context);
+            void OnEastButton(InputAction.CallbackContext context);
         }
     }
 }

@@ -30,6 +30,11 @@ public class DraggableComponent : MonoBehaviour
     {
         DraggableMinigameController.ResetAction+= HandleReset;
         
+        
+    }
+
+    private void Start()
+    {
         _initScale= transform.localScale;
         _initPos= transform.position;
         _canBeMoved = true;

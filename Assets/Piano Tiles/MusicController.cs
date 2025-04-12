@@ -9,6 +9,7 @@ public class MusicController : MonoBehaviour
     public Slider slider;
     public AudioSource audioSource;
 
+    public float lenghtPercent = 1f;
     public float volume = 0.5f;
     public float progressInSeconds = 0;
     public bool paused = false;
@@ -16,7 +17,7 @@ public class MusicController : MonoBehaviour
     private void Start()
     {
         audioSource.volume = volume;
-        slider.onValueChanged.AddListener((value) => {audioSource.time = value * audioSource.clip.length; });
+        slider.onValueChanged.AddListener((value) => {audioSource.time = value * audioSource.clip.length * lenghtPercent; });
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class MusicController : MonoBehaviour
     {
         audioSource.volume = volume;
         progressInSeconds = audioSource.time;
-        slider.SetValueWithoutNotify(progressInSeconds / audioSource.clip.length);
+        slider.SetValueWithoutNotify(progressInSeconds / (audioSource.clip.length * lenghtPercent));
 
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
@@ -46,7 +47,7 @@ public class MusicController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            audioSource.time = Mathf.Min(audioSource.time + 1, audioSource.clip.length);
+            audioSource.time = Mathf.Min(audioSource.time + 1, audioSource.clip.length * lenghtPercent);
         }
 #endif
     }
@@ -54,5 +55,10 @@ public class MusicController : MonoBehaviour
     public void ChangeSpeed(float newSpeed)
     {
         audioSource.pitch = newSpeed;
+    }
+
+    public bool IsCompleted()
+    {
+        return audioSource.clip.length * lenghtPercent - progressInSeconds < 0.05f;
     }
 }

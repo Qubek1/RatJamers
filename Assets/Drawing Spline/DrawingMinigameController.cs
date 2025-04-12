@@ -44,21 +44,6 @@ public class DrawingMinigameController : MinigameController
 
     private List<Vector3> lineRendererPoints = new List<Vector3>();
 
-    private void Awake()
-    {
-        //inputActions = new InputActions();
-        //inputActions.Enable();
-        //move = inputActions.Player.Move;
-        nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
-        currentT = 0;
-        pen.position = PositionOnSpline(0);
-        //followingLineRender.Range = new Vector2(0, 0.01f);
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRendererPoints.Add(pen.position);
-        lineRenderer.positionCount = 1;
-        lineRenderer.SetPositions(lineRendererPoints.ToArray());
-    }
-
     private void Update()
     {
         gizmosPoints.Clear();
@@ -78,6 +63,10 @@ public class DrawingMinigameController : MinigameController
             //followingLineRender.Rebuild();
         }
         lastFramePosition = currentFramePosition;
+        if (IsCompleted())
+        {
+            MinigameLeft();
+        }
     }
 
     private float FindAndSetNewT(Vector2 point)
@@ -123,6 +112,13 @@ public class DrawingMinigameController : MinigameController
         gameObject.SetActive(true);
         move=
             PlayerController.GetPlayer(player).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+        nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
+        currentT = 0;
+        pen.position = PositionOnSpline(0);
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRendererPoints.Add(pen.position);
+        lineRenderer.positionCount = 1;
+        lineRenderer.SetPositions(lineRendererPoints.ToArray());
     }
 
     private void OnDrawGizmos()
@@ -130,7 +126,7 @@ public class DrawingMinigameController : MinigameController
         for (int i = 0; i < gizmosPoints.Count; i++)
         {
             Gizmos.color = gizmosGradient.Evaluate(((float)i) / gizmosPoints.Count);
-            Gizmos.DrawWireSphere(gizmosPoints[i], 0.1f);
+            Gizmos.DrawWireSphere(gizmosPoints[i], 2f);
         }
     }
 
@@ -156,6 +152,6 @@ public class DrawingMinigameController : MinigameController
 
     public override bool IsCompleted()
     {
-        return false;
+        return currentT > 0.99f;
     }
 }

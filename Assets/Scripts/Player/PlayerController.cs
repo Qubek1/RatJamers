@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
     [Header("Refs")]
     [SerializeField] private PlayerInteractionComponent m_InteractionComponent;
     [SerializeField] private PlayerInput m_PlayerInput;
-    [SerializeField] private PlayerCameraController m_CameraPrefab;
+    //[SerializeField] private PlayerCameraController m_CameraPrefab;
     [SerializeField] private PlayerCameraController m_CameraController;
     
     private Rigidbody2D _rb;
@@ -25,20 +25,21 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 
     private void Awake()
     {
+        //PlayerInputManager.instance.JoinPlayer()
         if (Player1 == null)
         {
             Player1=this;
             InputManager.Player1InputActions.Enable();
-            InputManager.Player2InputActions.Player.RemoveCallbacks(Player2);
-            InputManager.Player1InputActions.Player.SetCallbacks(this);
+            //InputManager.Player2InputActions.Player.RemoveCallbacks(Player2);
+            //InputManager.Player1InputActions.Player.SetCallbacks(this);
         }
             
         else if (Player2 == null)
         {
             Player2=this;
             InputManager.Player2InputActions.Enable();
-            InputManager.Player2InputActions.Player.RemoveCallbacks(Player1);
-            InputManager.Player2InputActions.Player.SetCallbacks(this);
+            //InputManager.Player2InputActions.Player.RemoveCallbacks(Player1);
+            //InputManager.Player2InputActions.Player.SetCallbacks(this);
         }
         else
             Debug.LogError("More than 2 players in scene");
@@ -53,8 +54,8 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 
     private void Start()
     {
-        m_CameraController=Instantiate(m_CameraPrefab, transform.position, Quaternion.identity);
-        m_PlayerInput.camera=m_CameraController.GetComponent<Camera>();
+        //m_CameraController=Instantiate(m_CameraPrefab, transform.position, Quaternion.identity);
+        //m_PlayerInput.camera=m_CameraController.GetComponent<Camera>();
         m_CameraController.SetTarget(transform);
     }
     

@@ -17,7 +17,7 @@ public class SplitScreenManager : MonoBehaviour
         Camera assignedCamera = cameras[playerCount];
 
         // 1. Assign the camera to follow this player
-        var followScript = assignedCamera.GetComponent<PlayerCameraFollow>();
+        var followScript = assignedCamera.GetComponent<PlayerCameraController>();
         followScript.target = playerInput.transform;
 
         // 2. Link camera to PlayerInput (so UI works per camera)

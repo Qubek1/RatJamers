@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
-public class DrawingSplines : MonoBehaviour
+public class DrawingMinigameController : MinigameController
 {
     public float maxMadeError = 0;
 
@@ -34,7 +34,7 @@ public class DrawingSplines : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private NativeSpline nativeSpline;
-    private InputActions inputActions;
+    //private InputActions inputActions;
     private InputAction move;
 
     private Vector2 lastFramePosition;
@@ -46,9 +46,9 @@ public class DrawingSplines : MonoBehaviour
 
     private void Awake()
     {
-        inputActions = new InputActions();
-        inputActions.Enable();
-        move = inputActions.Player.Move;
+        //inputActions = new InputActions();
+        //inputActions.Enable();
+        //move = inputActions.Player.Move;
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;
         pen.position = PositionOnSpline(0);
@@ -62,7 +62,7 @@ public class DrawingSplines : MonoBehaviour
     private void Update()
     {
         gizmosPoints.Clear();
-        Debug.Log(move.ReadValue<Vector2>());
+        //Debug.Log(move.ReadValue<Vector2>());
         pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.deltaTime;
         pen.velocity *= velocityDamping;
         currentFramePosition = pen.position;
@@ -117,6 +117,14 @@ public class DrawingSplines : MonoBehaviour
         return previousT;
     }
 
+    public override void Launch(int player)
+    {
+        base.Launch(player);
+        gameObject.SetActive(true);
+        move=
+            PlayerController.GetPlayer(player).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+    }
+
     private void OnDrawGizmos()
     {
         for (int i = 0; i < gizmosPoints.Count; i++)
@@ -126,6 +134,7 @@ public class DrawingSplines : MonoBehaviour
         }
     }
 
+    /*
     private void OnEnable()
     {
         inputActions.Enable();
@@ -135,8 +144,18 @@ public class DrawingSplines : MonoBehaviour
     {
         inputActions.Disable();
     }
-
+*/
+    
     private Vector2 PositionOnSpline(float t) => Float3ToVector2(splineTransform.TransformPoint(nativeSpline.EvaluatePosition(t)));
 
     private Vector2 Float3ToVector2(float3 v) => new Vector2(v.x, v.y);
+    public override void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public override bool IsCompleted()
+    {
+        return false;
+    }
 }

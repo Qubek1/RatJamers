@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class DraggableMinigameController : MonoBehaviour, InputActions.IUIActions
+public class DraggableMinigameController : MinigameController, InputActions.IUIActions
 {
-    public const float DRAGGABLE_POSITION_THRESHOLD = 0.6f;
+    public const float DRAGGABLE_POSITION_THRESHOLD = 1.5f;
     public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;
-    public static event Action ResetAction;
+    
 
     [SerializeField] private bool m_Rotatable;
     
@@ -16,27 +16,19 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     
     private List<DraggableSlotComponent> _allSlots = new();
     private DraggableComponent _currentlyDragged;
-    void Start()
+    protected override void Start()
     {
+        //if(SceneManager.sceneCount>1)
+        base.Start();
         _allDraggables.Clear();
-        foreach (DraggableComponent draggable in FindObjectsOfType<DraggableComponent>())
+        foreach (DraggableComponent draggable in GetComponentsInChildren<DraggableComponent>())
             _allDraggables.Add(draggable);
         
         _allSlots.Clear();
-        foreach (DraggableSlotComponent slot in FindObjectsOfType<DraggableSlotComponent>())
+        foreach (DraggableSlotComponent slot in GetComponentsInChildren<DraggableSlotComponent>())
             _allSlots.Add(slot);
         
-        InputManager.inputActions.UI.Enable();
-        InputManager.inputActions.UI.SetCallbacks(this);
-        if (EventSystem.current == null || EventSystem.current.firstSelectedGameObject == null)
-        {
-            EventSystem.current.SetSelectedGameObject(_allDraggables[0].gameObject);
-            _currentlyDragged = _allDraggables[0];
-        }
-        else
-        {
-            _currentlyDragged = EventSystem.current.firstSelectedGameObject.GetComponent<DraggableComponent>();
-        }
+        _currentlyDragged = _allDraggables[0];
 
         if (_currentlyDragged == null)
         {
@@ -44,11 +36,44 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         }
         _currentlyDragged.OnSelected();
     }
+    
+    public override void Launch(int player)
+    {
+        base.Launch(player);
+        gameObject.SetActive(true);
         
+        //subscribe to needed input events from player
+        PlayerController playerInstance = PlayerController.GetPlayer(player);
+        _moveAction =
+            playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+        _moveAction.Enable();
+        playerInstance.PlayerInput.SwitchCurrentActionMap("UI");
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").Enable();
+        
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed += OnNavigate;
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started += OnNavigate;
+        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled += OnNavigate;
+    }
+
+    public override void Hide()
+    {
+        gameObject.SetActive(false);
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").Disable();
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed -= OnNavigate;
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started -= OnNavigate;
+        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled -= OnNavigate;
+
+    }
+
+    private InputAction _moveAction;
+
+    private Vector2 GetMoveInput() => _moveAction.ReadValue<Vector2>();
+
 
     private void Update()
     {
-        Vector2 navInput = InputManager.inputActions.UI.Move.ReadValue<Vector2>();
+        Vector2 navInput = GetMoveInput();
+        //Debug.Log("navInput: " + navInput);
         if (navInput == Vector2.zero||_currentlyDragged==null)
             return;
         
@@ -57,6 +82,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         if (maybeSlot == null || maybeSlot.IsUsed()||maybeSlot==_currentlyDragged.LastSlot) return;
         
         //check if rotation is correct to snap to slot
+        /*
         if (m_Rotatable)
         {
             float angleDelta = Vector2.SignedAngle(maybeSlot.transform.position - _currentlyDragged.transform.position, _currentlyDragged.transform.up);
@@ -67,15 +93,18 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
                 _currentlyDragged.OnPutIntoSlot(maybeSlot);
             }
         }
-        
+        */
+        maybeSlot.UseSlot(_currentlyDragged);
+        _currentlyDragged.transform.position=maybeSlot.transform.position;
+        _currentlyDragged.OnPutIntoSlot(maybeSlot);
 
-        if (IsMinigameCompleted())
+        if (IsCompleted())
         {
-            Debug.Log("Minigame Correctly Finished!");
+            MinigameLeft();
         }
     }
 
-    private bool IsMinigameCompleted()
+    public override bool IsCompleted()
     {
         foreach (var slot in _allSlots)
             if (!slot.IsCorrectAssigned())
@@ -106,15 +135,16 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
 
     public void OnReset(InputAction.CallbackContext context)
     {
-        if(context.performed)
-            ResetAction?.Invoke();
+        if(!context.performed)
+            return;
+        base.Reset();
     }
 
     public void OnRotate(InputAction.CallbackContext context)
     {
         if (!m_Rotatable) return;
         float normalized = context.ReadValue<float>();
-        Debug.Log(normalized);
+        //Debug.Log(normalized);
         if(Mathf.Approximately(normalized,0))
             _currentlyDragged?.StopRotate();
         else
@@ -175,10 +205,7 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     {
     }
 
-    public void OnSubmit(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
+    public void OnSubmit(InputAction.CallbackContext context) { }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
@@ -191,31 +218,6 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     }
 
     public void OnClick(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnScrollWheel(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnMiddleClick(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnRightClick(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnTrackedDevicePosition(InputAction.CallbackContext context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
     {
         //throw new System.NotImplementedException();
     }

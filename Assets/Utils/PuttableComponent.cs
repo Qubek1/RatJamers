@@ -23,7 +23,6 @@ public class PuttableComponent : MonoBehaviour
 
     public void OnRemoveFromSlot()
     {
-        
         m_SpriteRenderer.enabled = true;
     }
 

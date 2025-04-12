@@ -382,6 +382,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""08e74681-7500-402c-b43d-129798d5d888"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -802,6 +811,17 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6261309-cb07-41b2-8e26-479ec000cd32"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -887,6 +907,7 @@ namespace UnityEngine.InputSystem
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
+            m_UI_Reset = m_UI.FindAction("Reset", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -1027,6 +1048,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_UI_TrackedDevicePosition;
         private readonly InputAction m_UI_TrackedDeviceOrientation;
         private readonly InputAction m_UI_Navigate;
+        private readonly InputAction m_UI_Reset;
         public struct UIActions
         {
             private @InputActions m_Wrapper;
@@ -1042,6 +1064,7 @@ namespace UnityEngine.InputSystem
             public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
             public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
             public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
+            public InputAction @Reset => m_Wrapper.m_UI_Reset;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1084,6 +1107,9 @@ namespace UnityEngine.InputSystem
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
+                @Reset.started += instance.OnReset;
+                @Reset.performed += instance.OnReset;
+                @Reset.canceled += instance.OnReset;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -1121,6 +1147,9 @@ namespace UnityEngine.InputSystem
                 @Navigate.started -= instance.OnNavigate;
                 @Navigate.performed -= instance.OnNavigate;
                 @Navigate.canceled -= instance.OnNavigate;
+                @Reset.started -= instance.OnReset;
+                @Reset.performed -= instance.OnReset;
+                @Reset.canceled -= instance.OnReset;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -1202,6 +1231,7 @@ namespace UnityEngine.InputSystem
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
             void OnNavigate(InputAction.CallbackContext context);
+            void OnReset(InputAction.CallbackContext context);
         }
     }
 }

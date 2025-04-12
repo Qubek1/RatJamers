@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;s
 
 public class DraggableMinigameController : MonoBehaviour, InputActions.IUIActions
 {
+    public const float DRAGGABLE_PROXIMITY_THRESHOLD = 0.6f;
+    public static event Action ResetAction;
+    
     private List<DraggableComponent> _allDraggables = new();
     
+    private List<DraggableSlotComponent> _allSlots = new();
     private DraggableComponent _currentlyDragged;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +19,10 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
         _allDraggables.Clear();
         foreach (DraggableComponent draggable in FindObjectsOfType<DraggableComponent>())
             _allDraggables.Add(draggable);
+        
+        _allSlots.Clear();
+        foreach (DraggableSlotComponent slot in FindObjectsOfType<DraggableSlotComponent>())
+            _allSlots.Add(slot);
         
         InputManager.inputActions.UI.Enable();
         InputManager.inputActions.UI.SetCallbacks(this);
@@ -38,8 +47,31 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
     private void Update()
     {
         Vector2 navInput = InputManager.inputActions.UI.Move.ReadValue<Vector2>();
-        if (navInput != Vector2.zero)
-            _currentlyDragged?.Move(navInput);
+        if (navInput == Vector2.zero||_currentlyDragged==null)
+            return;
+        
+        _currentlyDragged.Move(navInput);
+        DraggableSlotComponent maybeSlot=DraggableSlotComponent.IsWithin(_currentlyDragged.transform.position, DRAGGABLE_PROXIMITY_THRESHOLD);
+        if (maybeSlot == null || maybeSlot.IsUsed()) return;
+        
+        //Debug.Log($"putting {_currentlyDragged.gameObject.name} into {maybeSlot.gameObject.name}");
+        if(maybeSlot.IsUsed()||maybeSlot==_currentlyDragged.LastSlot) return;
+        maybeSlot.UseSlot(_currentlyDragged);
+        _currentlyDragged.transform.position=maybeSlot.transform.position;
+        _currentlyDragged.OnPutIntoSlot(maybeSlot);
+
+        if (IsMinigameCompleted())
+        {
+            Debug.Log("Minigame Correctly Finished!");
+        }
+    }
+
+    private bool IsMinigameCompleted()
+    {
+        foreach (var slot in _allSlots)
+            if (!slot.IsCorrectAssigned())
+                return false;
+        return true;
     }
     
     public void OnNavigate(InputAction.CallbackContext context)
@@ -63,12 +95,20 @@ public class DraggableMinigameController : MonoBehaviour, InputActions.IUIAction
             
     }
 
+    public void OnReset(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+            ResetAction?.Invoke();
+    }
+
     private DraggableComponent GetClosestInDirection(Vector2 from, Vector2 dir)
     {
         DraggableComponent currentClosest=null;
         float currentClosestDist=float.MaxValue;
         foreach (var draggable in _allDraggables)
         {
+            //do not switch to used slots, for now???
+            if(draggable.IsInSlot) continue;
             //if its not to the left of from position, ignore it
             if(!IsInDirOf(from,draggable.transform.position,dir))
                 continue;

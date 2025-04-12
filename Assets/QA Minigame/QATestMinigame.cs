@@ -8,21 +8,47 @@ public class QATestMinigame : MonoBehaviour
     public int progressState = 0;
 
     [SerializeField]
-    private List<ListOfGameObjects> objectsToSpawnWithProgress;
+    private Transform spawnPosition;
     [SerializeField]
-    private List<SpriteWithProgress> spritesWithProgress;
+    private QAPlayerController player;
+
+    [SerializeField]
+    private List<GameObject> levels;
+
+    private void Awake()
+    {
+        player.onFinishEnter += OnFinishEnter;
+        player.onHazardEnter += Respawn;
+        Restart();
+    }
+
+    private void Restart()
+    {
+        Respawn();
+    }
+
+    private void Respawn()
+    {
+        player.transform.position = spawnPosition.position;
+        player.ResetVelocity();
+    }
 
     private void UpdateProgress()
     {
-        for (int i = 0; i <= progressState; i++)
+        foreach (GameObject g in levels)
         {
-            foreach (GameObject objectToSpawn in objectsToSpawnWithProgress[i].list)
-            {
-                objectToSpawn.SetActive(true);
-            }
+            g.SetActive(false);
         }
+        levels[progressState].SetActive(true);
     }
-    
+
+    private void OnFinishEnter()
+    {
+        Debug.Log("Finish!");
+        Respawn();
+        progressState++;
+        UpdateProgress();
+    }
 }
 
 [Serializable]

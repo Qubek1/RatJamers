@@ -39,7 +39,7 @@
                 {
                     "name": "",
                     "id": "b9d69667-f71f-40fe-930a-e7de5f3e4c85",
-                    "path": "<XInputController>/buttonSouth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";GamePadPlayer2",

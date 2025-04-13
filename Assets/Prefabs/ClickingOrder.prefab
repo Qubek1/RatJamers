@@ -202,6 +202,7 @@ Transform:
   - {fileID: 4853521467905754019}
   - {fileID: 35500849526641873}
   - {fileID: 674520940259942130}
+  - {fileID: 3445032827959854525}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6048567623164438151
@@ -422,3 +423,65 @@ MonoBehaviour:
   progress: 0
   buttonsToClickIndexes: 00000000010000000000000002000000030000000300000001000000000000000100000000000000
   xboxButtons: []
+--- !u!1001 &6458386586797604777
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8015862894019726525}
+    m_Modifications:
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915398956141989445, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+      propertyPath: m_Name
+      value: XboxButtonSprite
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+--- !u!4 &3445032827959854525 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8534316325767264788, guid: 974aaaadc7671c04cb3ae61ced74a777, type: 3}
+  m_PrefabInstance: {fileID: 6458386586797604777}
+  m_PrefabAsset: {fileID: 0}

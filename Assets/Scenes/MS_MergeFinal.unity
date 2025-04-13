@@ -4620,7 +4620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5725c0bf8cc02a9438ddeb898827c488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartPVPMinigameTime: 5
+  m_StartPVPMinigameTime: 20
   m_PVPStartDelay: 1
 --- !u!4 &1960701680
 Transform:

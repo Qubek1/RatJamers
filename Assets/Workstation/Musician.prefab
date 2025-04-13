@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxProductivity: 100
   currentProductivity: 0
-  drainRate: 6
+  drainRate: 2
   fullColor: {r: 0, g: 1, b: 0, a: 1}
   midColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   lowColor: {r: 1, g: 0, b: 0, a: 1}

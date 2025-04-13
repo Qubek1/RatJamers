@@ -43,19 +43,37 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         return minigameInstance;
     }
 
-    public void LaunchMinigame(string minigameName, int onSideOf, int byPlayer)
+    public void LaunchMinigame(string minigameName, int onSideOf, int byPlayer, WorkstationController caller)
     {
         
         if (_minigamesDict.TryGetValue(minigameName, out MinigameController instance))
         {
            //Debug.Log($"Launching {minigameName} minigame");
            MinigameEnteredAction?.Invoke(instance, onSideOf, byPlayer);
-           instance.Launch(byPlayer,onSideOf);
+           instance.Launch(byPlayer,onSideOf, caller);
         }
         else
         {
             Debug.LogWarning($"Attempted to launch {minigameName} that is not in the list!!!");
         }
+    }
+
+    public bool CanOpenMinigame(string minigameName, int playerAttempting)
+    {
+        
+        MinigameController minigameInstance = _minigamesDict[minigameName];
+        int onPlayerSideHackyFucky=int.Parse(minigameName.Split("_")[1]);
+        //Debug.Log($"Checking can open minigame for playerattempting {playerAttempting} and minigame name {minigameName}, with minigame on player side {minigameInstance.OnPlayerSide}, hacky fucky playerside {onPlayerSideHackyFucky} and isCompleted {minigameInstance.IsCompleted()}");
+        if (minigameInstance.UsedByPlayer != 0)
+            return false;
+        //only allow for sabotage if its completed
+        if (minigameInstance.IsCompleted())
+            return playerAttempting != onPlayerSideHackyFucky;
+        
+        //only allow for completion if its not already completed
+        return playerAttempting == onPlayerSideHackyFucky;
+        
+        //return true;
     }
 
     public void LaunchPVPMinigame()
@@ -65,26 +83,6 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         PlayerController.Player1.OnPVPMinigameEntered(m_PVPMinigameInstance);
         PlayerController.Player2.OnPVPMinigameEntered(m_PVPMinigameInstance);
         m_PVPMinigameInstance.Launch();
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void OnNavigate(InputAction.CallbackContext context)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void OnReset(InputAction.CallbackContext context)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void OnRotate(InputAction.CallbackContext context)
-    {
-        //throw new NotImplementedException();
     }
 }
 

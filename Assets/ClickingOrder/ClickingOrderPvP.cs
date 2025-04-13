@@ -8,11 +8,25 @@ public class ClickingOrderPvP : PvPMinigameController
     public ClickingOrderController clickingOrderController1;
     public ClickingOrderController clickingOrderController2;
 
+    public float movement = 0.2f;
+    private Vector3 StartPos1;
+    private Vector3 startPos2;
+    public Transform Rat1;
+    public Transform Rat2;
+
     private List<InputButton> inputsList1;
     private List<InputButton> inputsList2;
 
+    private void Awake()
+    {
+        StartPos1 = Rat1.position;
+        startPos2 = Rat2.position;
+    }
+
     void Update()
     {
+        Rat1.transform.position = StartPos1 + Vector3.right * movement * clickingOrderController1.progress;
+        Rat2.transform.position = startPos2 + Vector3.left * movement * clickingOrderController2.progress;
         if (!IsCompleted()) return;
 
         GameManager.Instance.PVPMinigameFinished(clickingOrderController1.progress > clickingOrderController2.progress);

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,8 @@ public class MainProgressBar : MonoBehaviour
 
     public float progressMultiplier = 1f; // np. ile procent postępu przy pełnej produktywności
     
-    
+    public event EventHandler ProgressReachedThreshhold; 
+    private bool hasTriggered25 = false;
 
     void Update()
     {
@@ -28,7 +30,15 @@ public class MainProgressBar : MonoBehaviour
         currentProgress += avgRatio * progressMultiplier * Time.deltaTime;
         currentProgress = Mathf.Clamp(currentProgress, 0, maxProgress);
         
-        m_UISlider.value = currentProgress / maxProgress;
+        float progressRatio = currentProgress / maxProgress;
+        m_UISlider.value = progressRatio;
+        
+        
+        if (!hasTriggered25 && progressRatio >= 1f)
+        {
+            hasTriggered25 = true;
+            OnProgressReachedQuarter(EventArgs.Empty);
+        }
 
         //float ratio = currentProgress / maxProgress;
         
@@ -40,4 +50,12 @@ public class MainProgressBar : MonoBehaviour
         //float deltaX = (initialScale.x - newScaleX) / 2f;
         //barTransform.localPosition = initialPosition - new Vector3(deltaX, 0, 0);
     }
+    
+    private void OnProgressReachedQuarter(EventArgs e)
+    {
+        ProgressReachedThreshhold?.Invoke(this, e);
+    }
+    
+    
+    
 }

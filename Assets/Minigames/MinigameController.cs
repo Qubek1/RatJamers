@@ -10,7 +10,8 @@ public abstract class MinigameController : MonoBehaviour
     //[SerializeField] public Transform CameraTarget;
     [SerializeField] private bool m_CanBeSabotaged;
     [SerializeField] private float m_SabotageTime = 5f;
-    
+
+    [SerializeField] private SpriteRenderer m_FrameSprite;
     [SerializeField] private TextMeshProUGUI m_TimeLimitText;
     [SerializeField] private MinigameCameraConfig m_CameraConfig;
     public MinigameCameraConfig CameraConfig => m_CameraConfig;
@@ -30,6 +31,18 @@ public abstract class MinigameController : MonoBehaviour
     public virtual void Launch(int launchingPlayer,int onPlayerSide, WorkstationController caller)
     {
         gameObject.SetActive(true);
+        if (launchingPlayer == 1)
+        {
+            Vector3 newScale = m_FrameSprite.transform.localScale;
+            newScale.x=-Mathf.Abs(newScale.x);
+            m_FrameSprite.transform.localScale =newScale;
+        }
+        else
+        {
+            Vector3 newScale = m_FrameSprite.transform.localScale;
+            newScale.x=Mathf.Abs(newScale.x);
+            m_FrameSprite.transform.localScale =newScale;
+        }
         UsedByPlayer = launchingPlayer;
         OnPlayerSide = onPlayerSide;
         _callingWorker = caller;

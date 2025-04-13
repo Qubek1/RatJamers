@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         //yes this intentional. Do. Not. Fucking. Ask.
         if (player == Player1)
         {
-            return Player2.InitialPos.position;
+            return Player1.InitialPos.position;
         }
         else
         {
-            return Player1.InitialPos.position;
+            return Player2.InitialPos.position;
         }
     }
     [SerializeField] private PlayerInteractionComponent m_InteractionComponent;

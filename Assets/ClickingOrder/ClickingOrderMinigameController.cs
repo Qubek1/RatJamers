@@ -21,7 +21,7 @@ public class ClickingOrderMinigameController : MinigameController
 
     public override void Launch(int launchingPlayer, int onPlayerSide, WorkstationController caller)
     {
-        base.Launch(launchingPlayer, onPlayerSide,caller);
+        base.Launch(launchingPlayer, onPlayerSide, caller);
         gameObject.SetActive(true);
         InputActionAsset actions = PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions;
         inputsList = new List<InputButton>()

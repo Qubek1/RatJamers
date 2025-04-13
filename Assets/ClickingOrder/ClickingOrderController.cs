@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class ClickingOrderController : MonoBehaviour, InputActions.IButtonInOrderActions
+public class ClickingOrderController : MonoBehaviour
 {
     public int lenght = 10;
     public float spaceBetweenButtons;
@@ -14,18 +14,12 @@ public class ClickingOrderController : MonoBehaviour, InputActions.IButtonInOrde
 
     public List<XboxButtonSprite> xboxButtons;
 
-    private void Awake()
-    {
-        Generate();
-        UpdateProgress();
-    }
-
     private void Update()
     {
         UpdateProgress();
     }
-
-    private void Generate()
+    
+    public void Generate()
     {
         xboxButtons = new List<XboxButtonSprite>();
         for(int i=0; i<lenght; i++)
@@ -40,7 +34,7 @@ public class ClickingOrderController : MonoBehaviour, InputActions.IButtonInOrde
         }
     }
 
-    private void Click(int buttonIndex)
+    public void Click(int buttonIndex)
     {
         if (buttonIndex == buttonsToClickIndexes[progress])
         {
@@ -48,7 +42,7 @@ public class ClickingOrderController : MonoBehaviour, InputActions.IButtonInOrde
         }
         else
         {
-            progress = 1;
+            progress = 0;
         }
     }
 
@@ -67,23 +61,16 @@ public class ClickingOrderController : MonoBehaviour, InputActions.IButtonInOrde
         }
     }
 
-    public void OnEastButton(InputAction.CallbackContext context)
+    public void DestroyButtons()
     {
-        Click(0);
+        foreach (XboxButtonSprite xboxButtonSprite in xboxButtons)
+        {
+            Destroy(xboxButtonSprite.gameObject);
+        }
     }
 
-    public void OnNorthButton(InputAction.CallbackContext context)
+    public bool IsComplete()
     {
-        Click(1);
-    }
-
-    public void OnSouthButton(InputAction.CallbackContext context)
-    {
-        Click(2);
-    }
-
-    public void OnWestButton(InputAction.CallbackContext context)
-    {
-        Click(3);
+        return progress == lenght;
     }
 }

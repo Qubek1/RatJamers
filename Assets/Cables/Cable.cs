@@ -72,12 +72,12 @@ public class Cable : MonoBehaviour
         initSpline = new NativeSpline(GetComponent<SplineContainer>().Spline);
         pointsTransform = new List<Transform>();
         pointsRigidBodies = new List<Rigidbody2D>();
-        pointsTransform.Add(Instantiate(anchorPrefab, initSpline.EvaluatePosition(0), new Quaternion(0, 0, 0, 0), jointsParent).transform);
+        pointsTransform.Add(Instantiate(anchorPrefab, GetPositionAtT(0), new Quaternion(0, 0, 0, 0), jointsParent).transform);
         Vector3 startTangent = initSpline.EvaluateTangent(0);
         startTangent.Normalize();
         float currentT = 0;
         float newT = 0;
-        Vector3 lastPointPosition = initSpline.EvaluatePosition(0);
+        Vector3 lastPointPosition = GetPositionAtT(0);
         Vector3 newPointPosition;
         jointsCount = 1;
         JointAngleLimits2D angleLimits = new JointAngleLimits2D();
@@ -86,7 +86,7 @@ public class Cable : MonoBehaviour
         while (currentT < 1 && jointsCount < 10000)
         {
             newT = currentT;
-            while (Vector3.Distance(lastPointPosition, initSpline.EvaluatePosition(newT)) < distanceBetweenJoints && newT < 1)
+            while (Vector3.Distance(lastPointPosition, GetPositionAtT(newT)) < distanceBetweenJoints && newT < 1)
             {
                 newT += splineAccuracy;
             }
@@ -96,7 +96,7 @@ public class Cable : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 binMid = (binLow + binHigh) / 2;
-                if (Vector3.Distance(lastPointPosition, initSpline.EvaluatePosition(binMid)) < distanceBetweenJoints)
+                if (Vector3.Distance(lastPointPosition, GetPositionAtT(binMid)) < distanceBetweenJoints)
                 {
                     binLow = binMid;
                 }
@@ -106,7 +106,7 @@ public class Cable : MonoBehaviour
                 }
             }
             newT = binLow;
-            newPointPosition = initSpline.EvaluatePosition(newT);
+            newPointPosition = GetPositionAtT(newT);
 
             pointsTransform.Add(Instantiate(
                 jointPrefab,
@@ -145,6 +145,12 @@ public class Cable : MonoBehaviour
         {
             Connect();
         }
+    }
+
+    private Vector3 GetPositionAtT(float t)
+    {
+        var pos = initSpline.EvaluatePosition(t);
+        return new Vector3(pos.x, pos.y) + transform.position;
     }
 
     private void InitLineCable()

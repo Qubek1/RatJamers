@@ -22,27 +22,19 @@ public class MashingPVPMinigameController : MinigameController
 
     private int _player1MashCount;
     private int _player2MashCount;
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-        //connect to events etc here
-        
-        
-        base.Start();
-    }
-    
+
     void Update()
     {
         m_Player1MashCountText.text = _player1MashCount.ToString();
         m_Player2MashCountText.text = _player2MashCount.ToString();
         if(!IsCompleted()) return;
         
-        GameManager.Instance.PVPMinigameFinished();
+        GameManager.Instance.PVPMinigameFinished(_player1MashCount > _player2MashCount);
         Hide();
     }
     
 
-    public void LaunchGame()
+    public void Launch()
     {
         _player1MashCount = 0;
         _player2MashCount = 0;

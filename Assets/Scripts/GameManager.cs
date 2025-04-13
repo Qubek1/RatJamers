@@ -43,7 +43,7 @@ public class GameManager : MonoSingleton<GameManager>
         MinigamesManager.Instance.LaunchPVPMinigame();
     }
 
-    public void PVPMinigameFinished()
+    public void PVPMinigameFinished(bool player1Win)
     {
         PVPMinigameCoroutineRef = null;
         PlayerController.Player1.OnPVPMinigameEnd();

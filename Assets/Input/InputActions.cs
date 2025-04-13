@@ -351,6 +351,42 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NorthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""54a6e64d-d3a0-4bea-867c-1c9dc00de952"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""098e1490-e993-4283-af83-ce20e571adda"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SouthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd7dcb2a-0889-4d12-a779-c3ce0666ab8d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EastButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f4ccd71-bf03-47a9-9271-1678bb089bae"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -780,6 +816,94 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58c94ab2-49d9-4ef7-bff3-a19518e83d9d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2630b648-bdac-4286-b931-1108e13975f5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a94e2375-7dda-49bc-b232-9c66dcb7e97c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""deeb56d5-15eb-4942-91c7-41ec1afd709c"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a137283-b8e4-4374-b0a2-d31a1adefe9c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d42bbe7-990b-456e-beaf-2a845c712ab9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f34fdf6-7b59-492d-97df-6bc01b500061"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ce846ea-65af-4b82-82f3-5e11fe305c8a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1899,6 +2023,10 @@ namespace UnityEngine.InputSystem
             m_UI_Reset = m_UI.FindAction("Reset", throwIfNotFound: true);
             m_UI_Rotate = m_UI.FindAction("Rotate", throwIfNotFound: true);
             m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
+            m_UI_NorthButton = m_UI.FindAction("NorthButton", throwIfNotFound: true);
+            m_UI_WestButton = m_UI.FindAction("WestButton", throwIfNotFound: true);
+            m_UI_SouthButton = m_UI.FindAction("SouthButton", throwIfNotFound: true);
+            m_UI_EastButton = m_UI.FindAction("EastButton", throwIfNotFound: true);
             // UI-qbek
             m_UIqbek = asset.FindActionMap("UI-qbek", throwIfNotFound: true);
             m_UIqbek_Navigate = m_UIqbek.FindAction("Navigate", throwIfNotFound: true);
@@ -2072,6 +2200,10 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_UI_Reset;
         private readonly InputAction m_UI_Rotate;
         private readonly InputAction m_UI_Exit;
+        private readonly InputAction m_UI_NorthButton;
+        private readonly InputAction m_UI_WestButton;
+        private readonly InputAction m_UI_SouthButton;
+        private readonly InputAction m_UI_EastButton;
         public struct UIActions
         {
             private @InputActions m_Wrapper;
@@ -2085,6 +2217,10 @@ namespace UnityEngine.InputSystem
             public InputAction @Reset => m_Wrapper.m_UI_Reset;
             public InputAction @Rotate => m_Wrapper.m_UI_Rotate;
             public InputAction @Exit => m_Wrapper.m_UI_Exit;
+            public InputAction @NorthButton => m_Wrapper.m_UI_NorthButton;
+            public InputAction @WestButton => m_Wrapper.m_UI_WestButton;
+            public InputAction @SouthButton => m_Wrapper.m_UI_SouthButton;
+            public InputAction @EastButton => m_Wrapper.m_UI_EastButton;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -2121,6 +2257,18 @@ namespace UnityEngine.InputSystem
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
+                @NorthButton.started += instance.OnNorthButton;
+                @NorthButton.performed += instance.OnNorthButton;
+                @NorthButton.canceled += instance.OnNorthButton;
+                @WestButton.started += instance.OnWestButton;
+                @WestButton.performed += instance.OnWestButton;
+                @WestButton.canceled += instance.OnWestButton;
+                @SouthButton.started += instance.OnSouthButton;
+                @SouthButton.performed += instance.OnSouthButton;
+                @SouthButton.canceled += instance.OnSouthButton;
+                @EastButton.started += instance.OnEastButton;
+                @EastButton.performed += instance.OnEastButton;
+                @EastButton.canceled += instance.OnEastButton;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -2152,6 +2300,18 @@ namespace UnityEngine.InputSystem
                 @Exit.started -= instance.OnExit;
                 @Exit.performed -= instance.OnExit;
                 @Exit.canceled -= instance.OnExit;
+                @NorthButton.started -= instance.OnNorthButton;
+                @NorthButton.performed -= instance.OnNorthButton;
+                @NorthButton.canceled -= instance.OnNorthButton;
+                @WestButton.started -= instance.OnWestButton;
+                @WestButton.performed -= instance.OnWestButton;
+                @WestButton.canceled -= instance.OnWestButton;
+                @SouthButton.started -= instance.OnSouthButton;
+                @SouthButton.performed -= instance.OnSouthButton;
+                @SouthButton.canceled -= instance.OnSouthButton;
+                @EastButton.started -= instance.OnEastButton;
+                @EastButton.performed -= instance.OnEastButton;
+                @EastButton.canceled -= instance.OnEastButton;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -2490,6 +2650,10 @@ namespace UnityEngine.InputSystem
             void OnReset(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnExit(InputAction.CallbackContext context);
+            void OnNorthButton(InputAction.CallbackContext context);
+            void OnWestButton(InputAction.CallbackContext context);
+            void OnSouthButton(InputAction.CallbackContext context);
+            void OnEastButton(InputAction.CallbackContext context);
         }
         public interface IUIqbekActions
         {

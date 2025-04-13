@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         MinigamesManager.MinigameLeftAction -= HandleMinigameLeft;
     }
 
-    public void OnPVPMinigameEntered(MashingPVPMinigameController minigame)
+    public void OnPVPMinigameEntered(PvPMinigameController minigame)
     {
         m_PlayerInput.SwitchCurrentActionMap("UI");
         if(this==Player1)

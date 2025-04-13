@@ -5,49 +5,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MashingPVPMinigameController : MinigameController
+public class MashingPVPMinigameController : PvPMinigameController
 {
-
-    public Transform Player1Pos;
-    public Transform Player2Pos;
-    
     [SerializeField] private int m_MashDifferenceToWin = 10;
-    
-    [SerializeField] private MinigameCameraConfig m_Player2CameraConfig;
-    public MinigameCameraConfig Player2CameraConfig => m_Player2CameraConfig;
+
     [Header("Refs")]
     [SerializeField] private TextMeshProUGUI m_Player1MashCountText;
     [SerializeField] private TextMeshProUGUI m_Player2MashCountText;
 
-
     private int _player1MashCount;
     private int _player2MashCount;
-    // Start is called before the first frame update
-    protected override void Start()
-    {
-        //connect to events etc here
-        
-        
-        base.Start();
-    }
 
-    public override void Launch(int launchingPlayer, int onPlayerSide)
-    {
-        base.Launch(launchingPlayer, onPlayerSide);
-    }
-    
     void Update()
     {
         m_Player1MashCountText.text = _player1MashCount.ToString();
         m_Player2MashCountText.text = _player2MashCount.ToString();
         if(!IsCompleted()) return;
         
-        GameManager.Instance.PVPMinigameFinished();
+        GameManager.Instance.PVPMinigameFinished(_player1MashCount > _player2MashCount);
         Hide();
     }
     
 
-    public void LaunchGame()
+    public override void Launch()
     {
         _player1MashCount = 0;
         _player2MashCount = 0;

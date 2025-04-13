@@ -20,7 +20,7 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     
     [SerializeField] private List<MinigameData> m_MinigameDatas;
     
-    [SerializeField] private MashingPVPMinigameController m_PVPMinigameInstance;
+    [SerializeField] private PvPMinigameController m_PVPMinigameInstance;
     private Dictionary<string,MinigameController> _minigamesDict=new();
     
     private MinigameController _player1Minigame;
@@ -64,7 +64,7 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         PlayerController.Player2.transform.position = m_PVPMinigameInstance.Player2Pos.position;
         PlayerController.Player1.OnPVPMinigameEntered(m_PVPMinigameInstance);
         PlayerController.Player2.OnPVPMinigameEntered(m_PVPMinigameInstance);
-        m_PVPMinigameInstance.LaunchGame();
+        m_PVPMinigameInstance.Launch();
     }
 
     public void OnMove(InputAction.CallbackContext context)

@@ -2620,20 +2620,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
   m_PrefabInstance: {fileID: 1121741717976429137}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1067366918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067366917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84444b55952bd9b4d8ca1a4f608fa5cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinigameToLaunch: drag_test_1
-  m_Player: 0
 --- !u!50 &1067366919
 Rigidbody2D:
   serializedVersion: 4
@@ -3087,11 +3073,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4375115553191348279, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
       propertyPath: m_Player
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4375115553191348279, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
       propertyPath: m_MinigameToLaunch
-      value: drag_test_1
+      value: drag_test_2
       objectReference: {fileID: 0}
     - target: {fileID: 5241253867509880917, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
       propertyPath: m_Color.g
@@ -3156,29 +3142,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1255169421}
-    - targetCorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1255169420}
   m_SourcePrefab: {fileID: 100100000, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
 --- !u!1 &1255169419 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
   m_PrefabInstance: {fileID: 1255169418}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1255169420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255169419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84444b55952bd9b4d8ca1a4f608fa5cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinigameToLaunch: drag_test_2
-  m_Player: 2
 --- !u!50 &1255169421
 Rigidbody2D:
   serializedVersion: 4
@@ -4802,9 +4771,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1067366919}
-    - targetCorrespondingSourceObject: {fileID: 5923220132445279891, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1067366918}
   m_SourcePrefab: {fileID: 100100000, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

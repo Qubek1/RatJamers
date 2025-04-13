@@ -117,7 +117,7 @@ public class DrawingMinigameController : MinigameController
         gameObject.SetActive(true);
         move=
             PlayerController.GetPlayer(player).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
-        
+        nativeSpline.Dispose();
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;
         pen.position = PositionOnSpline(0);

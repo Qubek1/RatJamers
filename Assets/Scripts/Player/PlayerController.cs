@@ -92,8 +92,8 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 
     private void HandleMinigameEntered(MinigameController entered, int onSideOfPlayer, int byPlayer)
     {
-        Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
         if(byPlayer!=GetPlayerNumber()) return;
+        Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
         m_PlayerInput.SwitchCurrentActionMap("UI");
         //m_PlayerInput.DeactivateInput();
         //m_CameraController.SetTarget(entered.CameraConfig.CameraTarget);
@@ -102,8 +102,8 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
 
     private void HandleMinigameLeft(int player)
     {
-        Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
         if(player!=GetPlayerNumber()) return;
+        Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
         m_PlayerInput.SwitchCurrentActionMap("Player");
         //m_PlayerInput.ActivateInput();
         m_CameraController.ResetCamera();

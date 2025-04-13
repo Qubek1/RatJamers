@@ -5,10 +5,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
+public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 {
     public static PlayerController Player1;
     public static PlayerController Player2;
+    public static bool IsAnyInMinigame()=>
+        Player1._isInMinigame || Player2._isInMinigame;
+
+    public bool _isInMinigame
+    {
+        get;
+        private set;
+    }
     
     public int GetPlayerNumber()
     {
@@ -90,9 +98,26 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         MinigamesManager.MinigameLeftAction -= HandleMinigameLeft;
     }
 
+    public void OnPVPMinigameEntered(MashingPVPMinigameController minigame)
+    {
+        m_PlayerInput.SwitchCurrentActionMap("UI");
+        if(this==Player1)
+            m_CameraController.SetConfig(minigame.CameraConfig);
+        else
+            m_CameraController.SetConfig(minigame.Player2CameraConfig);
+        _isInMinigame = true;
+    }
+
+    public void OnPVPMinigameEnd()
+    {
+        m_PlayerInput.SwitchCurrentActionMap("Player");
+        m_CameraController.ResetCamera();
+        m_CameraController.SetTarget(transform);
+    }
     private void HandleMinigameEntered(MinigameController entered, int onSideOfPlayer, int byPlayer)
     {
         if(byPlayer!=GetPlayerNumber()) return;
+        _isInMinigame = true;
         Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
         m_PlayerInput.SwitchCurrentActionMap("UI");
         //m_PlayerInput.DeactivateInput();
@@ -103,6 +128,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
     private void HandleMinigameLeft(int player)
     {
         if(player!=GetPlayerNumber()) return;
+        _isInMinigame = false;
         Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
         m_PlayerInput.SwitchCurrentActionMap("Player");
         //m_PlayerInput.ActivateInput();

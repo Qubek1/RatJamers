@@ -19,9 +19,10 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     //public bool IsInMinigame { get; private set; } = false;
     
     [SerializeField] private List<MinigameData> m_MinigameDatas;
+    
+    [SerializeField] private MashingPVPMinigameController m_PVPMinigameInstance;
     private Dictionary<string,MinigameController> _minigamesDict=new();
-
-
+    
     private MinigameController _player1Minigame;
     private MinigameController _player2Minigame;
 
@@ -57,6 +58,15 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         {
             Debug.LogWarning($"Attempted to launch {minigameName} that is not in the list!!!");
         }
+    }
+
+    public void LaunchPVPMinigame()
+    {
+        PlayerController.Player1.transform.position = m_PVPMinigameInstance.Player1Pos.position;
+        PlayerController.Player2.transform.position = m_PVPMinigameInstance.Player2Pos.position;
+        PlayerController.Player1.OnPVPMinigameEntered(m_PVPMinigameInstance);
+        PlayerController.Player2.OnPVPMinigameEntered(m_PVPMinigameInstance);
+        m_PVPMinigameInstance.LaunchGame();
     }
 
     public void OnMove(InputAction.CallbackContext context)

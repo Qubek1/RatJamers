@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FinalGameScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Main_Menu.unity
+    guid: d611d31e51739da4ca74f69af85bb427
+  - enabled: 1
+    path: Assets/Scenes/SZYMON_MERGE_FINAL.unity
+    guid: 68fe8b560595da644a47f53393f7420a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 89ec673ecef0db041b52f4f7bb59675e, type: 3}

@@ -5,13 +5,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MashingPVPMinigameController : PvPMinigameController
+public class MashingPVPMinigameController : MinigameController
 {
-    [SerializeField] private int m_MashDifferenceToWin = 10;
 
+    public Transform Player1Pos;
+    public Transform Player2Pos;
+    
+    [SerializeField] private int m_MashDifferenceToWin = 10;
+    
+    [SerializeField] private MinigameCameraConfig m_Player2CameraConfig;
+    public MinigameCameraConfig Player2CameraConfig => m_Player2CameraConfig;
     [Header("Refs")]
     [SerializeField] private TextMeshProUGUI m_Player1MashCountText;
     [SerializeField] private TextMeshProUGUI m_Player2MashCountText;
+
 
     private int _player1MashCount;
     private int _player2MashCount;
@@ -27,7 +34,7 @@ public class MashingPVPMinigameController : PvPMinigameController
     }
     
 
-    public override void Launch()
+    public void Launch()
     {
         _player1MashCount = 0;
         _player2MashCount = 0;

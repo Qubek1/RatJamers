@@ -43,6 +43,7 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
     {
         base.Launch(launchingPlayer,onPlayerSide, caller);
         gameObject.SetActive(true);
+        _currentlyDragged=_allDraggables[0];
         
         //subscribe to needed input events from player
         PlayerController playerInstance = PlayerController.GetPlayer(launchingPlayer);
@@ -161,7 +162,7 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         foreach (var draggable in _allDraggables)
         {
             //do not switch to used slots, for now???
-            if(draggable.IsInSlot) continue;
+            if(draggable.IsInSlot&&(!IsSabotage())) continue;
             //if its not to the left of from position, ignore it
             if(!IsInDirOf(from,draggable.transform.position,dir))
                 continue;

@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5719491680435450281, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.46
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: 5719491680435450281, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2779,17 +2779,6 @@ Transform:
   - {fileID: 400470968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1055510536 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5954507213801695168, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
-  m_PrefabInstance: {fileID: 1093752115}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a63d53c6ecb64b498d67ca32dae4a22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1073848804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3271,7 +3260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809cbc792ad9d744b9111c4a2b379c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainProgressBar: {fileID: 1262656447}
+  mainProgressBar: {fileID: 0}
   Telewizor: {fileID: 1909044632}
   WorkstationController: {fileID: 678043279}
 --- !u!4 &1217713145
@@ -3449,17 +3438,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1262656447 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5954507213801695168, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
-  m_PrefabInstance: {fileID: 117911164}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a63d53c6ecb64b498d67ca32dae4a22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1297215692
 GameObject:
   m_ObjectHideFlags: 0
@@ -5825,7 +5803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809cbc792ad9d744b9111c4a2b379c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainProgressBar: {fileID: 1055510536}
+  mainProgressBar: {fileID: 0}
   Telewizor: {fileID: 970001819}
   WorkstationController: {fileID: 1757740673}
 --- !u!4 &2050613365

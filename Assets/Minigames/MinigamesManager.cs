@@ -38,10 +38,8 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     private MinigameController CreateMinigameInstance(GameObject minigamePrefab)
     {
         MinigameController minigameInstance= 
-            Instantiate(minigamePrefab).GetComponent<MinigameController>();
-        
-        minigameInstance.transform.position=new Vector3((_minigamesDict.Count+1)*MINIGAME_OFFSET,0,0);
-
+            Instantiate(minigamePrefab,
+                new Vector3((_minigamesDict.Count+1)*MINIGAME_OFFSET,0,0),Quaternion.identity).GetComponent<MinigameController>();
         return minigameInstance;
     }
 

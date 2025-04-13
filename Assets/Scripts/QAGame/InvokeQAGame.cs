@@ -7,6 +7,7 @@ public class InvokeQAGame : MonoBehaviour
 {
     [SerializeField] private MainProgressBar mainProgressBar;
     private BoxCollider2D boxCollider;
+    public Telewizor Telewizor;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class InvokeQAGame : MonoBehaviour
     {
         boxCollider.enabled = true;
         Debug.Log("🎯 BoxCollider2D został włączony!");
+        Telewizor.gameObject.SetActive(true);
     }
 
     // Update is called once per frame

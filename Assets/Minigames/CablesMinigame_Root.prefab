@@ -143,18 +143,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ffe2b814f87b04fa5e1f29282be8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CanBeSabotaged: 1
+  m_SabotageTime: 5
+  m_TimeLimitText: {fileID: 8693363533320755362}
   m_CameraConfig:
     CameraTarget: {fileID: 5670667344497202846}
     CameraOffset: {x: 0, y: 0, z: -5}
     CameraSize: 8
+  UsedByPlayer: 0
+  OnPlayerSide: 0
   cables:
   - {fileID: 5508456201979991852}
   - {fileID: 5639414521096944143}
   - {fileID: 5119364842012999341}
   currentlyControlledCableIndex: 0
   overlapController: {fileID: 2523331262597863208}
-  m_TimeLimitText: {fileID: 8693363533320755362}
-  SabotageTimeLimit: 5
 --- !u!1 &2057161537220887451
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class CablesMinigameController : MinigameController
     public int currentlyControlledCableIndex;
     public CablesOverlapController overlapController;
 
-    [SerializeField] private TextMeshProUGUI m_TimeLimitText;
+    //[SerializeField] private TextMeshProUGUI m_TimeLimitText;
     
-    [SerializeField] private float SabotageTimeLimit = 5f;
+    //[SerializeField] private float SabotageTimeLimit = 5f;
     // Start is called before the first frame update
 
     private InputAction _axisInputAction;
@@ -53,30 +53,7 @@ public class CablesMinigameController : MinigameController
         
         //setup time limit if its a sabotage
         Debug.Log($"IsSabotage: {IsSabotage()}");
-        if (IsSabotage())
-        {
-            m_TimeLimitText.gameObject.SetActive(true);
-            StartCoroutine(SabotageTimeLimitCoroutine());
-        }
-        else
-        {
-            m_TimeLimitText.gameObject.SetActive(false);
-        }
         
-    }
-
-    private IEnumerator SabotageTimeLimitCoroutine()
-    {
-        float timeLeft = SabotageTimeLimit;
-        while (timeLeft > 0)
-        {
-            timeLeft-=Time.deltaTime;
-            m_TimeLimitText.text = timeLeft.ToString("0.00");
-            yield return null;
-
-        }
-        //yield return new WaitForSeconds(SabotageTimeLimit);
-        MinigameLeft();
     }
 
     public override void Hide()

@@ -106,7 +106,7 @@ public class Cable : MonoBehaviour
                 }
             }
             newT = binLow;
-            newPointPosition = initSpline.EvaluatePosition(newT);
+            newPointPosition = GetPositionAtT(newT);
 
             pointsTransform.Add(Instantiate(
                 jointPrefab,

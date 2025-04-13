@@ -8,15 +8,18 @@ public abstract class MinigameController : MonoBehaviour
     [SerializeField] private MinigameCameraConfig m_CameraConfig;
     public MinigameCameraConfig CameraConfig => m_CameraConfig;
     protected int UsedByPlayer;
+
+    protected int OnPlayerSide;
     //public Vector2 CameraTargetPosition => m_CameraTarget.position;
     protected virtual void Start()
     {
         Hide();
     }
 
-    public virtual void Launch(int player)
+    public virtual void Launch(int launchingPlayer,int onPlayerSide)
     {
-        UsedByPlayer = player;
+        UsedByPlayer = launchingPlayer;
+        OnPlayerSide = onPlayerSide;
     }
 
     public abstract void Hide();
@@ -25,6 +28,8 @@ public abstract class MinigameController : MonoBehaviour
     {
         ResetAction?.Invoke();
     }
+
+    protected bool IsSabotage()=>UsedByPlayer!=0&&UsedByPlayer!=OnPlayerSide;
 
     public abstract bool IsCompleted();
     

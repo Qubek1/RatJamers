@@ -38,13 +38,13 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         _currentlyDragged.OnSelected();
     }
     
-    public override void Launch(int player)
+    public override void Launch(int launchingPlayer,int onPlayerSide)
     {
-        base.Launch(player);
+        base.Launch(launchingPlayer,onPlayerSide);
         gameObject.SetActive(true);
         
         //subscribe to needed input events from player
-        PlayerController playerInstance = PlayerController.GetPlayer(player);
+        PlayerController playerInstance = PlayerController.GetPlayer(launchingPlayer);
         _moveAction =
             playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
         _moveAction.Enable();

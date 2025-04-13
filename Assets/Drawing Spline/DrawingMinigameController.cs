@@ -108,12 +108,12 @@ public class DrawingMinigameController : MinigameController
         return previousT;
     }
 
-    public override void Launch(int player)
+    public override void Launch(int launchingPlayer,int onPlayerSide)
     {
-        base.Launch(player);
+        base.Launch(launchingPlayer,onPlayerSide);
         gameObject.SetActive(true);
         move=
-            PlayerController.GetPlayer(player).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+            PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
         nativeSpline.Dispose();
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;

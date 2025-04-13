@@ -51,7 +51,7 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
         {
            //Debug.Log($"Launching {minigameName} minigame");
            MinigameEnteredAction?.Invoke(instance, onSideOf, byPlayer);
-           instance.Launch(byPlayer);
+           instance.Launch(byPlayer,onSideOf);
         }
         else
         {

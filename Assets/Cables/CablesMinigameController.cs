@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,9 @@ public class CablesMinigameController : MinigameController
     public int currentlyControlledCableIndex;
     public CablesOverlapController overlapController;
 
+    [SerializeField] private TextMeshProUGUI m_TimeLimitText;
+    
+    [SerializeField] private float SabotageTimeLimit = 5f;
     // Start is called before the first frame update
 
     private InputAction _axisInputAction;
@@ -19,9 +23,9 @@ public class CablesMinigameController : MinigameController
         base.Start();
     }
 
-    public override void Launch(int player)
+    public override void Launch(int launchingPlayer,int onPlayerSide)
     {
-        base.Launch(player);
+        base.Launch(launchingPlayer,onPlayerSide);
         gameObject.SetActive(true);
         
         overlapController.interactedCable = cables[currentlyControlledCableIndex];
@@ -39,13 +43,40 @@ public class CablesMinigameController : MinigameController
             }
         }
         
-        PlayerController playerInstance= PlayerController.GetPlayer(player);
+        PlayerController playerInstance= PlayerController.GetPlayer(launchingPlayer);
         _axisInputAction =
             playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
         _axisInputAction.Enable();
         //_axisInputAction.Enable();
         playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Exit").performed
             +=ExitMinigameFromInput;
+        
+        //setup time limit if its a sabotage
+        Debug.Log($"IsSabotage: {IsSabotage()}");
+        if (IsSabotage())
+        {
+            m_TimeLimitText.gameObject.SetActive(true);
+            StartCoroutine(SabotageTimeLimitCoroutine());
+        }
+        else
+        {
+            m_TimeLimitText.gameObject.SetActive(false);
+        }
+        
+    }
+
+    private IEnumerator SabotageTimeLimitCoroutine()
+    {
+        float timeLeft = SabotageTimeLimit;
+        while (timeLeft > 0)
+        {
+            timeLeft-=Time.deltaTime;
+            m_TimeLimitText.text = timeLeft.ToString("0.00");
+            yield return null;
+
+        }
+        //yield return new WaitForSeconds(SabotageTimeLimit);
+        MinigameLeft();
     }
 
     public override void Hide()
@@ -55,6 +86,7 @@ public class CablesMinigameController : MinigameController
         PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Exit").performed 
             -= ExitMinigameFromInput;
         gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 
     private void ExitMinigameFromInput(InputAction.CallbackContext context)=>MinigameLeft();

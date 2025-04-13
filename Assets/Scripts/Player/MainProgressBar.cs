@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MainProgressBar : MonoBehaviour
@@ -11,6 +12,10 @@ public class MainProgressBar : MonoBehaviour
     private Transform barTransform;
     private Vector3 initialScale;
     private Vector3 initialPosition;
+    
+    private bool hasTriggered25 = false;
+    
+    public event EventHandler QAeventPlatformMiniGame;
 
     void Start()
     {
@@ -41,5 +46,17 @@ public class MainProgressBar : MonoBehaviour
 
         float deltaX = (initialScale.x - newScaleX) / 2f;
         barTransform.localPosition = initialPosition - new Vector3(deltaX, 0, 0);
+        
+        
+        if (!hasTriggered25 && currentProgress >= 25f)
+        {
+            hasTriggered25 = true;
+            OnProgressReachedQuarter(EventArgs.Empty);
+        }
+    }
+    
+    protected virtual void OnProgressReachedQuarter(EventArgs e)
+    {
+        QAeventPlatformMiniGame?.Invoke(this, e);
     }
 }

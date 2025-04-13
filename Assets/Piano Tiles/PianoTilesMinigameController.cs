@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Splines;
 
-public class PianoTilesMinigameController : MonoBehaviour
+public class PianoTilesMinigameController : MinigameController
 {
     public float currentSpeed = 1;
     public float speedGain = 0.05f;
@@ -18,20 +20,27 @@ public class PianoTilesMinigameController : MonoBehaviour
     private List<LaneButton> lanesButtons = new List<LaneButton>(4);
     private InputActions inputManager;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        inputManager = new InputActions();
-        lanesButtons.Add(new LaneButton(inputManager.UIqbek.WestButton, LaneButtonTap, 0));
-        lanesButtons.Add(new LaneButton(inputManager.UIqbek.NorthButton, LaneButtonTap, 1));
-        lanesButtons.Add(new LaneButton(inputManager.UIqbek.SouthButton, LaneButtonTap, 2));
-        lanesButtons.Add(new LaneButton(inputManager.UIqbek.EastButton, LaneButtonTap, 3));
-        Restart();
         tilesController.missedTimeStampOnLane += MissedTimeStampOnLane;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Launch(int player)
+    {
+        base.Launch(player);
+        gameObject.SetActive(true);
+        InputActionAsset actions = PlayerController.GetPlayer(player).PlayerInput.actions;
+        lanesButtons = new List<LaneButton>(4)
+        {
+            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("WestButton"), LaneButtonTap, 0),
+            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("NorthButton"), LaneButtonTap, 1),
+            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("SouthButton"), LaneButtonTap, 2),
+            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("EastButton"), LaneButtonTap, 3)
+        };
+        Restart();
+    }
+
+    private void Update()
     {
         for (int i = 0; i < lanesButtons.Count; i++)
         {
@@ -43,6 +52,10 @@ public class PianoTilesMinigameController : MonoBehaviour
             {
                 xboxButtons[i].Release();
             }
+        }
+        if (musicController.IsCompleted())
+        {
+            MinigameLeft();
         }
     }
 
@@ -76,6 +89,18 @@ public class PianoTilesMinigameController : MonoBehaviour
         currentSpeed = Mathf.Max(1, currentSpeed);
         musicController.ChangeSpeed(currentSpeed);
     }
+
+    public override void Hide()
+    {
+        gameObject.SetActive(false);
+        foreach (var laneButton in lanesButtons)
+            laneButton.DisconnectFromInputAction();
+    }
+
+    public override bool IsCompleted()
+    {
+        return musicController.IsCompleted();
+    }
 }
 
 class LaneButton
@@ -91,6 +116,12 @@ class LaneButton
         this.argument = argument;
         inputAction.Enable();
         inputAction.performed += Performed;
+    }
+
+    public void DisconnectFromInputAction()
+    {
+        inputAction.Disable();
+        inputAction.performed -= Performed;
     }
 
     private void Performed(InputAction.CallbackContext callbackContext)

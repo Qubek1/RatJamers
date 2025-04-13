@@ -12,8 +12,8 @@ public class InputManager : MonoBehaviour {
     //public static InputActionAsset Player1InputActions;
     //public static InputActionAsset Player2InputActions;
 
-    public event EventHandler InteractEvent;
-    public event EventHandler AlternateInteractEvent;
+    //public event EventHandler InteractEvent;
+    //public event EventHandler AlternateInteractEvent;
 
 
     private void Awake() {

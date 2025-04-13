@@ -197,7 +197,7 @@ public class TilesController : MonoBehaviour
             TimeStampOnLane firstTimeStamp = possibleTimeStamps.OrderBy((timeStamp) => timeStamp.time).First();
             timeStampsNotYetClicked.Remove(firstTimeStamp);
             Tile tile = tilesInUse.Find((tile) => tile.time == firstTimeStamp.time && tile.lane == lane);
-            Debug.Log(tile);
+            //Debug.Log(tile);
             if (tile)
             {
                 tile.Click();

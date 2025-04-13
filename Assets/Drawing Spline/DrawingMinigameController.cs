@@ -18,7 +18,7 @@ public class DrawingMinigameController : MinigameController
     [SerializeField]
     private Rigidbody2D pen;
 
-    [SerializeField] private float m_winConditionPathFill = 0.99f;
+    [SerializeField] private float m_winConditionPathFill = 0.95f;
 
 
     [SerializeField]
@@ -45,11 +45,9 @@ public class DrawingMinigameController : MinigameController
     private List<Vector2> gizmosPoints = new List<Vector2>();
 
     private List<Vector3> lineRendererPoints = new List<Vector3>();
-    
+
     private void Update()
     {
-        //if(UsedByPlayer == 0)
-        //    return;
         gizmosPoints.Clear();
         //Debug.Log(move.ReadValue<Vector2>());
         pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.deltaTime;
@@ -67,11 +65,10 @@ public class DrawingMinigameController : MinigameController
             //followingLineRender.Rebuild();
         }
         lastFramePosition = currentFramePosition;
-        if(currentT>=m_winConditionPathFill)
+        if (IsCompleted())
         {
             MinigameLeft();
         }
-        
     }
 
     private float FindAndSetNewT(Vector2 point)
@@ -121,7 +118,6 @@ public class DrawingMinigameController : MinigameController
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;
         pen.position = PositionOnSpline(0);
-        //followingLineRender.Range = new Vector2(0, 0.01f);
         lineRenderer = GetComponent<LineRenderer>();
         lineRendererPoints.Add(pen.position);
         lineRenderer.positionCount = 1;
@@ -133,7 +129,7 @@ public class DrawingMinigameController : MinigameController
         for (int i = 0; i < gizmosPoints.Count; i++)
         {
             Gizmos.color = gizmosGradient.Evaluate(((float)i) / gizmosPoints.Count);
-            Gizmos.DrawWireSphere(gizmosPoints[i], 0.1f);
+            Gizmos.DrawWireSphere(gizmosPoints[i], 2f);
         }
     }
 
@@ -159,6 +155,6 @@ public class DrawingMinigameController : MinigameController
 
     public override bool IsCompleted()
     {
-        return false;
+        return currentT > m_winConditionPathFill;
     }
 }

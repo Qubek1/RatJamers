@@ -2685,6 +2685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StartPVPMinigameTime: 5
+  m_PVPStartDelay: 1
+  _timeLeftUntilPVP: 0
 --- !u!114 &839966893 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3029871970061807662, guid: b487919d206e8d84b80ffaa1ed64b7cf, type: 3}
@@ -3564,7 +3566,6 @@ MonoBehaviour:
     MinigameName: cables_1
   - Prefab: {fileID: 1787956144983663102, guid: 3d0b5f83fb402b14db3da05c91258836, type: 3}
     MinigameName: cables_2
-  m_PVPMinigameInstance: {fileID: 8692433491613421057}
 --- !u!4 &1085111371
 Transform:
   m_ObjectHideFlags: 0
@@ -6230,19 +6231,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe35a1c468fd3c48b526af69acb5721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CameraConfig:
-    CameraTarget: {fileID: 6162608036681483715}
-    CameraOffset: {x: 0, y: 0, z: -10}
-    CameraSize: 10
+  m_CameraConfig: {CameraTarget: {fileID: 6162608036681483715}, CameraOffset: {x: 0, y: 0, z: -10}, CameraSize: 10}
+  UsedByPlayer: 0
+  OnPlayerSide: 0
   Player1Pos: {fileID: 684535377}
   Player2Pos: {fileID: 2042808220}
   m_MashDifferenceToWin: 10
-  m_Player2CameraConfig:
-    CameraTarget: {fileID: 1621245412}
-    CameraOffset: {x: 0, y: 0, z: -10}
-    CameraSize: 10
+  m_Player2CameraConfig: {CameraTarget: {fileID: 1621245412}, CameraOffset: {x: 0, y: 0, z: -10}, CameraSize: 10}
   m_Player1MashCountText: {fileID: 1654776352}
   m_Player2MashCountText: {fileID: 39149657}
+  _player1MashCount: 0
+  _player2MashCount: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

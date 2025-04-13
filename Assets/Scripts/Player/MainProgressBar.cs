@@ -35,6 +35,8 @@ public class MainProgressBar : MonoBehaviour
 
         float ratio = currentProgress / maxProgress;
         float newScaleX = initialScale.x * ratio;
+        //if (Mathf.Approximately(newScaleX, 0))
+        //    newScaleX = 1;
         barTransform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
 
         float deltaX = (initialScale.x - newScaleX) / 2f;

@@ -65,17 +65,9 @@ public class Cable : MonoBehaviour
     private float lastDisconnectionTime = -1;
     private float lastInputTime = -1f;
     private Vector2 inputVector = Vector2.zero;
+    
 
-    void Start()
-    {
-        InitSplineCable();
-        if (connected)
-        {
-            Connect();
-        }
-    }
-
-    private void InitSplineCable()
+    public void InitSplineCable()
     {
         initSpline = new NativeSpline(GetComponent<SplineContainer>().Spline);
         pointsTransform = new List<Transform>();
@@ -149,6 +141,10 @@ public class Cable : MonoBehaviour
         points = new Vector3[jointsCount + 1];
         lineRenderer.positionCount = jointsCount + 1;
         UpdateLineRenderer();
+        if (connected)
+        {
+            Connect();
+        }
     }
 
     private void InitLineCable()

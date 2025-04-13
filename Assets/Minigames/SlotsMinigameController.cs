@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class SlotsMinigameController : MonoBehaviour, InputActions.IUIActions
+public class SlotsMinigameController : MonoBehaviour//, InputActions.IUIActions
 {
     private List<SlotComponent> _allSlots = new();
     private List<PuttableComponent> _allPuttables = new();

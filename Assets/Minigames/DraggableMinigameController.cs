@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class DraggableMinigameController : MinigameController, InputActions.IUIActions
+public class DraggableMinigameController : MinigameController//, InputActions.IUIActions
 {
     public const float DRAGGABLE_POSITION_THRESHOLD = 1.5f;
     public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;

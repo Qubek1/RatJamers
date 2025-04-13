@@ -293,7 +293,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -342,6 +342,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""7803a2b6-9795-46ff-bbff-aba31c175cf0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -762,6 +771,17 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a781fed-3167-4f83-912a-745e4bbc0956"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1878,6 +1898,7 @@ namespace UnityEngine.InputSystem
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
             m_UI_Reset = m_UI.FindAction("Reset", throwIfNotFound: true);
             m_UI_Rotate = m_UI.FindAction("Rotate", throwIfNotFound: true);
+            m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
             // UI-qbek
             m_UIqbek = asset.FindActionMap("UI-qbek", throwIfNotFound: true);
             m_UIqbek_Navigate = m_UIqbek.FindAction("Navigate", throwIfNotFound: true);
@@ -2050,6 +2071,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_UI_Navigate;
         private readonly InputAction m_UI_Reset;
         private readonly InputAction m_UI_Rotate;
+        private readonly InputAction m_UI_Exit;
         public struct UIActions
         {
             private @InputActions m_Wrapper;
@@ -2062,6 +2084,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
             public InputAction @Reset => m_Wrapper.m_UI_Reset;
             public InputAction @Rotate => m_Wrapper.m_UI_Rotate;
+            public InputAction @Exit => m_Wrapper.m_UI_Exit;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -2095,6 +2118,9 @@ namespace UnityEngine.InputSystem
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -2123,6 +2149,9 @@ namespace UnityEngine.InputSystem
                 @Rotate.started -= instance.OnRotate;
                 @Rotate.performed -= instance.OnRotate;
                 @Rotate.canceled -= instance.OnRotate;
+                @Exit.started -= instance.OnExit;
+                @Exit.performed -= instance.OnExit;
+                @Exit.canceled -= instance.OnExit;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -2460,6 +2489,7 @@ namespace UnityEngine.InputSystem
             void OnNavigate(InputAction.CallbackContext context);
             void OnReset(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
+            void OnExit(InputAction.CallbackContext context);
         }
         public interface IUIqbekActions
         {

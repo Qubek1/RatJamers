@@ -9,6 +9,10 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float smoothSpeed = 0.125f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10);
 
+
+    private float _defaultOrthoSize;
+    private Vector3 _defaultOffset;
+
     private Camera _camera;
 
    // private Vector2 _targetPos;
@@ -16,6 +20,8 @@ public class PlayerCameraController : MonoBehaviour
     private void Awake()
     {
         _camera=GetComponent<Camera>();
+        _defaultOrthoSize=_camera.orthographicSize;
+        _defaultOffset=offset;
     }
 
     void Update()
@@ -44,9 +50,25 @@ public class PlayerCameraController : MonoBehaviour
     */
     public void SetTarget(Transform newTarget)
     {
-        Debug.Log($"Setting {gameObject.name} camera target to {newTarget}");
+        //Debug.Log($"Setting {gameObject.name} camera target to {newTarget}");
         target = newTarget;
         transform.position= newTarget.position + offset;
+    }
+
+    public void SetConfig(MinigameCameraConfig config)
+    {
+        SetTarget(config.CameraTarget);
+        offset = config.CameraOffset;
+        _camera.orthographicSize = config.CameraSize;
+    }
+
+    /// <summary>
+    /// restore the camera state to default follow player state
+    /// </summary>
+    public void ResetCamera()
+    {
+        _camera.orthographicSize= _defaultOrthoSize;
+        offset = _defaultOffset;
     }
 /*
     public void SetTarget(Vector2 pos)

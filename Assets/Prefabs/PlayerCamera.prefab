@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   smoothSpeed: 0.125
-  offset: {x: 0, y: 0, z: -10}
+  offset: {x: 0, y: 0, z: -5}
 --- !u!20 &270711772569141883
 Camera:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:

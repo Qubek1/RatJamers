@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
     public PlayerInput PlayerInput => m_PlayerInput;
     //[SerializeField] private PlayerCameraController m_CameraPrefab;
     [SerializeField] private PlayerCameraController m_CameraController;
+    public PlayerCameraController GetCameraController() => m_CameraController;
     
     private Rigidbody2D _rb;
     private Vector2 _movementInput = Vector2.zero;
@@ -95,7 +96,8 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         if(byPlayer!=GetPlayerNumber()) return;
         m_PlayerInput.SwitchCurrentActionMap("UI");
         //m_PlayerInput.DeactivateInput();
-        m_CameraController.SetTarget(entered.CameraTarget);
+        //m_CameraController.SetTarget(entered.CameraConfig.CameraTarget);
+        m_CameraController.SetConfig(entered.CameraConfig);
     }
 
     private void HandleMinigameLeft(int player)
@@ -104,6 +106,7 @@ public class PlayerController : MonoBehaviour, InputActions.IPlayerActions
         if(player!=GetPlayerNumber()) return;
         m_PlayerInput.SwitchCurrentActionMap("Player");
         //m_PlayerInput.ActivateInput();
+        m_CameraController.ResetCamera();
         m_CameraController.SetTarget(transform);
     }
 

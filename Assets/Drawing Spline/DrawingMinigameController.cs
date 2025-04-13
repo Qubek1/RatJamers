@@ -18,6 +18,8 @@ public class DrawingMinigameController : MinigameController
     [SerializeField]
     private Rigidbody2D pen;
 
+    [SerializeField] private float m_winConditionPathFill = 0.99f;
+
 
     [SerializeField]
     private SplineContainer splineContainer;
@@ -43,24 +45,11 @@ public class DrawingMinigameController : MinigameController
     private List<Vector2> gizmosPoints = new List<Vector2>();
 
     private List<Vector3> lineRendererPoints = new List<Vector3>();
-
-    private void Awake()
-    {
-        //inputActions = new InputActions();
-        //inputActions.Enable();
-        //move = inputActions.Player.Move;
-        nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
-        currentT = 0;
-        pen.position = PositionOnSpline(0);
-        //followingLineRender.Range = new Vector2(0, 0.01f);
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRendererPoints.Add(pen.position);
-        lineRenderer.positionCount = 1;
-        lineRenderer.SetPositions(lineRendererPoints.ToArray());
-    }
-
+    
     private void Update()
     {
+        //if(UsedByPlayer == 0)
+        //    return;
         gizmosPoints.Clear();
         //Debug.Log(move.ReadValue<Vector2>());
         pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.deltaTime;
@@ -78,6 +67,11 @@ public class DrawingMinigameController : MinigameController
             //followingLineRender.Rebuild();
         }
         lastFramePosition = currentFramePosition;
+        if(currentT>=m_winConditionPathFill)
+        {
+            MinigameLeft();
+        }
+        
     }
 
     private float FindAndSetNewT(Vector2 point)
@@ -123,6 +117,15 @@ public class DrawingMinigameController : MinigameController
         gameObject.SetActive(true);
         move=
             PlayerController.GetPlayer(player).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
+        
+        nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
+        currentT = 0;
+        pen.position = PositionOnSpline(0);
+        //followingLineRender.Range = new Vector2(0, 0.01f);
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRendererPoints.Add(pen.position);
+        lineRenderer.positionCount = 1;
+        lineRenderer.SetPositions(lineRendererPoints.ToArray());
     }
 
     private void OnDrawGizmos()

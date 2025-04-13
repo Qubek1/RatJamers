@@ -4,8 +4,9 @@ using UnityEngine;
 public abstract class MinigameController : MonoBehaviour
 {
     public static event Action ResetAction;
-    [SerializeField] public Transform CameraTarget;
-
+    //[SerializeField] public Transform CameraTarget;
+    [SerializeField] private MinigameCameraConfig m_CameraConfig;
+    public MinigameCameraConfig CameraConfig => m_CameraConfig;
     protected int UsedByPlayer;
     //public Vector2 CameraTargetPosition => m_CameraTarget.position;
     protected virtual void Start()
@@ -34,4 +35,12 @@ public abstract class MinigameController : MonoBehaviour
         UsedByPlayer = 0;
         gameObject.SetActive(false);
     }
+}
+
+[Serializable]
+public struct MinigameCameraConfig
+{
+    public Transform CameraTarget;
+    public Vector3 CameraOffset;
+    public float CameraSize;
 }

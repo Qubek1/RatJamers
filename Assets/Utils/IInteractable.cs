@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IInteractable
 {
     public void Interact(int playerInteracting);
-    public bool IsInteractable();
+    public bool IsInteractable(int playerInteracting);
 }

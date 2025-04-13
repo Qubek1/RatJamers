@@ -28,6 +28,12 @@ public class ProductivityBar : MonoBehaviour {
         initialScale = barTransform.localScale;
         initialPosition = barTransform.localPosition;
         currentProductivity = maxProductivity;
+        MinigamesManager.MinigameLeftAction += HandleMinigameEnd;
+    }
+
+    private void HandleMinigameEnd(int playerLeft)
+    {
+        
     }
 
     void Update() {

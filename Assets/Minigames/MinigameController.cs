@@ -7,19 +7,24 @@ public abstract class MinigameController : MonoBehaviour
     //[SerializeField] public Transform CameraTarget;
     [SerializeField] private MinigameCameraConfig m_CameraConfig;
     public MinigameCameraConfig CameraConfig => m_CameraConfig;
-    protected int UsedByPlayer;
+    public int UsedByPlayer;
 
-    protected int OnPlayerSide;
+    public int OnPlayerSide;
+
+    protected bool _isFinishedCorrectly;
+
+    private WorkstationController _callingWorker;
     //public Vector2 CameraTargetPosition => m_CameraTarget.position;
     protected virtual void Start()
     {
         Hide();
     }
 
-    public virtual void Launch(int launchingPlayer,int onPlayerSide)
+    public virtual void Launch(int launchingPlayer,int onPlayerSide, WorkstationController caller)
     {
         UsedByPlayer = launchingPlayer;
         OnPlayerSide = onPlayerSide;
+        _callingWorker = caller;
     }
 
     public abstract void Hide();
@@ -37,6 +42,7 @@ public abstract class MinigameController : MonoBehaviour
     {
         Debug.Log($"Minigame {gameObject.name} Correctly Finished!");
         MinigamesManager.MinigameLeftAction?.Invoke(UsedByPlayer);
+        _callingWorker.UpdateProductivity(50f);
         UsedByPlayer = 0;
         gameObject.SetActive(false);
     }

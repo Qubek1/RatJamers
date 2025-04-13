@@ -7,11 +7,12 @@ using UnityEngine.InputSystem;
 
 public class DraggableMinigameController : MinigameController//, InputActions.IUIActions
 {
-    public const float DRAGGABLE_POSITION_THRESHOLD = 1.5f;
+    public const float DRAGGABLE_POSITION_THRESHOLD = 2.5f;
     public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;
     
 
     [SerializeField] private bool m_Rotatable;
+    //[SerializeField] private float m_Draggable_Proximity_Threshold=;
     
     private List<DraggableComponent> _allDraggables = new();
     
@@ -38,9 +39,9 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         _currentlyDragged.OnSelected();
     }
     
-    public override void Launch(int launchingPlayer,int onPlayerSide)
+    public override void Launch(int launchingPlayer,int onPlayerSide, WorkstationController caller)
     {
-        base.Launch(launchingPlayer,onPlayerSide);
+        base.Launch(launchingPlayer,onPlayerSide, caller);
         gameObject.SetActive(true);
         
         //subscribe to needed input events from player

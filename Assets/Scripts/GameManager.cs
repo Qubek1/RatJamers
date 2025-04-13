@@ -8,6 +8,9 @@ public class GameManager : MonoSingleton<GameManager>
     [Tooltip("In seconds since game start")]
     [SerializeField] private float m_StartPVPMinigameTime;
 
+    [Tooltip("After waiting for both players to finish a minigame. Dont make it too long")]
+    [SerializeField] private float m_PVPStartDelay=1f;
+
     private float _timeLeftUntilPVP;
 
     private void Start()
@@ -34,7 +37,8 @@ public class GameManager : MonoSingleton<GameManager>
     private IEnumerator TriggerPVPMinigameCoroutine()
     {
         yield return new WaitUntil(() => !PlayerController.IsAnyInMinigame());
-        
+
+        yield return new WaitForSeconds(m_PVPStartDelay);
         // Start the PVP minigame here
         MinigamesManager.Instance.LaunchPVPMinigame();
     }

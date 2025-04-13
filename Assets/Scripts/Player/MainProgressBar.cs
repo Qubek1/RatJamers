@@ -34,7 +34,7 @@ public class MainProgressBar : MonoBehaviour
         m_UISlider.value = progressRatio;
         
         
-        if (!hasTriggered25 && progressRatio >= 0.25f)
+        if (!hasTriggered25 && progressRatio >= 1f)
         {
             hasTriggered25 = true;
             OnProgressReachedQuarter(EventArgs.Empty);

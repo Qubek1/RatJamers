@@ -166,7 +166,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxProductivity: 100
   currentProductivity: 0
-  drainRate: 5
+  drainRate: 6
+  fullColor: {r: 0, g: 1, b: 0, a: 1}
+  midColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lowColor: {r: 1, g: 0, b: 0, a: 1}
+  blinkThreshold: 0.4
+  blinkSpeed: 4
 --- !u!1 &5923220132445279891
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +364,7 @@ Transform:
   m_GameObject: {fileID: 8266617720327859248}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.98, z: 0}
+  m_LocalPosition: {x: 0, y: 0.98, z: 0.5}
   m_LocalScale: {x: 1.34, y: 0.26736635, z: 0.74338967}
   m_ConstrainProportionsScale: 1
   m_Children: []

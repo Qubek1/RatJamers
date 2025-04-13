@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,14 @@ public class PlayerInteractionComponent : MonoBehaviour
 {
     
     private HashSet<IInteractable> _availableInteractables = new();
+    int _ownerPlayerNumber;
+
+    private void Start()
+    {
+        PlayerController owner = GetComponent<PlayerController>();
+        _ownerPlayerNumber = owner.GetPlayerNumber();
+    }
+
     public void RegisterInteractable(IInteractable interactable)
     {
         if(_availableInteractables.Contains(interactable))
@@ -36,7 +45,7 @@ public class PlayerInteractionComponent : MonoBehaviour
         IInteractable closestInteractable = null;
         float minDistance = float.MaxValue;
         foreach(IInteractable interactable in _availableInteractables){
-            if(!interactable.IsInteractable()) continue;
+            if(!interactable.IsInteractable(_ownerPlayerNumber)) continue;
             Component interactableComponent = interactable as Component;
             if(!interactableComponent) continue; //handle possible NullRefException
             

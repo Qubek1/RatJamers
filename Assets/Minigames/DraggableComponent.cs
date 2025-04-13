@@ -52,6 +52,7 @@ public class DraggableComponent : MonoBehaviour
 
     public void OnDeselected()
     {
+        if(IsInSlot) return;
         m_SpriteRenderer.color = GetColorWithAlpha(m_SpriteRenderer.color, 0.5f);
     }
 

@@ -25,9 +25,9 @@ public class PianoTilesMinigameController : MinigameController
         tilesController.missedTimeStampOnLane += MissedTimeStampOnLane;
     }
 
-    public override void Launch(int launchingPlayer,int onPlayerSide)
+    public override void Launch(int launchingPlayer,int onPlayerSide,WorkstationController caller)
     {
-        base.Launch(launchingPlayer,onPlayerSide);
+        base.Launch(launchingPlayer,onPlayerSide,caller);
         gameObject.SetActive(true);
         InputActionAsset actions = PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions;
         lanesButtons = new List<LaneButton>(4)

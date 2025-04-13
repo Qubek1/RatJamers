@@ -108,9 +108,9 @@ public class DrawingMinigameController : MinigameController
         return previousT;
     }
 
-    public override void Launch(int launchingPlayer,int onPlayerSide)
+    public override void Launch(int launchingPlayer,int onPlayerSide,WorkstationController caller)
     {
-        base.Launch(launchingPlayer,onPlayerSide);
+        base.Launch(launchingPlayer,onPlayerSide,caller);
         gameObject.SetActive(true);
         move=
             PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Move");

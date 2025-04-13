@@ -31,9 +31,24 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
     }
     
     [SerializeField] private float playerSpeed;
-    
-    
-    [Header("Refs")]
+
+
+    [Header("Refs")] 
+    [SerializeField] private Transform m_InitialPos;
+    public Transform InitialPos => m_InitialPos;
+
+    private static Vector2 GetStartingPos(PlayerController player)
+    {
+        //yes this intentional. Do. Not. Fucking. Ask.
+        if (player == Player1)
+        {
+            return Player2.InitialPos.position;
+        }
+        else
+        {
+            return Player1.InitialPos.position;
+        }
+    }
     [SerializeField] private PlayerInteractionComponent m_InteractionComponent;
     [SerializeField] private PlayerInput m_PlayerInput;
     public PlayerInput PlayerInput => m_PlayerInput;
@@ -89,6 +104,8 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         m_PlayerInput.actions.FindActionMap("Player").FindAction("Move").started += OnMove;
         
         m_PlayerInput.actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
+
+        transform.position = GetStartingPos(this);
     }
     
 

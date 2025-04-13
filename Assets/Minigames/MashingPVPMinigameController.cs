@@ -30,11 +30,6 @@ public class MashingPVPMinigameController : MinigameController
         
         base.Start();
     }
-
-    public override void Launch(int launchingPlayer, int onPlayerSide)
-    {
-        base.Launch(launchingPlayer, onPlayerSide);
-    }
     
     void Update()
     {

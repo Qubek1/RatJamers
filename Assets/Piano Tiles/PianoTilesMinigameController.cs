@@ -5,9 +5,12 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
+using UnityEngine.UIElements;
 
 public class PianoTilesMinigameController : MinigameController
 {
+    public float maxProgress;
+
     public float currentSpeed = 1;
     public float speedGain = 0.05f;
     public float speedLossLoss = 0.2f;
@@ -17,6 +20,11 @@ public class PianoTilesMinigameController : MinigameController
     public TilesController tilesController;
     public List<XboxButton> xboxButtons;
 
+    [SerializeField]
+    private int correct = 0;
+    [SerializeField]
+    private int incorrect = 0;
+
     private List<LaneButton> lanesButtons = new List<LaneButton>(4);
     private InputActions inputManager;
 
@@ -25,17 +33,16 @@ public class PianoTilesMinigameController : MinigameController
         tilesController.missedTimeStampOnLane += MissedTimeStampOnLane;
     }
 
-    public override void Launch(int launchingPlayer,int onPlayerSide,WorkstationController caller)
+    public override void Launch(PlayerController interactingPlayer)
     {
-        base.Launch(launchingPlayer,onPlayerSide,caller);
+        base.Launch(interactingPlayer);
         gameObject.SetActive(true);
-        InputActionAsset actions = PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions;
         lanesButtons = new List<LaneButton>(4)
         {
-            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("WestButton"), LaneButtonTap, 0),
-            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("NorthButton"), LaneButtonTap, 1),
-            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("SouthButton"), LaneButtonTap, 2),
-            new LaneButton(actions.FindActionMap("ButtonInOrder").FindAction("EastButton"), LaneButtonTap, 3)
+            new LaneButton(interactingPlayer.minigameButtonsAction[0], LaneButtonTap, 0),
+            new LaneButton(interactingPlayer.minigameButtonsAction[1], LaneButtonTap, 1),
+            new LaneButton(interactingPlayer.minigameButtonsAction[2], LaneButtonTap, 2),
+            new LaneButton(interactingPlayer.minigameButtonsAction[3], LaneButtonTap, 3)
         };
         Restart();
     }
@@ -55,7 +62,7 @@ public class PianoTilesMinigameController : MinigameController
         }
         if (musicController.IsCompleted())
         {
-            MinigameLeft();
+            MinigameFinish(maxProgress * ((float)correct / (correct + incorrect)));
         }
     }
 
@@ -66,6 +73,8 @@ public class PianoTilesMinigameController : MinigameController
         currentSpeed = 1;
         tilesController.maxError = maxError;
         tilesController.Restart();
+        correct = 0;
+        incorrect = 0;
     }
 
     private void LaneButtonTap(int lane)
@@ -73,10 +82,12 @@ public class PianoTilesMinigameController : MinigameController
         if (tilesController.ActionOnLane(lane))
         {
             currentSpeed += speedGain;
+            correct++;
         }
         else
         {
             currentSpeed -= speedLossLoss;
+            incorrect++;
         }
         currentSpeed = Mathf.Max(1, currentSpeed);
         musicController.ChangeSpeed(currentSpeed);
@@ -88,18 +99,29 @@ public class PianoTilesMinigameController : MinigameController
         currentSpeed -= speedLossLoss;
         currentSpeed = Mathf.Max(1, currentSpeed);
         musicController.ChangeSpeed(currentSpeed);
+        incorrect++;
     }
 
     public override void Hide()
     {
-        gameObject.SetActive(false);
         foreach (var laneButton in lanesButtons)
             laneButton.DisconnectFromInputAction();
+        gameObject.SetActive(false);
     }
 
     public override bool IsCompleted()
     {
         return musicController.IsCompleted();
+    }
+
+    public override bool CanStartNegative()
+    {
+        return false;
+    }
+
+    public override bool CanStartPositive()
+    {
+        return true;
     }
 }
 

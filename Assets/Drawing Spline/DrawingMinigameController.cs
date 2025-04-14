@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 
 public class DrawingMinigameController : MinigameController
 {
-    public float maxMadeError = 0;
+    public float progress;
 
     [SerializeField]
     private float maxPossibleError = 1f;
@@ -57,7 +57,7 @@ public class DrawingMinigameController : MinigameController
         if (newT > currentT && Vector2.Distance(PositionOnSpline(newT), pen.position) < maxPossibleError)
         {
             currentT = newT;
-            maxMadeError = Mathf.Max(maxMadeError,Vector2.Distance(PositionOnSpline(currentT), currentFramePosition));
+            //maxMadeError = Mathf.Max(maxMadeError,Vector2.Distance(PositionOnSpline(currentT), currentFramePosition));
             lineRendererPoints.Add(pen.position);
             lineRenderer.positionCount++;
             lineRenderer.SetPositions(lineRendererPoints.ToArray());
@@ -67,7 +67,7 @@ public class DrawingMinigameController : MinigameController
         lastFramePosition = currentFramePosition;
         if (IsCompleted())
         {
-            MinigameLeft();
+            MinigameFinish(progress);
         }
     }
 
@@ -108,13 +108,11 @@ public class DrawingMinigameController : MinigameController
         return previousT;
     }
 
-    public override void Launch(int launchingPlayer,int onPlayerSide,WorkstationController caller)
+    public override void Launch(PlayerController interactingPlayer)
     {
-        base.Launch(launchingPlayer,onPlayerSide,caller);
+        base.Launch(interactingPlayer);
         gameObject.SetActive(true);
-        move=
-            PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Move");
-        nativeSpline.Dispose();
+        move = interactingPlayer.minigameMoveAction;
         nativeSpline = new NativeSpline(splineContainer.Spline, Unity.Collections.Allocator.Persistent);
         currentT = 0;
         pen.position = PositionOnSpline(0);
@@ -150,11 +148,22 @@ public class DrawingMinigameController : MinigameController
     private Vector2 Float3ToVector2(float3 v) => new Vector2(v.x, v.y);
     public override void Hide()
     {
+        nativeSpline.Dispose();
         gameObject.SetActive(false);
     }
 
     public override bool IsCompleted()
     {
         return currentT > m_winConditionPathFill;
+    }
+
+    public override bool CanStartNegative()
+    {
+        return false;
+    }
+
+    public override bool CanStartPositive()
+    {
+        return true;
     }
 }

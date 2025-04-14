@@ -7,6 +7,8 @@ using System;
 public class ClickingOrderMinigameController : MinigameController
 {
     [SerializeField]
+    private float progress;
+    [SerializeField]
     private ClickingOrderController clickingOrderController;
 
     private List<InputButton> inputsList;
@@ -15,21 +17,20 @@ public class ClickingOrderMinigameController : MinigameController
     {
         if (IsCompleted())
         {
-            MinigameLeft();
+            MinigameFinish(progress);
         }
     }
 
-    public override void Launch(int launchingPlayer, int onPlayerSide, WorkstationController caller)
+    public override void Launch(PlayerController interactingPlayer)
     {
-        base.Launch(launchingPlayer, onPlayerSide, caller);
+        base.Launch(interactingPlayer);
         gameObject.SetActive(true);
-        InputActionAsset actions = PlayerController.GetPlayer(launchingPlayer).PlayerInput.actions;
         inputsList = new List<InputButton>()
         {
-            new InputButton(actions.FindActionMap("ButtonInOrder").FindAction("WestButton"), clickingOrderController.Click, 0),
-            new InputButton(actions.FindActionMap("ButtonInOrder").FindAction("NorthButton"), clickingOrderController.Click, 1),
-            new InputButton(actions.FindActionMap("ButtonInOrder").FindAction("SouthButton"), clickingOrderController.Click, 2),
-            new InputButton(actions.FindActionMap("ButtonInOrder").FindAction("EastButton"), clickingOrderController.Click, 3)
+            new InputButton(interactingPlayer.minigameButtonsAction[0], clickingOrderController.Click, 0),
+            new InputButton(interactingPlayer.minigameButtonsAction[1], clickingOrderController.Click, 1),
+            new InputButton(interactingPlayer.minigameButtonsAction[2], clickingOrderController.Click, 2),
+            new InputButton(interactingPlayer.minigameButtonsAction[3], clickingOrderController.Click, 3)
         };
         List<int> inputsOrder = new List<int>();
         for (int i = 0; i < clickingOrderController.lenght; i++)
@@ -53,6 +54,16 @@ public class ClickingOrderMinigameController : MinigameController
     public override bool IsCompleted()
     {
         return clickingOrderController.IsComplete();
+    }
+
+    public override bool CanStartNegative()
+    {
+        return false;
+    }
+
+    public override bool CanStartPositive()
+    {
+        return true;
     }
 }
 

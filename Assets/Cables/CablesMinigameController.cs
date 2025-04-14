@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class CablesMinigameController : MinigameController
 {
+    public float maxSabotageTime = 10;
     public List<Cable> cables;
     public int currentlyControlledCableIndex;
     public CablesOverlapController overlapController;
@@ -16,14 +17,34 @@ public class CablesMinigameController : MinigameController
     // Start is called before the first frame update
 
     private InputAction _axisInputAction;
+    private float launchTime;
 
-    public override void Launch(int launchingPlayer,int onPlayerSide,WorkstationController caller)
+    public override void Launch(PlayerController interactingPlayer)
     {
-        base.Launch(launchingPlayer,onPlayerSide, caller);
+        base.Launch(interactingPlayer);
         gameObject.SetActive(true);
-        
+
+        interactingPlayer.minigameButtonsAction[0].performed += HandleCableChanged1;
+        interactingPlayer.minigameButtonsAction[1].performed += HandleCableChanged2;
+        interactingPlayer.minigameButtonsAction[2].performed += HandleCableChanged3;
+        _axisInputAction = interactingPlayer.minigameMoveAction;
+
+        launchTime = Time.time;
+        //_axisInputAction.Enable();
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Exit").performed
+        //    +=ExitMinigameFromInput;
+
+        //setup time limit if its a sabotage
+        //Debug.Log($"IsSabotage: {IsSabotage()}");
+
+    }
+
+    protected override void Start()
+    {
+        // base.Start();
+        gameObject.SetActive(false);
         overlapController.interactedCable = cables[currentlyControlledCableIndex];
-        
+
         for (int cableIndex = 0; cableIndex < cables.Count; cableIndex++)
         {
             cables[cableIndex].InitSplineCable();
@@ -36,33 +57,6 @@ public class CablesMinigameController : MinigameController
                 cables[cableIndex].Deselect();
             }
         }
-        
-        PlayerController playerInstance= PlayerController.GetPlayer(UsedByPlayer);
-        Debug.Log("IsPlayedNull: " + playerInstance == null);
-        _axisInputAction =
-            playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
-        _axisInputAction.Enable();
-
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("SouthButton").performed +=
-            HandleCableChanged1;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("EastButton").performed +=
-            HandleCableChanged2;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("WestButton").performed +=
-            HandleCableChanged3;
-        
-        //_axisInputAction.Enable();
-        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Exit").performed
-        //    +=ExitMinigameFromInput;
-
-        //setup time limit if its a sabotage
-        //Debug.Log($"IsSabotage: {IsSabotage()}");
-
-    }
-
-    protected override void Start()
-    {
-       // base.Start();
-       gameObject.SetActive(false);
     }
 
     public override void Hide()
@@ -72,14 +66,10 @@ public class CablesMinigameController : MinigameController
         //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Exit").performed 
         //    -= ExitMinigameFromInput;
         gameObject.SetActive(false);
-        PlayerController playerInstance= PlayerController.GetPlayer(UsedByPlayer);
-        
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("SouthButton").performed -=
-            HandleCableChanged1;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("EastButton").performed -=
-            HandleCableChanged2;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("WestButton").performed -=
-            HandleCableChanged3;
+
+        interactingPlayer.minigameButtonsAction[0].performed -= HandleCableChanged1;
+        interactingPlayer.minigameButtonsAction[1].performed -= HandleCableChanged2;
+        interactingPlayer.minigameButtonsAction[2].performed -= HandleCableChanged3;
         StopAllCoroutines();
     }
 
@@ -130,9 +120,28 @@ public class CablesMinigameController : MinigameController
     // Update is called once per frame
     void Update()
     {
-        if(IsCompleted())
-            MinigameLeft();
         Vector2 inputVector = _axisInputAction.ReadValue<Vector2>();
         cables[currentlyControlledCableIndex].SetMovementVector(inputVector.x * Vector2.right + inputVector.y * Vector2.up);
+        if (IsCompleted() && !IsSabotage())
+        {
+            workStation.GetComponent<Animator>().SetTrigger("Fixed");
+            MinigameFinish(100);
+        }
+        else if (IsSabotage() && Time.time > launchTime + maxSabotageTime)
+        {
+            if (!IsCompleted())
+            {
+                workStation.GetComponent<Animator>().SetTrigger("Sabotaged");
+                MinigameFinish(-100);
+            }
+            else
+                MinigameFinish(0);
+        }
+        Debug.Log($"is completed {IsCompleted().ToString()}");
+        Debug.Log($"is sabotage {IsSabotage().ToString()}");
     }
+
+    public override bool CanStartNegative() => IsCompleted();
+
+    public override bool CanStartPositive() => !IsCompleted();
 }

@@ -201,6 +201,127 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""eae85259-713d-443f-abac-b5fa25444484"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""580aaef9-89cc-4779-a900-8d0213a9686d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""23716222-288f-4515-8e84-ceff2a57ea85"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7ec0fd5f-206f-4609-85b7-57b763d99f11"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""081ae934-a2df-4bff-8ead-8d2d32a5085c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""cae3cc19-d095-49d6-9221-1f981d94682c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""eab3ca43-f584-4463-8211-4a076ff9795e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ec0d3d7b-bac4-474e-be5a-934574ef1d29"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0f61b3a8-e5b0-4cd1-8b69-2d3f7c66ac32"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a164e9ac-e949-4f32-ae95-d8b406f2f443"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""b74e2e85-384c-42e4-a8c5-bc54e6f13ee7"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
                     ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -238,7 +359,7 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";KeyboardWSAD"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -250,6 +371,17 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2567805e-411e-40f9-bf16-f3b2282c8e0c"",
+                    ""path"": ""<Keyboard>/numpad0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1811,7 +1943,7 @@ namespace UnityEngine.InputSystem
             ]
         },
         {
-            ""name"": ""ButtonInOrder"",
+            ""name"": ""MiniGame"",
             ""id"": ""64c067e7-d854-4958-9411-3b5c61ab940e"",
             ""actions"": [
                 {
@@ -1849,6 +1981,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""701f3009-a04b-4222-897f-3ff1e04f51a5"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -1869,7 +2010,18 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a04b7202-0801-410c-8dbc-06ad3e9796cd"",
+                    ""path"": ""<Keyboard>/numpad2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
                     ""action"": ""NorthButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1891,7 +2043,18 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a9bbfe0-e7e5-4af1-8cc5-dd22069a18d2"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
                     ""action"": ""EastButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1913,7 +2076,18 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1676b5dd-372c-4408-94b5-82447c416459"",
+                    ""path"": ""<Keyboard>/numpad3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
                     ""action"": ""SouthButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1935,10 +2109,153 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";KeyboardWSAD"",
                     ""action"": ""WestButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c13f1556-09c6-41f0-bf6c-e441008549c0"",
+                    ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c05a86f9-7633-4a00-956d-6e4e32cef297"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4079522-e977-4419-9e72-4dfe49bafe66"",
+                    ""path"": ""<Joystick>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WSAD"",
+                    ""id"": ""b9e3ed26-2801-487b-bfd7-6980887ba136"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9effa2d5-4492-4ddd-9382-444eebe953d4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""947841ab-e5c9-45a2-aee2-65fdcf18c628"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""41fa65f9-17c8-4c59-ab04-6cf3ba52d16a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""dd785e5f-858f-4560-b6f4-6fd36e89dad9"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardWSAD"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""2ef0a514-a1de-41d0-b7e4-866f4cd34796"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""4958684e-6a8e-49d0-a8ac-554ccf8047dc"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""19e5a428-1dd7-45cd-b218-c4f2d9d37a0f"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""68eabde8-a65b-4700-9655-e05079e43aa2"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""cb991e7c-3f1c-4789-ac90-15ca379cfe77"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardArrows"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -2003,6 +2320,38 @@ namespace UnityEngine.InputSystem
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""KeyboardWSAD"",
+            ""bindingGroup"": ""KeyboardWSAD"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""KeyboardArrows"",
+            ""bindingGroup"": ""KeyboardArrows"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -2045,12 +2394,13 @@ namespace UnityEngine.InputSystem
             m_QAPlatformer = asset.FindActionMap("QA Platformer", throwIfNotFound: true);
             m_QAPlatformer_Move = m_QAPlatformer.FindAction("Move", throwIfNotFound: true);
             m_QAPlatformer_Jump = m_QAPlatformer.FindAction("Jump", throwIfNotFound: true);
-            // ButtonInOrder
-            m_ButtonInOrder = asset.FindActionMap("ButtonInOrder", throwIfNotFound: true);
-            m_ButtonInOrder_NorthButton = m_ButtonInOrder.FindAction("NorthButton", throwIfNotFound: true);
-            m_ButtonInOrder_WestButton = m_ButtonInOrder.FindAction("WestButton", throwIfNotFound: true);
-            m_ButtonInOrder_SouthButton = m_ButtonInOrder.FindAction("SouthButton", throwIfNotFound: true);
-            m_ButtonInOrder_EastButton = m_ButtonInOrder.FindAction("EastButton", throwIfNotFound: true);
+            // MiniGame
+            m_MiniGame = asset.FindActionMap("MiniGame", throwIfNotFound: true);
+            m_MiniGame_NorthButton = m_MiniGame.FindAction("NorthButton", throwIfNotFound: true);
+            m_MiniGame_WestButton = m_MiniGame.FindAction("WestButton", throwIfNotFound: true);
+            m_MiniGame_SouthButton = m_MiniGame.FindAction("SouthButton", throwIfNotFound: true);
+            m_MiniGame_EastButton = m_MiniGame.FindAction("EastButton", throwIfNotFound: true);
+            m_MiniGame_Move = m_MiniGame.FindAction("Move", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -2059,7 +2409,7 @@ namespace UnityEngine.InputSystem
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputActions.UI.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UIqbek.enabled, "This will cause a leak and performance issues, InputActions.UIqbek.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_QAPlatformer.enabled, "This will cause a leak and performance issues, InputActions.QAPlatformer.Disable() has not been called.");
-            UnityEngine.Debug.Assert(!m_ButtonInOrder.enabled, "This will cause a leak and performance issues, InputActions.ButtonInOrder.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_MiniGame.enabled, "This will cause a leak and performance issues, InputActions.MiniGame.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -2518,30 +2868,32 @@ namespace UnityEngine.InputSystem
         }
         public QAPlatformerActions @QAPlatformer => new QAPlatformerActions(this);
 
-        // ButtonInOrder
-        private readonly InputActionMap m_ButtonInOrder;
-        private List<IButtonInOrderActions> m_ButtonInOrderActionsCallbackInterfaces = new List<IButtonInOrderActions>();
-        private readonly InputAction m_ButtonInOrder_NorthButton;
-        private readonly InputAction m_ButtonInOrder_WestButton;
-        private readonly InputAction m_ButtonInOrder_SouthButton;
-        private readonly InputAction m_ButtonInOrder_EastButton;
-        public struct ButtonInOrderActions
+        // MiniGame
+        private readonly InputActionMap m_MiniGame;
+        private List<IMiniGameActions> m_MiniGameActionsCallbackInterfaces = new List<IMiniGameActions>();
+        private readonly InputAction m_MiniGame_NorthButton;
+        private readonly InputAction m_MiniGame_WestButton;
+        private readonly InputAction m_MiniGame_SouthButton;
+        private readonly InputAction m_MiniGame_EastButton;
+        private readonly InputAction m_MiniGame_Move;
+        public struct MiniGameActions
         {
             private @InputActions m_Wrapper;
-            public ButtonInOrderActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @NorthButton => m_Wrapper.m_ButtonInOrder_NorthButton;
-            public InputAction @WestButton => m_Wrapper.m_ButtonInOrder_WestButton;
-            public InputAction @SouthButton => m_Wrapper.m_ButtonInOrder_SouthButton;
-            public InputAction @EastButton => m_Wrapper.m_ButtonInOrder_EastButton;
-            public InputActionMap Get() { return m_Wrapper.m_ButtonInOrder; }
+            public MiniGameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @NorthButton => m_Wrapper.m_MiniGame_NorthButton;
+            public InputAction @WestButton => m_Wrapper.m_MiniGame_WestButton;
+            public InputAction @SouthButton => m_Wrapper.m_MiniGame_SouthButton;
+            public InputAction @EastButton => m_Wrapper.m_MiniGame_EastButton;
+            public InputAction @Move => m_Wrapper.m_MiniGame_Move;
+            public InputActionMap Get() { return m_Wrapper.m_MiniGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(ButtonInOrderActions set) { return set.Get(); }
-            public void AddCallbacks(IButtonInOrderActions instance)
+            public static implicit operator InputActionMap(MiniGameActions set) { return set.Get(); }
+            public void AddCallbacks(IMiniGameActions instance)
             {
-                if (instance == null || m_Wrapper.m_ButtonInOrderActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_ButtonInOrderActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_MiniGameActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MiniGameActionsCallbackInterfaces.Add(instance);
                 @NorthButton.started += instance.OnNorthButton;
                 @NorthButton.performed += instance.OnNorthButton;
                 @NorthButton.canceled += instance.OnNorthButton;
@@ -2554,9 +2906,12 @@ namespace UnityEngine.InputSystem
                 @EastButton.started += instance.OnEastButton;
                 @EastButton.performed += instance.OnEastButton;
                 @EastButton.canceled += instance.OnEastButton;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
 
-            private void UnregisterCallbacks(IButtonInOrderActions instance)
+            private void UnregisterCallbacks(IMiniGameActions instance)
             {
                 @NorthButton.started -= instance.OnNorthButton;
                 @NorthButton.performed -= instance.OnNorthButton;
@@ -2570,23 +2925,26 @@ namespace UnityEngine.InputSystem
                 @EastButton.started -= instance.OnEastButton;
                 @EastButton.performed -= instance.OnEastButton;
                 @EastButton.canceled -= instance.OnEastButton;
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
             }
 
-            public void RemoveCallbacks(IButtonInOrderActions instance)
+            public void RemoveCallbacks(IMiniGameActions instance)
             {
-                if (m_Wrapper.m_ButtonInOrderActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_MiniGameActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IButtonInOrderActions instance)
+            public void SetCallbacks(IMiniGameActions instance)
             {
-                foreach (var item in m_Wrapper.m_ButtonInOrderActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_MiniGameActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_ButtonInOrderActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_MiniGameActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public ButtonInOrderActions @ButtonInOrder => new ButtonInOrderActions(this);
+        public MiniGameActions @MiniGame => new MiniGameActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -2632,6 +2990,24 @@ namespace UnityEngine.InputSystem
                 return asset.controlSchemes[m_XRSchemeIndex];
             }
         }
+        private int m_KeyboardWSADSchemeIndex = -1;
+        public InputControlScheme KeyboardWSADScheme
+        {
+            get
+            {
+                if (m_KeyboardWSADSchemeIndex == -1) m_KeyboardWSADSchemeIndex = asset.FindControlSchemeIndex("KeyboardWSAD");
+                return asset.controlSchemes[m_KeyboardWSADSchemeIndex];
+            }
+        }
+        private int m_KeyboardArrowsSchemeIndex = -1;
+        public InputControlScheme KeyboardArrowsScheme
+        {
+            get
+            {
+                if (m_KeyboardArrowsSchemeIndex == -1) m_KeyboardArrowsSchemeIndex = asset.FindControlSchemeIndex("KeyboardArrows");
+                return asset.controlSchemes[m_KeyboardArrowsSchemeIndex];
+            }
+        }
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
@@ -2675,12 +3051,13 @@ namespace UnityEngine.InputSystem
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
         }
-        public interface IButtonInOrderActions
+        public interface IMiniGameActions
         {
             void OnNorthButton(InputAction.CallbackContext context);
             void OnWestButton(InputAction.CallbackContext context);
             void OnSouthButton(InputAction.CallbackContext context);
             void OnEastButton(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
         }
     }
 }

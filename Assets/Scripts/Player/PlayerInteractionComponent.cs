@@ -7,12 +7,11 @@ public class PlayerInteractionComponent : MonoBehaviour
 {
     
     private HashSet<IInteractable> _availableInteractables = new();
-    int _ownerPlayerNumber;
+    private PlayerController _playerController;
 
     private void Start()
     {
-        PlayerController owner = GetComponent<PlayerController>();
-        _ownerPlayerNumber = owner.GetPlayerNumber();
+        _playerController = GetComponent<PlayerController>();
     }
 
     public void RegisterInteractable(IInteractable interactable)
@@ -32,10 +31,7 @@ public class PlayerInteractionComponent : MonoBehaviour
 
     public void ReceiveInteractionInput()
     {
-        if(GetComponent<PlayerController>()==PlayerController.Player1)
-            GetClosestInteractable()?.Interact(1);
-        else
-            GetClosestInteractable()?.Interact(2);
+        GetClosestInteractable()?.Interact(_playerController);
     }
     
     private IInteractable GetClosestInteractable(){
@@ -45,7 +41,7 @@ public class PlayerInteractionComponent : MonoBehaviour
         IInteractable closestInteractable = null;
         float minDistance = float.MaxValue;
         foreach(IInteractable interactable in _availableInteractables){
-            if(!interactable.IsInteractable(_ownerPlayerNumber)) continue;
+            if(!interactable.IsInteractable(_playerController)) continue;
             Component interactableComponent = interactable as Component;
             if(!interactableComponent) continue; //handle possible NullRefException
             

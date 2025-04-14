@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class DraggableMinigameController : MinigameController//, InputActions.IUIActions
 {
+    public float progress;
+
     public const float DRAGGABLE_POSITION_THRESHOLD = 2.5f;
     public const float DRAGGABLE_ROTATION_THRESHOLD = 10f;
     
@@ -39,32 +41,28 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         _currentlyDragged.OnSelected();
     }
     
-    public override void Launch(int launchingPlayer,int onPlayerSide, WorkstationController caller)
+    public override void Launch(PlayerController interactingPlayer)
     {
-        base.Launch(launchingPlayer,onPlayerSide, caller);
+        base.Launch(interactingPlayer);
         gameObject.SetActive(true);
         _currentlyDragged=_allDraggables[0];
         
-        //subscribe to needed input events from player
-        PlayerController playerInstance = PlayerController.GetPlayer(launchingPlayer);
-        _moveAction =
-            playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Move");
-        _moveAction.Enable();
-        playerInstance.PlayerInput.SwitchCurrentActionMap("UI");
-        //playerInstance.PlayerInput.actions.FindActionMap("UI").Enable();
+        _moveAction = interactingPlayer.minigameMoveAction;
+        //playerInstance.PlayerInput.SwitchCurrentActionMap("UI");
+        ////playerInstance.PlayerInput.actions.FindActionMap("UI").Enable();
         
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed += OnNavigate;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started += OnNavigate;
-        playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled += OnNavigate;
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed += OnNavigate;
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started += OnNavigate;
+        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled += OnNavigate;
     }
 
     public override void Hide()
     {
         gameObject.SetActive(false);
-        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").Disable();
-        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed -= OnNavigate;
-        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started -= OnNavigate;
-        PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled -= OnNavigate;
+        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").Disable();
+        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed -= OnNavigate;
+        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started -= OnNavigate;
+        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled -= OnNavigate;
 
     }
 
@@ -103,7 +101,7 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
 
         if (IsCompleted())
         {
-            MinigameLeft();
+            MinigameFinish(progress);
         }
     }
 
@@ -162,7 +160,7 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         foreach (var draggable in _allDraggables)
         {
             //do not switch to used slots, for now???
-            if(draggable.IsInSlot&&(!IsSabotage())) continue;
+            //if(draggable.IsInSlot&&(!IsSabotage())) continue;
             //if its not to the left of from position, ignore it
             if(!IsInDirOf(from,draggable.transform.position,dir))
                 continue;
@@ -223,5 +221,15 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
     public void OnClick(InputAction.CallbackContext context)
     {
         //throw new System.NotImplementedException();
+    }
+
+    public override bool CanStartNegative()
+    {
+        return true;
+    }
+
+    public override bool CanStartPositive()
+    {
+        return !IsCompleted();
     }
 }

@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class WorkstationController : MonoBehaviour, IInteractable
 {
+    [SerializeField] private MinigameController minigamePrefab;
+    [SerializeField] private PlayerController _ownerPlayer;
+    public PlayerController ownerPlayer { get => _ownerPlayer; }
 
-    [SerializeField] private string m_MinigameToLaunch;
-    [SerializeField] private int m_Player;
+    public MinigameController minigametInstance;
 
     private ProductivityBar _productivityBar;
-
-    private int _usedByPlayer;
+    private PlayerController _usedByPlayer;
 
     private void Start()
     {
@@ -31,9 +32,15 @@ public class WorkstationController : MonoBehaviour, IInteractable
         if (other.TryGetComponent(out PlayerInteractionComponent player))
         {
             player.DeRegisterInteractable(this);
-            if(player.GetComponent<PlayerController>().GetPlayerNumber()==_usedByPlayer)
-                _usedByPlayer = 0;
+            if(player == _usedByPlayer)
+                _usedByPlayer = null;
         }
+    }
+
+    public void CreateMinigameInstance(Vector3 position, Transform parent)
+    {
+        minigametInstance = Instantiate(minigamePrefab, position, Quaternion.identity, parent);
+        minigametInstance.workStation = this;
     }
 
     public void UpdateProductivity(float value)
@@ -41,14 +48,16 @@ public class WorkstationController : MonoBehaviour, IInteractable
         _productivityBar.UpdateCurrentProductivityOnMiniGameEnd(value);
     }
     
-    public void Interact(int playerInteracting)
+    public void Interact(PlayerController interactingPlayer)
     {
-        _usedByPlayer = playerInteracting;
-        MinigamesManager.Instance.LaunchMinigame(m_MinigameToLaunch, m_Player,playerInteracting, this);
+        _usedByPlayer = interactingPlayer;
+        interactingPlayer.HandleMinigameEntered(minigametInstance);
+        minigametInstance.Launch(interactingPlayer);
     }
 
-    public bool IsInteractable(int playerInteracting)
+    public bool IsInteractable(PlayerController interactingPlayer)
     {
-        return MinigamesManager.Instance.CanOpenMinigame(m_MinigameToLaunch, playerInteracting);
+        return (interactingPlayer == ownerPlayer && minigametInstance.CanStartPositive()) ||
+            (interactingPlayer != ownerPlayer && minigametInstance.CanStartNegative());
     }
 }

@@ -65,4 +65,14 @@ public class MashingPVPMinigameController : MinigameController
     {
         return Mathf.Abs(_player1MashCount- _player2MashCount) >= m_MashDifferenceToWin;
     }
+
+    public override bool CanStartNegative()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool CanStartPositive()
+    {
+        throw new NotImplementedException();
+    }
 }

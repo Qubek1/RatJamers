@@ -152,8 +152,9 @@ MonoBehaviour:
     CameraTarget: {fileID: 5670667344497202846}
     CameraOffset: {x: 0, y: 0, z: -5}
     CameraSize: 8
-  UsedByPlayer: 0
-  OnPlayerSide: 0
+  interactingPlayer: {fileID: 0}
+  workStation: {fileID: 0}
+  maxSabotageTime: 10
   cables:
   - {fileID: 5508456201979991852}
   - {fileID: 5639414521096944143}
@@ -524,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b3d6969af295340bb760ffb9035caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connected: 0
+  connected: 1
   selected: 0
   cableEnd: {fileID: 8802532139055516540}
   connectionPoint: {fileID: 259604862530642518}
@@ -536,7 +537,7 @@ MonoBehaviour:
   distanceBetweenJoints: 0.2
   width: 0.2
   speed: 30
-  stiffness: 10
+  stiffness: 20
   velocityDamping: 0.9
   angularVelocityDamping: 0.9
   jointsCount: 10
@@ -1386,7 +1387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b3d6969af295340bb760ffb9035caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connected: 0
+  connected: 1
   selected: 0
   cableEnd: {fileID: 3408079115754256484}
   connectionPoint: {fileID: 6316282078907706681}
@@ -1398,7 +1399,7 @@ MonoBehaviour:
   distanceBetweenJoints: 0.2
   width: 0.2
   speed: 30
-  stiffness: 10
+  stiffness: 20
   velocityDamping: 0.9
   angularVelocityDamping: 0.9
   jointsCount: 10
@@ -2235,7 +2236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b3d6969af295340bb760ffb9035caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connected: 0
+  connected: 1
   selected: 0
   cableEnd: {fileID: 2181691019351881260}
   connectionPoint: {fileID: 2487273949231289803}
@@ -2247,7 +2248,7 @@ MonoBehaviour:
   distanceBetweenJoints: 0.2
   width: 0.2
   speed: 30
-  stiffness: 10
+  stiffness: 20
   velocityDamping: 0.9
   angularVelocityDamping: 0.9
   jointsCount: 10

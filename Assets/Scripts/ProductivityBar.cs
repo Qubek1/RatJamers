@@ -5,6 +5,7 @@ public class ProductivityBar : MonoBehaviour {
     public float maxProductivity = 100f;
     public float currentProductivity;
     public float drainRate = 5f;
+    public float minBarSize = 0.05f;
 
     private Transform barTransform;
     private Vector3 initialScale;
@@ -28,10 +29,10 @@ public class ProductivityBar : MonoBehaviour {
         initialScale = barTransform.localScale;
         initialPosition = barTransform.localPosition;
         currentProductivity = maxProductivity;
-        MinigamesManager.MinigameLeftAction += HandleMinigameEnd;
+        //MinigamesManager.minigameLeftEvent += HandleMinigameEnd;
     }
 
-    private void HandleMinigameEnd(int playerLeft)
+    private void HandleMinigameEnd(PlayerController player)
     {
         
     }
@@ -41,7 +42,7 @@ public class ProductivityBar : MonoBehaviour {
         currentProductivity = Mathf.Clamp(currentProductivity, 0, maxProductivity);
 
         float ratio = currentProductivity / maxProductivity;
-        float newScaleX = initialScale.x * ratio;
+        float newScaleX = initialScale.x * Mathf.Max(ratio, minBarSize);
         barTransform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
 
         float deltaX = (initialScale.x - newScaleX) / 2f;
@@ -67,7 +68,7 @@ public class ProductivityBar : MonoBehaviour {
         currentProductivity = Mathf.Clamp(currentProductivity, 0f, maxProductivity);
 
         float ratio = currentProductivity / maxProductivity;
-        float newScaleX = initialScale.x * ratio;
+        float newScaleX = initialScale.x * Mathf.Max(ratio, minBarSize);
         barTransform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
 
         float deltaX = (initialScale.x - newScaleX) / 2f;

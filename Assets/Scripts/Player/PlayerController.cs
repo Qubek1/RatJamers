@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
     }
     
     [SerializeField] private float playerSpeed;
-
+    [SerializeField] private string inputControllScheme;
+    [SerializeField] private bool keyboard;
 
     [Header("Refs")] 
     [SerializeField] private Transform m_InitialPos;
@@ -61,9 +62,25 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 
     private bool _isWalking = false;
 
+    public InputAction minigameMoveAction { get; private set; }
+    public List<InputAction> minigameButtonsAction { get; private set; } 
 
     private void Awake()
     {
+        if (keyboard)
+        {
+            m_PlayerInput.SwitchCurrentControlScheme(inputControllScheme, Keyboard.current);
+        }
+        InputActionMap miniGameActionMap = PlayerInput.actions.FindActionMap("MiniGame");
+        minigameMoveAction = miniGameActionMap.FindAction("Move");
+        minigameButtonsAction = new List<InputAction>()
+        { 
+            miniGameActionMap.FindAction("WestButton"),
+            miniGameActionMap.FindAction("NorthButton"),
+            miniGameActionMap.FindAction("SouthButton"),
+            miniGameActionMap.FindAction("EastButton")
+        };
+
         this.playerSpeed = 4;
         //PlayerInputManager.instance.JoinPlayer()
         if (Player1 == null)
@@ -73,7 +90,6 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
             //InputManager.Player2InputActions.Player.RemoveCallbacks(Player2);
             //InputManager.Player1InputActions.Player.SetCallbacks(this);
         }
-            
         else if (Player2 == null)
         {
             Player2=this;
@@ -86,10 +102,8 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         
         _rb = GetComponent<Rigidbody2D>();
         
-        MinigamesManager.MinigameEnteredAction += HandleMinigameEntered;
-        MinigamesManager.MinigameLeftAction += HandleMinigameLeft;
-        
-        
+        //MinigamesManager.minigameEnterEvent += HandleMinigameEntered;
+        //MinigamesManager.minigameLeftEvent += HandleMinigameLeft;
     }
 
     private void Start()
@@ -111,8 +125,8 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 
     private void OnDestroy()
     {
-        MinigamesManager.MinigameEnteredAction -= HandleMinigameEntered;
-        MinigamesManager.MinigameLeftAction -= HandleMinigameLeft;
+        //MinigamesManager.minigameEnterEvent -= HandleMinigameEntered;
+        //MinigamesManager.minigameLeftEvent -= HandleMinigameLeft;
     }
 
     public void OnPVPMinigameEntered(PvPMinigameController minigame)
@@ -131,22 +145,21 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         m_CameraController.ResetCamera();
         m_CameraController.SetTarget(transform);
     }
-    private void HandleMinigameEntered(MinigameController entered, int onSideOfPlayer, int byPlayer)
+
+    public void HandleMinigameEntered(MinigameController entered)
     {
-        if(byPlayer!=GetPlayerNumber()) return;
         _isInMinigame = true;
-        Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
-        m_PlayerInput.SwitchCurrentActionMap("UI");
+        //Debug.Log($"Game entered event receiving on {GetPlayerNumber()} player with {byPlayer} byPlayerid");
+        m_PlayerInput.SwitchCurrentActionMap("MiniGame");
         //m_PlayerInput.DeactivateInput();
         //m_CameraController.SetTarget(entered.CameraConfig.CameraTarget);
         m_CameraController.SetConfig(entered.CameraConfig);
     }
 
-    private void HandleMinigameLeft(int player)
+    public void HandleMinigameLeft()
     {
-        if(player!=GetPlayerNumber()) return;
         _isInMinigame = false;
-        Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
+        //Debug.Log($"Game left event receiving on {GetPlayerNumber()} player with {player} id");
         m_PlayerInput.SwitchCurrentActionMap("Player");
         //m_PlayerInput.ActivateInput();
         m_CameraController.ResetCamera();

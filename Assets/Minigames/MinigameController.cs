@@ -15,46 +15,43 @@ public abstract class MinigameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_TimeLimitText;
     [SerializeField] private MinigameCameraConfig m_CameraConfig;
     public MinigameCameraConfig CameraConfig => m_CameraConfig;
-    public int UsedByPlayer;
-
-    public int OnPlayerSide;
+    public PlayerController interactingPlayer;
+    public WorkstationController workStation;
 
     //protected bool _isFinishedCorrectly;
 
-    private WorkstationController _callingWorker;
+
     //public Vector2 CameraTargetPosition => m_CameraTarget.position;
     protected virtual void Start()
     {
         Hide();
     }
 
-    public virtual void Launch(int launchingPlayer,int onPlayerSide, WorkstationController caller)
+    public virtual void Launch(PlayerController interactingPlayer)
     {
+        this.interactingPlayer = interactingPlayer;
         gameObject.SetActive(true);
-        if (launchingPlayer == 1)
-        {
-            Vector3 newScale = m_FrameSprite.transform.localScale;
-            newScale.x=-Mathf.Abs(newScale.x);
-            m_FrameSprite.transform.localScale =newScale;
-        }
-        else
-        {
-            Vector3 newScale = m_FrameSprite.transform.localScale;
-            newScale.x=Mathf.Abs(newScale.x);
-            m_FrameSprite.transform.localScale =newScale;
-        }
-        UsedByPlayer = launchingPlayer;
-        OnPlayerSide = onPlayerSide;
-        _callingWorker = caller;
-        if (IsSabotage())
-        {
-            m_TimeLimitText?.gameObject.SetActive(true);
-            StartCoroutine(SabotageTimeLimitCoroutine());
-        }
-        else
-        {
-            m_TimeLimitText?.gameObject.SetActive(false);
-        }
+        //if (launchingPlayer == 1)
+        //{
+        //    Vector3 newScale = m_FrameSprite.transform.localScale;
+        //    newScale.x=-Mathf.Abs(newScale.x);
+        //    m_FrameSprite.transform.localScale =newScale;
+        //}
+        //else
+        //{
+        //    Vector3 newScale = m_FrameSprite.transform.localScale;
+        //    newScale.x=Mathf.Abs(newScale.x);
+        //    m_FrameSprite.transform.localScale =newScale;
+        //}
+        //if (interactingPlayer != workStation.ownerPlayer)
+        //{
+        //    m_TimeLimitText?.gameObject.SetActive(true);
+        //    StartCoroutine(SabotageTimeLimitCoroutine());
+        //}
+        //else
+        //{
+        //    m_TimeLimitText?.gameObject.SetActive(false);
+        //}
     }
     
     private IEnumerator SabotageTimeLimitCoroutine()
@@ -69,40 +66,28 @@ public abstract class MinigameController : MonoBehaviour
 
         }
         //yield return new WaitForSeconds(SabotageTimeLimit);
-        MinigameLeft();
+        MinigameFinish(0);
     }
-
-    public abstract void Hide();
 
     public void Reset()
     {
         ResetAction?.Invoke();
     }
 
-    protected bool IsSabotage()
-    {
-        if (!m_CanBeSabotaged) return false;
-        return UsedByPlayer!=0&&UsedByPlayer!=OnPlayerSide;
-    }
-
+    public abstract void Hide();
+    public abstract bool CanStartNegative();
+    public abstract bool CanStartPositive();
     public abstract bool IsCompleted();
-    
-    public void MinigameLeft()
+
+    public bool IsSabotage() => interactingPlayer != workStation.ownerPlayer;
+
+    public void MinigameFinish(float productivityChange)
     {
         Debug.Log($"Minigame {gameObject.name} Correctly Finished!");
-        MinigamesManager.MinigameLeftAction?.Invoke(UsedByPlayer);
-        if (IsSabotage())
-        {
-            if(!IsCompleted())
-                _callingWorker.UpdateProductivity(-100f);
-        }
-        else
-        {
-            _callingWorker.UpdateProductivity(50f);
-        }
-        
-            
-        UsedByPlayer = 0;
+        Hide();
+        interactingPlayer.HandleMinigameLeft();
+        workStation.UpdateProductivity(productivityChange);
+        interactingPlayer = null;
         gameObject.SetActive(false);
     }
 }

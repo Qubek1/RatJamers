@@ -2144,9 +2144,9 @@ MonoBehaviour:
     CameraTarget: {fileID: 3441449390553952335}
     CameraOffset: {x: 0, y: 0, z: -5}
     CameraSize: 4
-  UsedByPlayer: 0
-  OnPlayerSide: 0
-  maxMadeError: 0
+  interactingPlayer: {fileID: 0}
+  workStation: {fileID: 0}
+  progress: 40
   maxPossibleError: 0.25
   movementSpeed: 30
   velocityDamping: 0.96

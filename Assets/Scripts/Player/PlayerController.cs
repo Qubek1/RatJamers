@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 {
+    public int playerIndex;
     public static PlayerController Player1;
     public static PlayerController Player2;
     public static bool IsAnyInMinigame()=>
@@ -16,18 +17,6 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
     {
         get;
         private set;
-    }
-    
-    public int GetPlayerNumber()
-    {
-        if (this == Player1) return 1;
-        else return 2;
-    }
-
-    public static PlayerController GetPlayer(int number)
-    {
-        if(number == 1) return Player1;
-        else return Player2;
     }
     
     [SerializeField] private float playerSpeed;

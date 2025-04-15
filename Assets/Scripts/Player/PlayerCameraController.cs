@@ -9,7 +9,6 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float smoothSpeed = 0.125f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10);
 
-
     private float _defaultOrthoSize;
     private Vector3 _defaultOffset;
 

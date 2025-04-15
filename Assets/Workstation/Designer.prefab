@@ -100,7 +100,8 @@ MonoBehaviour:
   maxProductivity: 100
   currentProductivity: 0
   drainRate: 2
-  minBarSize: 0.05
+  minBarSize: 0.1
+  maxUpdateSpeed: 3
   fullColor: {r: 0, g: 1, b: 0, a: 1}
   midColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   lowColor: {r: 1, g: 0, b: 0, a: 1}

@@ -29,7 +29,7 @@ public class MashingPVPMinigameController : MinigameController
         m_Player2MashCountText.text = _player2MashCount.ToString();
         if(!IsCompleted()) return;
         
-        GameManager.Instance.PVPMinigameFinished(_player1MashCount > _player2MashCount);
+        //GameManager.Instance.PVPMinigameFinished(_player1MashCount > _player2MashCount);
         Hide();
     }
     

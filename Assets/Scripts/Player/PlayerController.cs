@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         
         m_PlayerInput.actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
 
-        transform.position = GetStartingPos(this);
+        //transform.position = GetStartingPos(this);
     }
     
 
@@ -118,13 +118,9 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         //MinigamesManager.minigameLeftEvent -= HandleMinigameLeft;
     }
 
-    public void OnPVPMinigameEntered(PvPMinigameController minigame)
+    public void OnPVPMinigameEntered(PVPMinigameController minigame)
     {
-        m_PlayerInput.SwitchCurrentActionMap("UI");
-        if(this==Player1)
-            m_CameraController.SetConfig(minigame.CameraConfig);
-        else
-            m_CameraController.SetConfig(minigame.Player2CameraConfig);
+        m_PlayerInput.SwitchCurrentActionMap("MiniGame");
         _isInMinigame = true;
     }
 

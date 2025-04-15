@@ -17,14 +17,17 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     public static MinigameEnterEvent minigameEnterEvent;
     public delegate void MinigameLeftEvent(PlayerController interactingPlayer);
     public static MinigameLeftEvent minigameLeftEvent;
-    
-    //public bool IsInMinigame { get; private set; } = false;
-    
-    [SerializeField] private PvPMinigameController m_PVPMinigameInstance;
-    [SerializeField] private List<WorkstationController> workStations;
 
-    private MinigameController _player1Minigame;
-    private MinigameController _player2Minigame;
+    //public bool IsInMinigame { get; private set; } = false;
+    [SerializeField]
+    private Camera[] playersCameras;
+    [SerializeField]
+    private Camera pvpMinigameCamera;
+    [SerializeField]
+    private GameObject splitScreenUI;
+
+    [SerializeField] private PVPMinigameController m_PVPMinigameInstance;
+    [SerializeField] private List<WorkstationController> workStations;
 
     private void Start()
     {
@@ -54,12 +57,29 @@ public class MinigamesManager : MonoSingleton<MinigamesManager>
     //    //return true;
     //}
 
-    public void LaunchPVPMinigame()
+    public void StartPvPMinigameEvent()
     {
-        PlayerController.Player1.transform.position = m_PVPMinigameInstance.Player1Pos.position;
-        PlayerController.Player2.transform.position = m_PVPMinigameInstance.Player2Pos.position;
+        //PlayerController.Player1.transform.position = m_PVPMinigameInstance.Player1Pos.position;
+        //PlayerController.Player2.transform.position = m_PVPMinigameInstance.Player2Pos.position;
         PlayerController.Player1.OnPVPMinigameEntered(m_PVPMinigameInstance);
         PlayerController.Player2.OnPVPMinigameEntered(m_PVPMinigameInstance);
-        m_PVPMinigameInstance.Launch();
+        foreach (Camera playerCamera in playersCameras)
+        {
+            playerCamera.gameObject.SetActive(false);
+        }
+        splitScreenUI.SetActive(false);
+        pvpMinigameCamera.gameObject.SetActive(true);
+        m_PVPMinigameInstance.gameObject.SetActive(true);
+        m_PVPMinigameInstance.StartPvPEvent(pvpMinigameCamera);
+    }
+
+    public void OnPvPMinigameExit()
+    {
+        splitScreenUI.SetActive(true);
+        foreach (Camera playerCamera in playersCameras)
+        {
+            playerCamera.gameObject.SetActive(true);
+        }
+        pvpMinigameCamera.gameObject.SetActive(false);
     }
 }

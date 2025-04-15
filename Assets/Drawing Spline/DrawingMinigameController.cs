@@ -26,8 +26,6 @@ public class DrawingMinigameController : MinigameController
     [SerializeField]
     private Transform splineTransform;
     [SerializeField]
-    private SplineExtrude followingLineRender;
-    [SerializeField]
     private float splineSearchAccuracy = 0.005f;
     [SerializeField]
     private float currentT;
@@ -117,6 +115,7 @@ public class DrawingMinigameController : MinigameController
         currentT = 0;
         pen.position = PositionOnSpline(0);
         lineRenderer = GetComponent<LineRenderer>();
+        lineRendererPoints.Clear();
         lineRendererPoints.Add(pen.position);
         lineRenderer.positionCount = 1;
         lineRenderer.SetPositions(lineRendererPoints.ToArray());

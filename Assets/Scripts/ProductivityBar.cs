@@ -6,6 +6,7 @@ public class ProductivityBar : MonoBehaviour {
     public float currentProductivity;
     public float drainRate = 5f;
     public float minBarSize = 0.05f;
+    public float maxUpdateSpeed = 3f;
 
     private Transform barTransform;
     private Vector3 initialScale;
@@ -43,9 +44,20 @@ public class ProductivityBar : MonoBehaviour {
 
         float ratio = currentProductivity / maxProductivity;
         float newScaleX = initialScale.x * Mathf.Max(ratio, minBarSize);
-        barTransform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
+        if (Mathf.Abs(barTransform.localScale.x - newScaleX) > maxUpdateSpeed * Time.deltaTime)
+        {
+            barTransform.localScale += Vector3.right * 
+                Mathf.Clamp(
+                    newScaleX - barTransform.localScale.x,
+                    - maxUpdateSpeed * Time.deltaTime,
+                    maxUpdateSpeed * Time.deltaTime);
+        }
+        else
+        {
+            barTransform.localScale = new Vector3(newScaleX, barTransform.localScale.y, barTransform.localScale.z);
+        }
 
-        float deltaX = (initialScale.x - newScaleX) / 2f;
+        float deltaX = (initialScale.x - barTransform.localScale.x) / 2f;
         barTransform.localPosition = initialPosition - new Vector3(deltaX, 0, 0);
 
         UpdateBarColor();
@@ -69,9 +81,20 @@ public class ProductivityBar : MonoBehaviour {
 
         float ratio = currentProductivity / maxProductivity;
         float newScaleX = initialScale.x * Mathf.Max(ratio, minBarSize);
-        barTransform.localScale = new Vector3(newScaleX, initialScale.y, initialScale.z);
+        if (Mathf.Abs(barTransform.localScale.x - newScaleX) > maxUpdateSpeed * Time.deltaTime)
+        {
+            barTransform.localScale += Vector3.right *
+                Mathf.Clamp(
+                    newScaleX - barTransform.localScale.x,
+                    -maxUpdateSpeed * Time.deltaTime,
+                    maxUpdateSpeed * Time.deltaTime);
+        }
+        else
+        {
+            barTransform.localScale = new Vector3(newScaleX, barTransform.localScale.y, barTransform.localScale.z);
+        }
 
-        float deltaX = (initialScale.x - newScaleX) / 2f;
+        float deltaX = (initialScale.x - barTransform.localScale.x) / 2f;
         barTransform.localPosition = initialPosition - new Vector3(deltaX, 0, 0);
 
         UpdateBarColor();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ClickingOrderPvP : PvPMinigameController
+public class ClickingOrderPvP : PVPMinigameController
 {
     public ClickingOrderController clickingOrderController1;
     public ClickingOrderController clickingOrderController2;
@@ -27,15 +27,20 @@ public class ClickingOrderPvP : PvPMinigameController
     {
         Rat1.transform.position = StartPos1 + Vector3.right * movement * clickingOrderController1.progress;
         Rat2.transform.position = startPos2 + Vector3.left * movement * clickingOrderController2.progress;
-        if (!IsCompleted()) return;
-
-        GameManager.Instance.PVPMinigameFinished(clickingOrderController1.progress > clickingOrderController2.progress);
-        Hide();
+        if (clickingOrderController1.IsComplete())
+        {
+            PVPMinigameFinish(playerLeftController, playerRightController);
+        }
+        else if (clickingOrderController2.IsComplete())
+        {
+            PVPMinigameFinish(playerRightController, playerLeftController);
+        }
     }
 
-    public override void Launch()
+    protected override void Launch(Camera pvpMinigamesCamera, PlayerController playerLeft, PlayerController playerRight)
     {
         gameObject.SetActive(true);
+        pvpMinigamesCamera.transform.position = transform.position;
 
         List<int> inputsOrder = new List<int>();
         for (int i=0; i<clickingOrderController1.lenght; i++)
@@ -46,21 +51,20 @@ public class ClickingOrderPvP : PvPMinigameController
         clickingOrderController2.buttonsToClickIndexes = inputsOrder;
 
         gameObject.SetActive(true);
-        InputActionAsset actions1 = PlayerController.Player1.PlayerInput.actions;
-        InputActionAsset actions2 = PlayerController.Player2.PlayerInput.actions;
+        
         inputsList1 = new List<InputButton>()
         {
-            new InputButton(actions1.FindActionMap("UI").FindAction("WestButton"), clickingOrderController1.Click, 0),
-            new InputButton(actions1.FindActionMap("UI").FindAction("NorthButton"), clickingOrderController1.Click, 1),
-            new InputButton(actions1.FindActionMap("UI").FindAction("SouthButton"), clickingOrderController1.Click, 2),
-            new InputButton(actions1.FindActionMap("UI").FindAction("EastButton"), clickingOrderController1.Click, 3)
+            new InputButton(playerLeft.minigameButtonsAction[0], clickingOrderController1.Click, 0),
+            new InputButton(playerLeft.minigameButtonsAction[1], clickingOrderController1.Click, 1),
+            new InputButton(playerLeft.minigameButtonsAction[2], clickingOrderController1.Click, 2),
+            new InputButton(playerLeft.minigameButtonsAction[3], clickingOrderController1.Click, 3)
         };
         inputsList2 = new List<InputButton>()
         {
-            new InputButton(actions2.FindActionMap("UI").FindAction("WestButton"), clickingOrderController2.Click, 0),
-            new InputButton(actions2.FindActionMap("UI").FindAction("NorthButton"), clickingOrderController2.Click, 1),
-            new InputButton(actions2.FindActionMap("UI").FindAction("SouthButton"), clickingOrderController2.Click, 2),
-            new InputButton(actions2.FindActionMap("UI").FindAction("EastButton"), clickingOrderController2.Click, 3)
+            new InputButton(playerRight.minigameButtonsAction[0], clickingOrderController2.Click, 0),
+            new InputButton(playerRight.minigameButtonsAction[1], clickingOrderController2.Click, 1),
+            new InputButton(playerRight.minigameButtonsAction[2], clickingOrderController2.Click, 2),
+            new InputButton(playerRight.minigameButtonsAction[3], clickingOrderController2.Click, 3)
         };
         clickingOrderController1.Generate();
         clickingOrderController2.Generate();

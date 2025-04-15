@@ -87,6 +87,7 @@ public class CuttingMinigame : MonoBehaviour
         objectHighSprite.sortingOrder = currentSortingLayer + currentSortingLayerDiff;
 
         SpriteMask newMaskLow = Instantiate(spriteMask, cuttingPoint.position, cuttingPoint.rotation, objectLowSprite.transform);
+        newMaskLow.transform.localScale = Vector3.one * 20f;
         newMaskLow.transform.Rotate(Vector3.forward, -90);
         newMaskLow.isCustomRangeActive = true;
         foreach (SpriteMask spriteMaskChild in objectToCut.GetComponentsInChildren<SpriteMask>())
@@ -96,6 +97,7 @@ public class CuttingMinigame : MonoBehaviour
         }
         
         SpriteMask newMaskHigh = Instantiate(spriteMask, cuttingPoint.position, cuttingPoint.transform.rotation, objectHighSprite.transform);
+        newMaskHigh.transform.localScale = Vector3.one * 20f;
         newMaskHigh.transform.Rotate(Vector3.forward, 90);
         foreach (SpriteMask spriteMaskChild in newObject.GetComponentsInChildren<SpriteMask>())
         {

@@ -40,13 +40,14 @@ public class GameManager : MonoSingleton<GameManager>
 
         yield return new WaitForSeconds(m_PVPStartDelay);
         // Start the PVP minigame here
-        MinigamesManager.Instance.LaunchPVPMinigame();
+        MinigamesManager.Instance.StartPvPMinigameEvent();
     }
 
-    public void PVPMinigameFinished(bool player1Win)
+    public void PVPMinigameFinished(PlayerController winner, PlayerController losser)
     {
         PVPMinigameCoroutineRef = null;
-        PlayerController.Player1.OnPVPMinigameEnd();
-        PlayerController.Player2.OnPVPMinigameEnd();
+        winner.OnPVPMinigameEnd();
+        losser.OnPVPMinigameEnd();
+        MinigamesManager.Instance.OnPvPMinigameExit();
     }
 }

@@ -2332,7 +2332,7 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -2348,7 +2348,7 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]

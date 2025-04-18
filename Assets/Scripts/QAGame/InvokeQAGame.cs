@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InvokeQAGame : MonoBehaviour
 {
-    [SerializeField] private MainProgressBar mainProgressBar;
+    [SerializeField] private MainProgressBarSmooth mainProgressBar;
     public Telewizor Telewizor;
     public WorkstationController WorkstationController;
 

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2979454251893492145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4513441453026205761
 Transform:
   m_ObjectHideFlags: 0
@@ -865,8 +865,9 @@ MonoBehaviour:
     CameraTarget: {fileID: 7665166539950883844}
     CameraOffset: {x: 0, y: 0, z: -10}
     CameraSize: 10
-  UsedByPlayer: 0
-  OnPlayerSide: 0
+  interactingPlayer: {fileID: 0}
+  workStation: {fileID: 0}
+  progress: 100
   m_Rotatable: 1
 --- !u!1001 &106699396636401945
 PrefabInstance:
@@ -998,6 +999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mozaic_Draggable
       objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1090,6 +1095,10 @@ PrefabInstance:
     - target: {fileID: 750429831919089597, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Name
       value: Mozaic_Draggable (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite
@@ -1184,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mozaic_Draggable (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1276,6 +1289,10 @@ PrefabInstance:
     - target: {fileID: 750429831919089597, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Name
       value: Mozaic_Draggable (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite
@@ -1370,6 +1387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mozaic_Draggable (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1462,6 +1483,10 @@ PrefabInstance:
     - target: {fileID: 750429831919089597, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Name
       value: Mozaic_Draggable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798971063717531837, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
+      propertyPath: m_DragSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5872897485821982199, guid: cf08c9f6b959de045be1803b17c215dc, type: 3}
       propertyPath: m_Sprite

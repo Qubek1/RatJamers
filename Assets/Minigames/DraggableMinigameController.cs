@@ -50,20 +50,21 @@ public class DraggableMinigameController : MinigameController//, InputActions.IU
         _moveAction = interactingPlayer.minigameMoveAction;
         //playerInstance.PlayerInput.SwitchCurrentActionMap("UI");
         ////playerInstance.PlayerInput.actions.FindActionMap("UI").Enable();
-        
-        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed += OnNavigate;
-        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started += OnNavigate;
-        //playerInstance.PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled += OnNavigate;
+
+        interactingPlayer.minigameNavigationAction.performed += OnNavigate;
+        interactingPlayer.minigameNavigationAction.started += OnNavigate;
+        interactingPlayer.minigameNavigationAction.canceled += OnNavigate;
     }
 
     public override void Hide()
     {
         gameObject.SetActive(false);
-        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").Disable();
-        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").performed -= OnNavigate;
-        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").started -= OnNavigate;
-        //PlayerController.GetPlayer(UsedByPlayer).PlayerInput.actions.FindActionMap("UI").FindAction("Navigate").canceled -= OnNavigate;
-
+        if (interactingPlayer != null)
+        {
+            interactingPlayer.minigameNavigationAction.performed -= OnNavigate;
+            interactingPlayer.minigameNavigationAction.started -= OnNavigate;
+            interactingPlayer.minigameNavigationAction.canceled -= OnNavigate;
+        }
     }
 
     private InputAction _moveAction;

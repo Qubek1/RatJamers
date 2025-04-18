@@ -1990,6 +1990,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Navigate"",
+                    ""type"": ""Value"",
+                    ""id"": ""bf8d9ff9-76ee-48f4-9c84-46e24e5c95b0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -2256,6 +2265,17 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06b5bd53-0487-48c9-a445-c0c0acc50a7c"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -2401,6 +2421,7 @@ namespace UnityEngine.InputSystem
             m_MiniGame_SouthButton = m_MiniGame.FindAction("SouthButton", throwIfNotFound: true);
             m_MiniGame_EastButton = m_MiniGame.FindAction("EastButton", throwIfNotFound: true);
             m_MiniGame_Move = m_MiniGame.FindAction("Move", throwIfNotFound: true);
+            m_MiniGame_Navigate = m_MiniGame.FindAction("Navigate", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -2876,6 +2897,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_MiniGame_SouthButton;
         private readonly InputAction m_MiniGame_EastButton;
         private readonly InputAction m_MiniGame_Move;
+        private readonly InputAction m_MiniGame_Navigate;
         public struct MiniGameActions
         {
             private @InputActions m_Wrapper;
@@ -2885,6 +2907,7 @@ namespace UnityEngine.InputSystem
             public InputAction @SouthButton => m_Wrapper.m_MiniGame_SouthButton;
             public InputAction @EastButton => m_Wrapper.m_MiniGame_EastButton;
             public InputAction @Move => m_Wrapper.m_MiniGame_Move;
+            public InputAction @Navigate => m_Wrapper.m_MiniGame_Navigate;
             public InputActionMap Get() { return m_Wrapper.m_MiniGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -2909,6 +2932,9 @@ namespace UnityEngine.InputSystem
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Navigate.started += instance.OnNavigate;
+                @Navigate.performed += instance.OnNavigate;
+                @Navigate.canceled += instance.OnNavigate;
             }
 
             private void UnregisterCallbacks(IMiniGameActions instance)
@@ -2928,6 +2954,9 @@ namespace UnityEngine.InputSystem
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
+                @Navigate.started -= instance.OnNavigate;
+                @Navigate.performed -= instance.OnNavigate;
+                @Navigate.canceled -= instance.OnNavigate;
             }
 
             public void RemoveCallbacks(IMiniGameActions instance)
@@ -3058,6 +3087,7 @@ namespace UnityEngine.InputSystem
             void OnSouthButton(InputAction.CallbackContext context);
             void OnEastButton(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
+            void OnNavigate(InputAction.CallbackContext context);
         }
     }
 }

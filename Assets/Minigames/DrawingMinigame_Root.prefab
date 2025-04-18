@@ -2380,12 +2380,12 @@ MonoBehaviour:
     CameraSize: 4
   interactingPlayer: {fileID: 0}
   workStation: {fileID: 0}
-  progress: 80
+  progress: 100
   maxPossibleError: 0.25
   movementSpeed: 30
-  velocityDamping: 0.96
+  velocityDamping: 0.85
   pen: {fileID: 294087647279912298}
-  m_winConditionPathFill: 0.95
+  m_winConditionPathFill: 0.99
   splineContainer: {fileID: 7573590434212181729}
   splineTransform: {fileID: 5628384203080379784}
   splineSearchAccuracy: 0.01

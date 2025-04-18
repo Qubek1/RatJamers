@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class WorkstationController : MonoBehaviour, IInteractable
 {
+    [SerializeField] private float pointsPerSeconds = 1;
+    [SerializeField] private GameObject plusOnePrefab;
+    [SerializeField] private Transform plusOneSpawnPoint;
     [SerializeField] private MinigameController minigamePrefab;
     [SerializeField] private PlayerController _ownerPlayer;
     public PlayerController ownerPlayer { get => _ownerPlayer; }
@@ -11,12 +14,30 @@ public class WorkstationController : MonoBehaviour, IInteractable
 
     private ProductivityBar _productivityBar;
     private PlayerController _usedByPlayer;
+    private float currentPointProgress = 0;
 
     private void Start()
     {
         _productivityBar = GetComponentInChildren<ProductivityBar>();
         if(_productivityBar==null)
             Debug.LogError("No productivity bar found in the workstation", this);
+        currentPointProgress = pointsPerSeconds;
+    }
+
+    private void Update()
+    {
+        currentPointProgress -= _productivityBar.currentProductivity / _productivityBar.maxProductivity * Time.deltaTime;
+        if (currentPointProgress < 0)
+        {
+            currentPointProgress += pointsPerSeconds;
+            ownerPlayer.progressBar.AddPoints(1);
+            //Instantiate(
+            //    plusOnePrefab,
+            //    plusOneSpawnPoint.position,
+            //    Quaternion.identity,
+            //    plusOneSpawnPoint
+            //    );
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

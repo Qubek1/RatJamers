@@ -38,6 +38,7 @@ public class DraggableComponent : MonoBehaviour
         _initScale= transform.localScale;
         _initPos= transform.position;
         _canBeMoved = true;
+        OnDeselected();
     }
 
     private void OnDestroy()
@@ -53,7 +54,7 @@ public class DraggableComponent : MonoBehaviour
     public void OnDeselected()
     {
         if(IsInSlot) return;
-        m_SpriteRenderer.color = GetColorWithAlpha(m_SpriteRenderer.color, 0.5f);
+        m_SpriteRenderer.color = GetColorWithAlpha(m_SpriteRenderer.color, 0.2f);
     }
 
     private void Update()
@@ -80,7 +81,7 @@ public class DraggableComponent : MonoBehaviour
     private IEnumerator AllowForMovementAfterUsingSlot()
     {
         _canBeMoved = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         _canBeMoved = true;
     }
 
@@ -93,7 +94,7 @@ public class DraggableComponent : MonoBehaviour
             LastSlot.FreeSlot();
             IsInSlot = false;
         }
-        transform.position += (Vector3)moveDir * m_DragSpeed;
+        transform.position += (Vector3)moveDir * m_DragSpeed * Time.deltaTime;
     }
 
     public void StartRotate(float dir)

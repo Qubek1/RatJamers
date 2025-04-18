@@ -427,8 +427,8 @@ Transform:
   m_GameObject: {fileID: 1475667071160366470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.2147, z: 4.248514}
-  m_LocalScale: {x: 1.8572, y: 10.286659, z: 1}
+  m_LocalPosition: {x: 0, y: 6.6756, z: 4.248514}
+  m_LocalScale: {x: 1.8572, y: 16.73181, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1029562236346662541}
@@ -682,8 +682,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   removeDuplicates: 1
   distancePerSecond: 8
-  maxHeight: 1000
-  minHeight: -0.2
+  maxHeight: 30
+  minHeight: -1
   snap: 0.1
   musicController: {fileID: 9171144696697353402}
   tilePrefab: {fileID: 5001107494310479733, guid: acdafb8ea2bc2754bb9830d84c929939, type: 3}
@@ -902,8 +902,8 @@ Transform:
   m_GameObject: {fileID: 1810402769597060826}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.2147, z: 4.248514}
-  m_LocalScale: {x: 1.8572, y: 10.286659, z: 1}
+  m_LocalPosition: {x: 0, y: 6.6756, z: 4.248514}
+  m_LocalScale: {x: 1.8572, y: 16.73181, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2113926943510248990}
@@ -1172,8 +1172,8 @@ Transform:
   m_GameObject: {fileID: 4208785587578865738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.2147, z: 4.248514}
-  m_LocalScale: {x: 1.8572, y: 10.286659, z: 1}
+  m_LocalPosition: {x: 0, y: 6.6756, z: 4.248514}
+  m_LocalScale: {x: 1.8572, y: 16.73181, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416348292224734926}
@@ -1593,8 +1593,8 @@ Transform:
   m_GameObject: {fileID: 6382929515126470669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.2147, z: 4.248514}
-  m_LocalScale: {x: 1.8572, y: 10.286659, z: 1}
+  m_LocalPosition: {x: 0, y: 6.6756, z: 4.248514}
+  m_LocalScale: {x: 1.8572, y: 16.73181, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8701442091797703861}
@@ -2005,7 +2005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5382174616679067634
 RectTransform:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class DrawingMinigameController : MinigameController
     [SerializeField]
     private Rigidbody2D pen;
 
-    [SerializeField] private float m_winConditionPathFill = 0.95f;
+    [SerializeField] private float m_winConditionPathFill = 0.99f;
 
 
     [SerializeField]
@@ -48,8 +48,6 @@ public class DrawingMinigameController : MinigameController
     {
         gizmosPoints.Clear();
         //Debug.Log(move.ReadValue<Vector2>());
-        pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.deltaTime;
-        pen.velocity *= velocityDamping;
         currentFramePosition = pen.position;
         float newT = FindAndSetNewT(currentFramePosition);
         if (newT > currentT && Vector2.Distance(PositionOnSpline(newT), pen.position) < maxPossibleError)
@@ -67,6 +65,12 @@ public class DrawingMinigameController : MinigameController
         {
             MinigameFinish(progress);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        pen.velocity += move.ReadValue<Vector2>() * movementSpeed * Time.fixedDeltaTime;
+        pen.velocity *= Mathf.Pow(velocityDamping, Time.fixedDeltaTime * 50);
     }
 
     private float FindAndSetNewT(Vector2 point)

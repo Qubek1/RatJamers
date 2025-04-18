@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
     [Header("Refs")] 
     [SerializeField] private Transform m_InitialPos;
     public Transform InitialPos => m_InitialPos;
+    public MainProgressBarSnap progressBar;
 
     private static Vector2 GetStartingPos(PlayerController player)
     {
@@ -52,7 +53,12 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
     private bool _isWalking = false;
 
     public InputAction minigameMoveAction { get; private set; }
-    public List<InputAction> minigameButtonsAction { get; private set; } 
+    public List<InputAction> minigameButtonsActions { get; private set; }
+
+    public InputAction minigameNavigationAction { get; private set; }
+
+    public delegate void minigameButtonClickedAction(int buttonIndex, InputAction.CallbackContext callbackContext);
+    public minigameButtonClickedAction onMinigameButtonClicked;
 
     private void Awake()
     {
@@ -62,13 +68,23 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
         }
         InputActionMap miniGameActionMap = PlayerInput.actions.FindActionMap("MiniGame");
         minigameMoveAction = miniGameActionMap.FindAction("Move");
-        minigameButtonsAction = new List<InputAction>()
+        minigameNavigationAction = miniGameActionMap.FindAction("Navigate");
+        Debug.Log(minigameNavigationAction);
+        minigameButtonsActions = new List<InputAction>()
         { 
             miniGameActionMap.FindAction("WestButton"),
             miniGameActionMap.FindAction("NorthButton"),
             miniGameActionMap.FindAction("SouthButton"),
             miniGameActionMap.FindAction("EastButton")
         };
+        //for (int buttonIndex = 0; buttonIndex < 4; buttonIndex++)
+        //{
+        //    minigameButtonsActions[buttonIndex].performed += ((callbackContext) => onMinigameButtonClicked?.Invoke(buttonIndex, callbackContext));
+        //}
+        minigameButtonsActions[0].performed += ((callbackContext) => onMinigameButtonClicked?.Invoke(0, callbackContext));
+        minigameButtonsActions[1].performed += ((callbackContext) => onMinigameButtonClicked?.Invoke(1, callbackContext));
+        minigameButtonsActions[2].performed += ((callbackContext) => onMinigameButtonClicked?.Invoke(2, callbackContext));
+        minigameButtonsActions[3].performed += ((callbackContext) => onMinigameButtonClicked?.Invoke(3, callbackContext));
 
         this.playerSpeed = 4;
         //PlayerInputManager.instance.JoinPlayer()
@@ -126,6 +142,7 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 
     public void OnPVPMinigameEnd()
     {
+        _isInMinigame = false;
         m_PlayerInput.SwitchCurrentActionMap("Player");
         m_CameraController.ResetCamera();
         m_CameraController.SetTarget(transform);

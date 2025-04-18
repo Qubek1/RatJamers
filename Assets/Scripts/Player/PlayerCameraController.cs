@@ -69,6 +69,11 @@ public class PlayerCameraController : MonoBehaviour
         _camera.orthographicSize= _defaultOrthoSize;
         offset = _defaultOffset;
     }
+
+    public void SetCameraPosition(float x)
+    {
+        _camera.rect = new Rect(x, 0, 0.5f, 1);
+    }
 /*
     public void SetTarget(Vector2 pos)
     {

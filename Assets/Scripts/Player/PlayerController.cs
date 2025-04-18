@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 {
+    public bool leftPlayer;
     public int playerIndex;
     public static PlayerController Player1;
     public static PlayerController Player2;
@@ -113,6 +114,15 @@ public class PlayerController : MonoBehaviour//, InputActions.IPlayerActions
 
     private void Start()
     {
+        if (leftPlayer)
+        {
+            m_CameraController.SetCameraPosition(0.5f);
+        }
+        else
+        {
+            m_CameraController.SetCameraPosition(0);
+        }
+
         //m_CameraController=Instantiate(m_CameraPrefab, transform.position, Quaternion.identity);
         //m_PlayerInput.camera=m_CameraController.GetComponent<Camera>();
         m_CameraController.SetTarget(transform);

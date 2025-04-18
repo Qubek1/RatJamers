@@ -358,6 +358,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3812598063645750970, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
+      propertyPath: leftPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812598063645750970, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: progressBar
       value: 
       objectReference: {fileID: 7480082658461037739}
@@ -3370,6 +3374,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3812598063645750970, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
       propertyPath: keyboard
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812598063645750970, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
+      propertyPath: leftPlayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3812598063645750970, guid: d3baffe12c8f32a429a30a36db9b4d5d, type: 3}
